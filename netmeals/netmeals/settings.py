@@ -78,7 +78,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'netmeals',
-        'USER': 'development_admin',
+        'USER': 'dev_admin',
         'PASSWORD': 'development_password',
         'HOST': '',
         'PORT': '',
