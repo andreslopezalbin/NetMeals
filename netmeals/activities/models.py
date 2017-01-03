@@ -1,5 +1,81 @@
 from __future__ import unicode_literals
 
-from django.db import models
+from django.db import models as models
+from core import models as core_models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
+class Guest(User):
+    def __str__(self):
+        return self.get_username()
+
+class Host(Guest):
+    PLAN = (
+        ('B', 'Basic'),
+        ('P', 'Premium'),
+        ('UP', 'Ultra Premium'),
+    )
+
+    plan = models.CharField(max_length=2, choices=PLAN)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.get_username() + ':' + self.get_plan_display()
+
+class Chef(Host):
+
+    def __str__(self):
+        return self.get_username()
+
+
+class Monitor(Host):
+
+    def __str__(self):
+        return self.get_username()
+
+class Ingredients(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.TextField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+class Dish(models.Model):
+    name = models.TextField(max_length=30)
+    description = models.TextField(max_length=250)
+    owner = models.ForeignKey(Chef)
+    ingredients = models.ManyToManyField(Ingredients)
+    assistants = models.ManyToManyField(Guest, related_name='dish_assisted')
+
+    def __str__(self):
+        return self.name + ':' + self.owner.get_username()
+
+class ActivitiesFeedback(core_models.Feedback):
+    dish = models.ForeignKey(Dish)
+
+    def __str__(self):
+        return self.actor.get_username() + ':' + self.comment + ':' + self.dish
+
+class Activity(models.Model):
+    name = models.TextField(max_length=30)
+    description = models.TextField(max_length=250)
+    owner = models.ForeignKey(Monitor)
+    assistants = models.ManyToManyField(Guest, related_name='activity_assisted')
+    hours_of_duration = models.PositiveSmallIntegerField()
+    start_date = models.DateField()
+    end_date = models.DateField()
+    start_hour = models.TimeField()
+    end_hour = models.TimeField()
+    is_monday = models.BooleanField()
+    is_tuesday = models.BooleanField()
+    is_wednesday = models.BooleanField()
+    is_thursday = models.BooleanField()
+    is_friday = models.BooleanField()
+    is_saturday = models.BooleanField()
+    is_sunday = models.BooleanField()
+
+    def __str__(self):
+        return self.name + ':' + self.owner.get_username()

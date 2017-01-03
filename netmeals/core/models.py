@@ -11,6 +11,9 @@ class Feedback(models.Model):
     comment = models.CharField(max_length=140)
     actor = models.ForeignKey(User)
 
+    class Meta:
+        abstract = True
+
     def __str__(self):
         return self.actor.get_username() + ':' + self.comment
 
@@ -19,6 +22,9 @@ class Advertising(models.Model):
     date = models.DateTimeField(auto_now_add=True, blank=False)
     actor = models.ForeignKey(User)
     comment = models.CharField(max_length=140)
+
+    class Meta:
+        abstract = True
 
     def __str__(self):
         return self.actor.get_username() + ':' + self.comment
