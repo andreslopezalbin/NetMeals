@@ -30,6 +30,10 @@ class Chef(Host):
     def __str__(self):
         return self.get_username()
 
+class Manager(Host):
+
+    def __str__(self):
+        return self.get_username()
 
 class Monitor(Host):
 
@@ -53,7 +57,7 @@ class Dish(models.Model):
     def __str__(self):
         return self.name + ':' + self.owner.get_username()
 
-class ActivitiesFeedback(core_models.Feedback):
+class Feedback(core_models.Feedback):
     dish = models.ForeignKey(Dish)
 
     def __str__(self):
@@ -62,6 +66,9 @@ class ActivitiesFeedback(core_models.Feedback):
 class Activity(models.Model):
     name = models.TextField(max_length=30)
     description = models.TextField(max_length=250)
+    place = models.TextField(max_length=250)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
     owner = models.ForeignKey(Monitor)
     assistants = models.ManyToManyField(Guest, related_name='activity_assisted')
     hours_of_duration = models.PositiveSmallIntegerField()
@@ -79,3 +86,18 @@ class Activity(models.Model):
 
     def __str__(self):
         return self.name + ':' + self.owner.get_username()
+
+class Local(models.Model):
+    name = models.TextField(max_length=30)
+    description = models.TextField(max_length=250)
+    address = models.TextField(max_length=250)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    manager = models.ForeignKey(Monitor)
+
+
+class Event(models.Model):
+    user = models.ForeignKey(Guest)
+    local = models.ForeignKey(Local)
+    transaction_uid = models.TextField(max_length=50)
+    date = models.DateField()
