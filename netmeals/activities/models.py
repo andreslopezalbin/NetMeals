@@ -10,6 +10,7 @@ class Guest(User):
     def __str__(self):
         return self.get_username()
 
+
 class Host(Guest):
     PLAN = (
         ('B', 'Basic'),
@@ -20,25 +21,27 @@ class Host(Guest):
     plan = models.CharField(max_length=2, choices=PLAN)
 
     class Meta:
+        # This model will not be used to create any database table
         abstract = True
 
     def __str__(self):
         return self.get_username() + ':' + self.get_plan_display()
 
-class Chef(Host):
 
+class Chef(Host):
     def __str__(self):
         return self.get_username()
+
 
 class Manager(Host):
-
     def __str__(self):
         return self.get_username()
+
 
 class Monitor(Host):
-
     def __str__(self):
         return self.get_username()
+
 
 class Ingredients(models.Model):
     id = models.AutoField(primary_key=True)
@@ -46,6 +49,7 @@ class Ingredients(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Dish(models.Model):
     name = models.TextField(max_length=30)
@@ -57,47 +61,56 @@ class Dish(models.Model):
     def __str__(self):
         return self.name + ':' + self.owner.get_username()
 
+
 class Feedback(core_models.Feedback):
     dish = models.ForeignKey(Dish)
 
     def __str__(self):
         return self.actor.get_username() + ':' + self.comment + ':' + self.dish
 
+
 class Activity(models.Model):
     name = models.TextField(max_length=30)
     description = models.TextField(max_length=250)
     place = models.TextField(max_length=250)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+    # Relationships
     owner = models.ForeignKey(Monitor)
     assistants = models.ManyToManyField(Guest, related_name='activity_assisted')
-    hours_of_duration = models.PositiveSmallIntegerField()
-    start_date = models.DateField()
-    end_date = models.DateField()
-    start_hour = models.TimeField()
-    end_hour = models.TimeField()
-    is_monday = models.BooleanField()
-    is_tuesday = models.BooleanField()
-    is_wednesday = models.BooleanField()
-    is_thursday = models.BooleanField()
-    is_friday = models.BooleanField()
-    is_saturday = models.BooleanField()
-    is_sunday = models.BooleanField()
+
+    @property
+    def estimated_duration(self):
+        return self.objects.select_related().get(ActivityTime.duration)
 
     def __str__(self):
         return self.name + ':' + self.owner.get_username()
+
+
+class ActivityTime(models.Model):
+    date = models.DateTimeField()
+    duration = models.DecimalField(max_digits=5, decimal_places=2)
+
+    # Relationships
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.activity.name + ':' + self.date
+
 
 class Local(models.Model):
     name = models.TextField(max_length=30)
     description = models.TextField(max_length=250)
     address = models.TextField(max_length=250)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6)
     manager = models.ForeignKey(Monitor)
 
 
 class Event(models.Model):
-    user = models.ForeignKey(Guest)
-    local = models.ForeignKey(Local)
     transaction_uid = models.TextField(max_length=50)
     date = models.DateField()
+
+    # Relationships
+    user = models.ForeignKey(Guest)
+    local = models.ForeignKey(Local)
