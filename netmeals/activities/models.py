@@ -10,6 +10,11 @@ class Guest(User):
     def __str__(self):
         return self.get_username()
 
+    class Meta:
+        permissions = (
+            ('guest', 'Guest'),
+        )
+
 
 class Host(Guest):
     PLAN = (

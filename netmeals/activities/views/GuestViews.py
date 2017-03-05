@@ -22,7 +22,7 @@ class RegistrationView(View):  # Vista de la Registracion basada en vistas de Dj
             guest = GuestService.create(form)
             password = form.cleaned_data.get('password')
             guest.set_password(password)
-            guest.save()
+            GuestService.save(guest)
             return render(request, 'suc.html')
         else:
             message = ""
