@@ -1,12 +1,10 @@
-from django.db import transaction
 from django.shortcuts import render
 from django.views import View
 
-from activities.forms.GuestForms import GuestRegistrationForm, SignUpForm
+from activities.forms.GuestForms import SignUpForm
 from activities.services import GuestService
 
-
-class RegistrationView(View):  # Vista de la Registracion basada en vistas de Django ( View )
+class SignupView(View):  # Vista de la Registracion basada en vistas de Django ( View )
 
     def get(self, request):
         form = SignUpForm()
@@ -15,7 +13,6 @@ class RegistrationView(View):  # Vista de la Registracion basada en vistas de Dj
         }
         return render(request, 'signup.html', context)
 
-    @transaction.atomic
     def post(self, request):
         form = SignUpForm(request.POST)
         if form.is_valid():

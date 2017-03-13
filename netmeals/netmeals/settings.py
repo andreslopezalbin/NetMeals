@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'core',
     'recommendation_system',
     'activities'
@@ -129,3 +130,5 @@ APPEND_SLASH=False
 
 # LOGIN
 LOGIN_URL = "/login"
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
