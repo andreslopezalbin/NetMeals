@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'core',
     'recommendation_system',
-    'activities'
+    'activities',
+    'netmeals'
 ]
 
 MIDDLEWARE = [
@@ -126,7 +127,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
-APPEND_SLASH=False
+APPEND_SLASH = False
 
 # LOGIN
 LOGIN_URL = "/login"
