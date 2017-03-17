@@ -2,6 +2,12 @@ body {
   padding-top: 5rem;
 }
 
+.vertical-align{
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
 /* Menu*/
 .language-menu .dropdown-item, #language-dropdown{
 	cursor: pointer;
@@ -29,6 +35,70 @@ body {
 }
 .signup-password{
 	margin-bottom: 5px;
+}
+
+.signup-roles{
+
+}
+.signup-role{
+    border: 2px solid #aaaaaa;
+    border-radius: 25px;
+    min-height: 200px;
+    display: inline-block;
+    cursor: pointer;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.signup-role > p{
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 3em;
+    vertical-align: middle;
+    opacity:0.7;
+}
+
+.signup-role-selected{
+    background-color: #ffffff;
+    opacity:0.6;
+}
+
+.signup-plan-selected{
+    background-color: #ffffff;
+    opacity:0.6;
+}
+
+.signup-plan{
+    border: 2px solid #cccccc;
+    border-radius: 25px;
+    min-height: 200px;
+ }
+
+/* Signup form roles*/
+.signup-cheff{
+    background-color: #324A5E;
+    background-image: url('/static/images/chef.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.signup-manager{
+    background-color: #FFD05B;
+    background-image: url('/static/images/menu.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.signup-monitor{
+    background-color: #D8B177;
+    background-image: url('/static/images/rolling-pin.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    vertical-align: middle;
 }
 
 /* Footer */

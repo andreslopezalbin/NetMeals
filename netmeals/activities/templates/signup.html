@@ -14,7 +14,6 @@
     {% endif %}
 
 	<form action="/signup" method="post">
-        {% csrf_token %}
         {%  crispy form %}
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>

@@ -19,8 +19,8 @@ class SignupView(View):  # Vista de la Registracion basada en vistas de Django (
             guest = GuestService.create(form)
             password = form.cleaned_data.get('password')
             guest.set_password(password)
-            GuestService.save(guest)
-            return render(request, 'suc.html')
+            # GuestService.save(guest)
+            return render(request, 'signup-host.html')
         else:
             message = ""
             for field, errors in form.errors.items():
