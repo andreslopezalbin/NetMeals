@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Guest(User):
+
+
     def __str__(self):
         return self.get_username()
 
@@ -37,15 +39,29 @@ class Chef(Host):
     def __str__(self):
         return self.get_username()
 
+    class Meta:
+        permissions = (
+            ('chef', 'Chef'),
+        )
+
 
 class Manager(Host):
     def __str__(self):
         return self.get_username()
 
+    class Meta:
+        permissions = (
+            ('manager', 'Manager'),
+        )
+
 
 class Monitor(Host):
     def __str__(self):
         return self.get_username()
+    class Meta:
+        permissions = (
+            ('monitor', 'Monitor'),
+        )
 
 
 class Ingredients(models.Model):
