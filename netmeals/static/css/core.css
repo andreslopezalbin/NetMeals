@@ -9,7 +9,7 @@ body {
     transform: translate(-50%,-50%);
 }
 /* Menu*/
-.language-menu .dropdown-item, #language-dropdown{
+.language-menu .dropdown-item, .activities-menu .dropdown-item, #language-dropdown, #activities-dropdown{
 	cursor: pointer;
 }
 .signin-menu {
