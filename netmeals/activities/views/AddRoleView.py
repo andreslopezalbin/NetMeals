@@ -2,6 +2,7 @@ from django.contrib.auth.models import Group
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponseRedirect
+from activities.services import UserService
 
 class AddRoleView(View):
 
@@ -12,9 +13,13 @@ class AddRoleView(View):
             roles = request.POST.getlist('selected_roles[]')
             for role in roles:
                 try:
+                    user = UserService.create(role, current_user)
+                    UserService.save(user)
                     group = Group.objects.get(name=role)
                     current_user.groups.add(group)
-                except Exception:
+                    user.groups.add(group)
+                except Exception as e:
+                    print e
                     error_roles = error_roles + role + ' '
 
             if(error_roles != ''):

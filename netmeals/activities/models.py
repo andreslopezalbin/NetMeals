@@ -102,7 +102,7 @@ class Activity(models.Model):
 
     @property
     def estimated_duration(self):
-        return self.objects.select_related().get(ActivityTime.duration)
+        pass
 
     def __str__(self):
         return self.name + ':' + self.owner.get_username()
