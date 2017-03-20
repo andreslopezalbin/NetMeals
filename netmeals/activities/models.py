@@ -3,66 +3,10 @@ from __future__ import unicode_literals
 from django.db import models as models
 from core import models as core_models
 from django.contrib.auth.models import User
+from users.models import Chef, Guest, Manager, Monitor
 
 
 # Create your models here.
-class Guest(User):
-
-
-    def __str__(self):
-        return self.get_username()
-
-    class Meta:
-        permissions = (
-            ('guest', 'Guest'),
-        )
-
-
-class Host(Guest):
-    PLAN = (
-        ('B', 'Basic'),
-        ('P', 'Premium'),
-        ('UP', 'Ultra Premium'),
-    )
-
-    plan = models.CharField(max_length=2, choices=PLAN)
-
-    class Meta:
-        # This model will not be used to create any database table
-        abstract = True
-
-    def __str__(self):
-        return self.get_username() + ':' + self.get_plan_display()
-
-
-class Chef(Host):
-    def __str__(self):
-        return self.get_username()
-
-    class Meta:
-        permissions = (
-            ('chef', 'Chef'),
-        )
-
-
-class Manager(Host):
-    def __str__(self):
-        return self.get_username()
-
-    class Meta:
-        permissions = (
-            ('manager', 'Manager'),
-        )
-
-
-class Monitor(Host):
-    def __str__(self):
-        return self.get_username()
-    class Meta:
-        permissions = (
-            ('monitor', 'Monitor'),
-        )
-
 
 class Ingredients(models.Model):
     id = models.AutoField(primary_key=True)
@@ -125,7 +69,7 @@ class Local(models.Model):
     address = models.TextField(max_length=250)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    manager = models.ForeignKey(Monitor)
+    manager = models.ForeignKey(Manager)
 
 
 class Event(models.Model):

@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'core',
     'recommendation_system',
     'activities',
-    'netmeals'
+    'netmeals',
+    'users',
 ]
 
 MIDDLEWARE = [

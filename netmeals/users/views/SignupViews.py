@@ -4,8 +4,8 @@ from django.views import View
 from activities.forms.GuestForms import SignUpForm
 from activities.services import GuestService
 
-class SignupView(View):  # Vista de la Registracion basada en vistas de Django ( View )
 
+class SignupView(View):
     def get(self, request):
         form = SignUpForm()
         context = {
@@ -30,3 +30,9 @@ class SignupView(View):  # Vista de la Registracion basada en vistas de Django (
                 'form': form, 'message': message
             }
             return render(request, 'registerGuest.html', context)
+
+    def delete(self):
+        pass
+
+    def put(self):
+        pass

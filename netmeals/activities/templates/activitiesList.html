@@ -1,0 +1,52 @@
+{% extends 'masterpage/masterpage.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+
+
+
+{% block title %}Activities{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="contact-main jumbotron">
+            <h1>hola</h1>
+
+            <div class="list-group django-list">
+                <ul>
+                    {% for activity in activities %}
+                        <li>{{ activity.name }} - {{ activity.description }}</li>
+                    {% empty %}
+                        <li>No activities yet.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+
+            <div class="list-group django-list">
+                {% for activity in activities %}
+                    <a href="#" class="list-group-item row">
+                        <div class="img-separator col-md-1">
+                            <img width='40' height='45' class="img-circle" src="{% static 'images/header_bg.jpg' %}"
+                                 alt=""/>
+                        </div>
+                        <div class="text-separator col-md-11">
+                            <li class="list-group list-with-badge">{{ activity.name }} - {{ activity.description }}</li>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+
+            <div class="container">
+                <h1>Activities</h1>
+                <ul class="list-group list-with-badges">
+                    {% for activity in activities %}
+                        <li class="list-group-item">{{ activity.name }} - {{ activity.description }}<span
+                                class="badge">1</span></li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
