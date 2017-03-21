@@ -1,7 +1,7 @@
 {% if next %}
-<form  class="form" role="form" action="/login/?next={{next}}" method="post" accept-charset="UTF-8" id="login-nav">
+<form  class="form" role="form" action="{% url "login" %}?next={{next}}" method="post" accept-charset="UTF-8" id="login-nav">
 {%else%}
-<form  class="form" role="form" action="/login/?next=/" method="post" accept-charset="UTF-8" id="login-nav">
+<form  class="form" role="form" action="{% url "login" %}?next=/" method="post" accept-charset="UTF-8" id="login-nav">
 {% endif %}
         {% csrf_token %}
         <div class="form-group">

@@ -1,6 +1,5 @@
-from activities.models import Guest, Monitor, Manager, Chef
-from django.contrib.auth.models import Permission
-from django.contrib.auth.models import Group
+from users.models import *
+from users.util.users_constants import *
 
 def create_guest(form):
     res = Guest(first_name=form.cleaned_data['first_name'],
@@ -13,7 +12,7 @@ def create_guest(form):
 def create(role, current_user):
     user = None
     if current_user is not None and current_user.is_authenticated():
-        if role == 'Monitor':
+        if role == GROUP_MONITOR:
             user = Monitor(first_name=current_user.first_name,
                 last_name=current_user.last_name,
                 email=current_user.email,
@@ -21,7 +20,7 @@ def create(role, current_user):
                 password=current_user.password,
                 guest_ptr_id = current_user.id,
                 id=current_user.id)
-        elif role == 'Manager':
+        elif role == GROUP_MANAGER:
             user = Manager(first_name=current_user.first_name,
                 last_name=current_user.last_name,
                 email=current_user.email,
@@ -29,7 +28,7 @@ def create(role, current_user):
                 password=current_user.password,
                 guest_ptr_id=current_user.id,
                 id=current_user.id)
-        elif role == 'Chef':
+        elif role == GROUP_CHEF:
             user = Chef(first_name=current_user.first_name,
                 last_name=current_user.last_name,
                 email=current_user.email,
