@@ -1,12 +1,17 @@
+from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views import View
+from django.db import transaction
 
-from activities.forms.GuestForms import SignUpForm
-from activities.services import UserService
-from django.contrib import auth
+from users.forms.GuestForms import SignUpForm
+from users.services import UserService
+from users.decorators.user_decorators import anonymous_required
+from django.utils.decorators import method_decorator
 
-
+@method_decorator(anonymous_required("/no_permission"), name='dispatch')
 class SignupView(View):
+
     def get(self, request):
         form = SignUpForm()
         context = {
@@ -14,6 +19,7 @@ class SignupView(View):
         }
         return render(request, 'signup.html', context)
 
+    @transaction.atomic
     def post(self, request):
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -31,7 +37,7 @@ class SignupView(View):
             context = {
                 'form': form, 'message': message
             }
-            return render(request, 'registerGuest.html', context)
+            return render(request, 'signup-host.html', context)
 
     def delete(self):
         pass

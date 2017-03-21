@@ -1,7 +1,8 @@
 from django import forms
-from activities.models import Activity, Monitor
+from activities.models import Activity
+from users.models import Monitor
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
+from crispy_forms.layout import Layout, Field
 
 class ActivityForm(forms.ModelForm):
     name = forms.CharField()

@@ -1,11 +1,7 @@
 from django import forms
-from activities.models import Guest
+from users.models import Guest
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field
-
-# from django.contrib.auth.models import User
-# from django.core.exceptions import ValidationError
-
+from crispy_forms.layout import Layout, Div, Field
 
 class GuestRegistrationForm(forms.ModelForm):
     first_name = forms.CharField()

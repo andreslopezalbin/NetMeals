@@ -1,8 +1,9 @@
 from django.contrib.auth.models import Group
-from django.shortcuts import render
-from django.views import View
 from django.http import HttpResponseRedirect
-from activities.services import UserService
+from django.views import View
+
+from users.services import UserService
+
 
 class AddRoleView(View):
 

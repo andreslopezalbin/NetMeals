@@ -1,13 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django.contrib import auth
-from core.users.users_util import *
-from core.decorators.user_decorators import group_required
+
+from users.util.users_util import *
+
 
 # Create your views here.
-
-from django.http import HttpResponse
 
 
 def index(request):
@@ -17,8 +13,6 @@ def index(request):
         if(is_monitor(current_user)):
             result = result + " Monitor!!!"
     return render(request, 'index.html')
-
-
 
 def no_permission(request):
     return render(request, 'no_permission.html')

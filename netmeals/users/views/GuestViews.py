@@ -2,8 +2,8 @@ from django.db import transaction
 from django.shortcuts import render
 from django.views import View
 
-from activities.forms.GuestForms import SignUpForm
-from activities.services import UserService
+from users.forms.GuestForms import SignUpForm
+from users.services import UserService
 
 
 class RegistrationView(View):  # Vista de la Registracion basada en vistas de Django ( View )
