@@ -18,25 +18,9 @@ def index(request):
             result = result + " Monitor!!!"
     return render(request, 'index.html')
 
-def signin(request):
-    if(request.method == "POST"):
-        username = request.POST['username']
-        password = request.POST['password']
-        user = auth.authenticate(username=username, password=password)
-        if user is not None and user.is_active:
-            # Correct password, and the user is marked "active"
-            auth.login(request, user)
-            # Redirect to a success page.
-            return HttpResponseRedirect("/")
-        else:
-            # Show an error page
-            return HttpResponseRedirect("/")
-    elif(request.method == "GET"):
-        return render(request, 'login.html')
 
-def logout(request):
-    auth.logout(request)
-    return HttpResponseRedirect("/")
 
 def no_permission(request):
     return render(request, 'no_permission.html')
+
+

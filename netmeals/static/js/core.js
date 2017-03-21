@@ -29,6 +29,48 @@ $(document).ready(function(){
 	    $('#signinError-alert').fadeOut('slow');
 	    $('#signupSuccess-alert').fadeOut('slow');
 	}, 5000);
+
+	$.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            var csrftoken = getCookieValue('csrftoken');
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    $(".signup-role").click(function(){
+        console.log($(this).data("role") + " pressed");
+        if(!$(this).hasClass("signup-role-selected")) {
+            $(this).addClass("signup-role-selected");
+        }else{
+            $(this).removeClass("signup-role-selected");
+        }
+    });
+
+    $(".signup-plan").click(function(){
+        console.log($(this).data("plan") + " pressed");
+        if(!$(this).hasClass("signup-plan-selected")) {
+            $(this).addClass("signup-plan-selected");
+        }else{
+            $(this).removeClass("signup-plan-selected");
+        }
+
+        var roles = [];
+        $(".signup-role.signup-role-selected").each(function(){
+            roles.push($(this).data("role"));
+        });
+        $.ajax({
+            method: "POST",
+            url: "/add_role",
+            data : {"selected_plan" : $(this).data("plan"), "selected_roles":roles},
+            success: function(res){
+                document.location.href="/";
+            },
+            error: function(xhr){
+                alert("An error occured: " + xhr.status + " " + xhr.statusText);
+        }});
+    });
 });
 
 function changeLanguage(cookieLanguageCode, language) {
@@ -39,7 +81,6 @@ function changeLanguage(cookieLanguageCode, language) {
 	    location.reload();
 	}
 }
-
 
 function getCookieValue(cname) {
     var name = cname + "=";
@@ -55,4 +96,9 @@ function getCookieValue(cname) {
         }
     }
     return "";
+}
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }

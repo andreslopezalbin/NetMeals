@@ -1,0 +1,45 @@
+{% extends 'masterpage/masterpage.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+{% block title %}Signup{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h2>Do you want to provide a service?</h2> <a href="/">No thanks</a>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 signup-role signup-cheff" data-role="Cheff">
+               <p class="vertical-align">Cheff</p>
+            </div>
+            <div class="col-lg-1 col-xl-1">
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 signup-role signup-manager" data-role="Manager">
+                <p class="vertical-align">Manager</p>
+            </div>
+            <div class="col-lg-1 col-xl-1">
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 signup-role signup-monitor" data-role="Monitor">
+                <p class="vertical-align">Monitor</p>
+            </div>
+        </div>
+        <div class="row">
+            <h2>Choose a plan</h2>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 signup-plan plan-free" data-plan="free">
+               Free
+            </div>
+            <div class="col-lg-1 col-xl-1">
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 signup-plan plan-lite" data-plan="lite">
+                Lite
+            </div>
+            <div class="col-lg-1 col-xl-1">
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-3 col-xl-3 signup-plan plan-premium" data-plan="premium">
+                Premium
+            </div>
+        </div>
+    </div>
+{% endblock %}

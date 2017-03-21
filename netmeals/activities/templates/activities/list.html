@@ -1,0 +1,13 @@
+{% extends 'masterpage/masterpage.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+
+{% block title %}My activities{% endblock %}
+{% block content %}
+<div class="container">
+	{% for activity in list %}
+        {{ activity.name }}
+    {% endfor %}
+</div>
+{% endblock %}
