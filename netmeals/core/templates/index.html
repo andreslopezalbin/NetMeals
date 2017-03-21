@@ -3,6 +3,9 @@
 {% block title %}Home{% endblock %}
 {% block content %}
     <div class="container">
-          Hola
+        Hola
+        {% if guest.is_administrator %}
+            hola admin
+        {% endif %}
     </div>
 {% endblock %}

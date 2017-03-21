@@ -1,4 +1,4 @@
-from core.users.users_constants import *
+from users.util.users_constants import *
 
 def is_group_member(user, group_name):
     result = False
@@ -10,7 +10,7 @@ def is_group_member(user, group_name):
     return result
 
 def is_cheff(user):
-    return is_group_member(user, GROUP_CHEFF)
+    return is_group_member(user, GROUP_CHEF)
 
 def is_manager(user):
     return is_group_member(user, GROUP_MANAGER)
