@@ -3,7 +3,7 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User, Permission
 from django.contrib.auth.models import Group
-from activities.models import Local, Activity
+from activities.models import Local, Activity, Dish
 from users.models import Guest, Chef, Monitor, Manager, Plan
 from django.contrib.contenttypes.models import ContentType
 
@@ -19,6 +19,7 @@ class Command(BaseCommand):
         User.objects.all().delete()
         Activity.objects.all().delete()
         Local.objects.all().delete()
+        Dish.objects.all().delete()
 
         print('Dropping tables...OK')
         print('Populating database...')
@@ -203,6 +204,26 @@ class Command(BaseCommand):
         local2.save()
 
         print ('Locals... Ok')
+
+        # ==================================================================================================
+        #  Dish
+        # ==================================================================================================
+
+        dish1 = Dish(name='dish1', description='dish1Description', owner=chef1,
+                     photo='http://valenciaoberta.es/wp-content/uploads/2016/08/paella-2.jpg')
+        dish1.save()
+        dish1.assistants.add(guest1)
+        dish1.assistants.add(guest2)
+        dish2 = Dish(name='dish2', description='dish2Description', owner=chef1)
+        dish2.save()
+        dish3 = Dish(name='dish3', description='dish3Description', owner=chef2)
+        dish3.save()
+        dish4 = Dish(name='dish4', description='dish4Description', owner=chef2)
+        dish4.save()
+        dish5 = Dish(name='dish5', description='dish5Description', owner=chef2)
+        dish5.save()
+
+        print ('Dishes... Ok')
 
         print('Populating database...OK\n'
               'Ready to use!')
