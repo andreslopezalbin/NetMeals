@@ -3,3 +3,4 @@
 core/migrations
 activities/migrations
 recommendation_system/migrations
+users/migrations
