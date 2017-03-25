@@ -22,8 +22,8 @@
                                         {{ dish.description }}
                                     </p>
                                     <p>
-                                        <a class="btn btn-primary" href="#">Action</a> <a class="btn"
-                                                                                          href="#">Action</a>
+                                        <a class="btn btn-primary" href="{% url 'dish_details' dish_id=dish.id %}">Details</a>
+{#                                        <a class="btn" href="{% url "dish_dish" %}">Edit</a>#}
                                     </p>
                                 </div>
                             </div>

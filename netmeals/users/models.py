@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Guest(User):
+    avatar = models.URLField(default='static/images/user1.png')
+
     def __str__(self):
         return self.get_username()
 
