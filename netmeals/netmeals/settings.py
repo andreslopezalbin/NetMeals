@@ -134,3 +134,7 @@ APPEND_SLASH = False
 LOGIN_URL = "/login"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+DATE_INPUT_FORMATS = ('%d/%m/%Y')
+
+

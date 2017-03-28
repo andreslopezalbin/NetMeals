@@ -1,0 +1,2 @@
+SESSION_SUBSCRIPTION_SUCCEEDED = "subscription_succeeded"
+SESSION_UNSUBSCRIPTION_SUCCEEDED = "unsubscription_succeeded"
