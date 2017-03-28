@@ -2,6 +2,7 @@ from django.conf.urls import url
 
 from activities.views.monitor_activity_view import CreateActivityView, ListActivityView
 from views.dish_view import findall, findmine
+from activities.view import prueba
 
 urlpatterns = [
     # Users URLs ----------------------------------------------------------------------
@@ -11,6 +12,7 @@ urlpatterns = [
 
     # Dish --------------------------------------------------------------------------
     url(r'^dish/findall$', findall, name='all_dishes'),
-    url(r'^dish/mydishes$', findmine, name='my_dishes')
-
+    url(r'^dish/mydishes$', findmine, name='my_dishes'),
+    url(r'^prueba$', prueba, name='prueba')
+    ,
 ]
