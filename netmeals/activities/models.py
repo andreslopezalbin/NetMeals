@@ -39,8 +39,11 @@ class Activity(models.Model):
     name = models.TextField(max_length=30)
     description = models.TextField(max_length=250)
     place = models.TextField(max_length=250)
-    latitude = models.DecimalField(max_digits=9, decimal_places=6)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+    latitude = models.DecimalField(max_digits=23, decimal_places=20)
+    longitude = models.DecimalField(max_digits=23, decimal_places=20)
+    photo = models.URLField(default=default_pic)
+    start_date = models.DateField()
+    end_date = models.DateField()
     # Relationships
     owner = models.ForeignKey(Monitor)
     assistants = models.ManyToManyField(Guest, related_name='activity_assisted')
