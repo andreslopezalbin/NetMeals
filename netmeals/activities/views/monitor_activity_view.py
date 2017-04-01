@@ -1,9 +1,14 @@
+from urlparse import urlparse
+
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import resolve
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.generic import DeleteView
 from  django.views.generic.list import ListView
 
 from activities.forms.ActivityForm import ActivityForm
@@ -46,12 +51,16 @@ class CreateActivityView(View):
         form = ActivityForm(request.POST)
         success_msg = ''
         error_msg = ''
+        is_edit = False
+        is_new = False
         if form.is_valid():
             activity = form.create(request)
             if(activity.id is None or activity.id == ''):
+                is_new = True
                 ActivityService.save(activity)
                 success_msg = 'Activity saved successfully'
             else:
+                is_edit = True
                 ActivityService.update(activity)
                 success_msg = 'Activity updated successfully'
         else:
@@ -60,8 +69,9 @@ class CreateActivityView(View):
         context = {
             'form': form,
             'success_msg': success_msg,
-            'error_msg': error_msg
-
+            'error_msg': error_msg,
+            'is_edit': is_edit,
+            'is_new': is_new
         }
         return render(request, 'activities/view_edit.html', context)
 
@@ -86,3 +96,22 @@ class ListActivityView(ListView):
     def get_queryset(self):
         self.owner = User.objects.get(id=self.request.user.id)
         return Activity.objects.filter(owner=self.owner)
+
+@method_decorator(group_required('Monitor'), name='dispatch')
+class DeleteActivityView(DeleteView):
+    model = Activity
+
+    def get_success_url(self):
+        redirect_url = "/"
+        if(self.request.META.get('HTTP_REFERER') is not None):
+            relative_path = urlparse(self.request.META.get('HTTP_REFERER')).path
+            match = resolve(relative_path)
+            redirect_url = match.url_name
+
+        return reverse_lazy(redirect_url)
+
+    def get_object(self, queryset=None):
+        activity = super(DeleteActivityView, self).get_object()
+        if not activity.owner.id == self.request.user.id:
+            return HttpResponseRedirect("/no-permission")
+        return activity

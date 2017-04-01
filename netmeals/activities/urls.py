@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 from activities.views.activity_view import ListAllActivityView, ActivityDetailView, ActivitySubscriptionView, \
     ListSubscribedActivitiesView, ActivityUnsubscriptionView
-from activities.views.monitor_activity_view import CreateActivityView, ListActivityView
+from activities.views.monitor_activity_view import CreateActivityView, ListActivityView, DeleteActivityView
 from views.dish_view import findall, findmine
 from activities.view import prueba
 
@@ -11,6 +11,7 @@ urlpatterns = [
     # Users URLs ----------------------------------------------------------------------
     url(r'^activities/(?P<activity_id>\d+)/detail$', ActivityDetailView.as_view(), name='activity_detail'),
     url(r'^activities/(?P<activity_id>\d+)/edit$', CreateActivityView.as_view(), name='activity_edit'),
+    url(r'^activities/(?P<pk>\d+)/delete$', DeleteActivityView.as_view(), name='activity_delete'),
     url(r'^activities/(?P<activity_id>\d+)/subscribe', login_required(ActivitySubscriptionView.as_view()), name='activity_subscribe'),
     url(r'^activities/(?P<activity_id>\d+)/unsubscribe', login_required(ActivityUnsubscriptionView.as_view()), name='activity_unsubscribe'),
     url(r'^activities/new$', CreateActivityView.as_view(), name='new_activity'),

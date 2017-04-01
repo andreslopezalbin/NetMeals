@@ -47,7 +47,9 @@ class ActivitySubscriptionView(View):
         activity = get_object_or_404(Activity, id=activity_id)
 
         guest = Guest.objects.get(id=request.user.id)
-        activity.assistants.add(guest)
+
+        if(activity.owner_id != request.user.id):
+            activity.assistants.add(guest)
 
         result_url = "/"
         if(request.META.get('HTTP_REFERER') is not None):

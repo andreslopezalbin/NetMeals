@@ -25,6 +25,15 @@
         </div>
     {% endif %}
 
+
+    <div class="delete-popup">
+        <form id="activity-delete-form" action="" method="post">{% csrf_token %}
+            <p>Are you sure you want to delete the activity?</p>
+            <input type="submit" value="Confirm" />
+        </form>
+    </div>
+    <div class="delete-popup-background"></div>
+
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -44,15 +53,18 @@
                                         </p>
                                         <p>
                                             {% if user.is_authenticated %}
-                                                {% if request.user|is_subscribed:activity.id  %}
-                                                    <a class="btn btn-primary" href="{% url "activity_unsubscribe" activity.id %}">Unsubscribe</a>
+                                                {% if activity.owner.id == user.id %}
+                                                    <a class="btn btn-primary"href="{% url "activity_edit" activity.id %}">Edit</a>
+                                                    <a class="btn btn-primary activity-remove" data-id="{{ activity.id }}" href="javascript:void(0)">Remove</a>
                                                 {% else %}
-                                                    <a class="btn btn-primary" href="{% url "activity_subscribe" activity.id %}">Subscribe!</a>
+                                                    {% if request.user|is_subscribed:activity.id  %}
+                                                        <a class="btn btn-primary" href="{% url "activity_unsubscribe" activity.id %}">Unsubscribe</a>
+                                                    {% else %}
+                                                        <a class="btn btn-primary" href="{% url "activity_subscribe" activity.id %}">Subscribe!</a>
+                                                    {% endif %}
                                                 {% endif %}
                                             {% endif %}
-                                            {% if activity.owner.id == user.id %}
-                                                <a class="btn"href="{% url "activity_edit" activity.id %}">Edit</a>
-                                            {% endif %}
+
                                         </p>
                                     </div>
                                 </div>
@@ -68,5 +80,14 @@
    $(".alert").fadeTo(3000, 500).slideUp(500, function(){
         $(".alert").slideUp(500);
     });
+
+   $(".activity-remove").click(function(){
+       var form = $("#activity-delete-form");
+       var id = $(this).data("id");
+       var url = "{% url "activity_delete" 0 %}".replace("0", id);
+       form.attr('action', url);
+       $(".delete-popup").addClass("visible")
+       $(".delete-popup-background").addClass("visible")
+   });
 </script>
 {% endblock %}
