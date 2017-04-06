@@ -5,6 +5,7 @@ from django.http import HttpResponseForbidden
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import resolve
+from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -15,6 +16,8 @@ from activities.forms.ActivityForm import ActivityForm
 from activities.models import Activity
 from activities.services import ActivityService
 from django.shortcuts import get_object_or_404
+
+from core.util import session_utils
 from users.decorators.user_decorators import group_required
 from datetime import datetime
 from core.util.session_constants import *
@@ -39,16 +42,19 @@ class CreateActivityView(View):
             activity = Activity(owner=Monitor(request.user))
             is_new = True
         form = ActivityForm(instance=activity)
+        activity_photo = activity.photo
         context = {
             'title': title,
             'form': form,
             'is_edit': is_edit,
-            'is_new': is_new
+            'is_new': is_new,
+            'activity_id': activity.id,
+            'activity_photo': activity_photo
         }
         return render(request, 'activities/view_edit.html', context)
 
     def post(self, request, activity_id=None):
-        form = ActivityForm(request.POST)
+        form = ActivityForm(request.POST, request.FILES)
         success_msg = ''
         error_msg = ''
         is_edit = False
@@ -59,21 +65,35 @@ class CreateActivityView(View):
                 is_new = True
                 ActivityService.save(activity)
                 success_msg = 'Activity saved successfully'
+                request.session[SESSION_ACTIVITY_CREATED_SUCCEEDED] = True
             else:
                 is_edit = True
                 ActivityService.update(activity)
                 success_msg = 'Activity updated successfully'
+                request.session[SESSION_ACTIVITY_MOD_SUCCEEDED] = True
         else:
             error_msg = 'There was an error validating form'
+            activity = Activity()
+            if(activity_id):
+                is_edit = True
+            else:
+                is_new = True
 
         context = {
             'form': form,
             'success_msg': success_msg,
             'error_msg': error_msg,
             'is_edit': is_edit,
-            'is_new': is_new
+            'is_new': is_new,
+            'activity_id': activity.id
         }
-        return render(request, 'activities/view_edit.html', context)
+        if(error_msg):
+            return render(request, 'activities/view_edit.html', context)
+        else:
+            redirect_url = 'my_activities'
+            reverse_url = reverse(redirect_url)
+            return HttpResponseRedirect(reverse_url)
+
 
 @method_decorator(group_required('Monitor'), name='dispatch')
 class ListActivityView(ListView):
@@ -83,14 +103,9 @@ class ListActivityView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ListActivityView, self).get_context_data(**kwargs)
-        if(self.request.session.get(SESSION_SUBSCRIPTION_SUCCEEDED)):
-            context[SESSION_SUBSCRIPTION_SUCCEEDED] = self.request.session.get(SESSION_SUBSCRIPTION_SUCCEEDED)
-            self.request.session[SESSION_SUBSCRIPTION_SUCCEEDED] = None
-            context['success_msg'] = 'Successfully subscribed!'
-        if (self.request.session.get(SESSION_UNSUBSCRIPTION_SUCCEEDED)):
-            context[SESSION_UNSUBSCRIPTION_SUCCEEDED] = self.request.session.get(SESSION_UNSUBSCRIPTION_SUCCEEDED)
-            self.request.session[SESSION_UNSUBSCRIPTION_SUCCEEDED] = None
-            context['success_msg'] = 'Successfully unsubscribed!'
+
+        session_utils.set_context_with_activity_session(self.request.session, context)
+
         return context
 
     def get_queryset(self):
@@ -103,12 +118,19 @@ class DeleteActivityView(DeleteView):
 
     def get_success_url(self):
         redirect_url = "/"
+        self.request.session[SESSION_ACTIVITY_DEL_SUCCEEDED] = True
         if(self.request.META.get('HTTP_REFERER') is not None):
             relative_path = urlparse(self.request.META.get('HTTP_REFERER')).path
-            match = resolve(relative_path)
-            redirect_url = match.url_name
+            kwargs = {}
+            if "detail" in relative_path:
+                redirect_url = 'my_activities'
+            else:
+                match = resolve(relative_path)
+                redirect_url = match.url_name
 
-        return reverse_lazy(redirect_url)
+                if(match.kwargs):
+                    kwargs = match.kwargs
+        return reverse_lazy(redirect_url, kwargs=kwargs)
 
     def get_object(self, queryset=None):
         activity = super(DeleteActivityView, self).get_object()
