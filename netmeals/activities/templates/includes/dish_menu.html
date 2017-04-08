@@ -8,7 +8,7 @@
         {% if request.user|has_group:"Chef" %}
             <a class="dropdown-item" href="{% url "my_dishes" %}">My Dishes</a>
             {% if request.user.is_active %}
-{#                <a class="dropdown-item" href="{% url "new_dish" %}">New Dish</a>#}
+                <a class="dropdown-item" href="{% url "new_dish" %}">New Dish</a>
             {% endif %}
         {% endif %}
     </div>

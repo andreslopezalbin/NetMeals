@@ -16,14 +16,11 @@ class Ingredients(models.Model):
         return self.name
 
 
-default_pic = 'http://i.huffpost.com/gen/1452575/images/o-BEAUTIFUL-FOOD-facebook.jpg'
-
-
 class Dish(models.Model):
     name = models.TextField(max_length=30)
     description = models.TextField(max_length=250)
     owner = models.ForeignKey(Chef)
-    photo = models.URLField(default=default_pic)
+    photo = models.URLField()
     ingredients = models.ManyToManyField(Ingredients)
     assistants = models.ManyToManyField(Guest, related_name='dish_assisted')
 

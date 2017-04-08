@@ -1,0 +1,107 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-07 17:05+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\activities\forms\DishForm.py:12
+msgid "Name"
+msgstr "Nombre"
+
+#: .\activities\forms\DishForm.py:14
+msgid "Photo"
+msgstr "Fotografía"
+
+#: .\activities\templates\dish\prueba.html:118
+msgid "The best social network, your table"
+msgstr "La mejor red social, tu mesa"
+
+#: .\activities\templates\dish\prueba.html:123
+msgid "Users"
+msgstr "Usuarios"
+
+#: .\activities\templates\dish\prueba.html:124
+msgid ""
+"Go to the first section and scroll up or to the last one and scroll down to "
+"see how it works."
+msgstr "tira pa'alla"
+
+#: .\activities\templates\dish\prueba.html:128
+msgid "Guest"
+msgstr "Invitados"
+
+#: .\activities\templates\dish\prueba.html:130
+msgid "Lovely images for a lovely page"
+msgstr "Grandes imagenes grandes páginas"
+
+#: .\activities\templates\dish\prueba.html:131
+msgid "One Image = One thousand words"
+msgstr "Una imagen vale más que mil palabras"
+
+#: .\core\templates\masterpage\includes\menu.html:15
+msgid "Home"
+msgstr "Inicio"
+
+#: .\core\templates\masterpage\includes\menu.html:20
+msgid "Feedback"
+msgstr "Contacta"
+
+#: .\core\templates\masterpage\includes\menu.html:23
+msgid "About Us"
+msgstr "Sobre nosotros"
+
+#: .\core\templates\masterpage\includes\menu.html:32
+#: .\core\templates\masterpage\includes\menu.html:45
+msgid "Signin"
+msgstr "Iniciar sesión"
+
+#: .\core\templates\masterpage\includes\menu.html:37
+msgid "User"
+msgstr "Usuario"
+
+#: .\core\templates\masterpage\includes\menu.html:40
+#: .\users\forms\GuestForms.py:13
+msgid "Password"
+msgstr "Contraseña"
+
+#: .\core\templates\masterpage\includes\menu.html:55
+msgid "Signup"
+msgstr "Registrate"
+
+#: .\core\templates\masterpage\includes\menu.html:68
+msgid "Signout"
+msgstr "Iniciar sesión"
+
+#: .\core\templates\masterpage\includes\menu.html:79
+msgid "Language"
+msgstr "Idioma"
+
+#: .\core\templates\masterpage\includes\menu.html:81
+msgid "Spanish"
+msgstr "Español"
+
+#: .\core\templates\masterpage\includes\menu.html:82
+msgid "English"
+msgstr "Inglés"
+
+#: .\users\forms\GuestForms.py:11
+msgid "First name"
+msgstr "Nombre"
+
+#: .\users\forms\GuestForms.py:12
+msgid "Email address"
+msgstr "Dirección de correo"
