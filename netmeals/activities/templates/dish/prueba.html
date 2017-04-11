@@ -1,4 +1,5 @@
 {% extends 'masterpage/masterpage.html' %}
+{% load i18n %}
 {% block content %}
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -114,20 +115,20 @@
 
     <div id="fullpage">
         <div class="section " id="section0"><h1>NetMeals</h1>
-            <h1 style="color: #c9302c">La mejor red social, tu mesa</h1></div>
+            <h1 style="color: #c9302c">{% trans 'The best social network, your table' %}</h1></div>
         <div class="section" id="section1">
             <div class="slide" id="slide2"><h1>Chef</h1></div>
             <div class="slide active" id="slide1">
                 <div class="intro">
-                    <h1>Usuarios</h1>
-                    <p>Go to the first section and scroll up or to the last one and scroll down to see how it works.</p>
+                    <h1>{% trans 'Users' %}</h1>
+                    <p>{% trans 'Go to the first section and scroll up or to the last one and scroll down to see how it works.' %}</p>
                 </div>
             </div>
 
-            <div class="slide" id="slide3"><h1>Guest</h1></div>
+            <div class="slide" id="slide3"><h1>{% trans 'Guest' %}</h1></div>
         </div>
-        <div class="section" id="section2"><h1>Lovely images <br/>for a lovely page</h1></div>
-        <div class="section" id="section3"><h1>One Image = One thousand words</h1></div>
+        <div class="section" id="section2"><h1>{% trans 'Lovely images for a lovely page' %}</h1></div>
+        <div class="section" id="section3"><h1>{% trans 'One Image = One thousand words' %}</h1></div>
     </div>
 
     </body>

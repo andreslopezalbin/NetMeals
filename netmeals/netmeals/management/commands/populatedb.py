@@ -164,6 +164,8 @@ class Command(BaseCommand):
             place='activity1Place',
             latitude=10.0,
             longitude=10.0,
+            start_date='2017-3-5',
+            end_date='2017-7-29',
             owner=monitor1
         )
         activity1.save()
@@ -176,6 +178,8 @@ class Command(BaseCommand):
             place='activity2Place',
             latitude=10.0,
             longitude=10.0,
+            start_date='2010-3-15',
+            end_date='2011-3-15',
             owner=monitor2,
         )
         activity2.save()
@@ -209,18 +213,18 @@ class Command(BaseCommand):
         #  Dish
         # ==================================================================================================
 
-        dish1 = Dish(name='dish1', description='dish1Description', owner=chef1,
+        dish1 = Dish(name='dish1', description='dish1Description', date='2017-2-5 12:00', owner=chef1,
                      photo='http://valenciaoberta.es/wp-content/uploads/2016/08/paella-2.jpg')
         dish1.save()
         dish1.assistants.add(guest1)
         dish1.assistants.add(guest2)
-        dish2 = Dish(name='dish2', description='dish2Description', owner=chef1)
+        dish2 = Dish(name='dish2', description='dish2Description', date='2017-3-5 14:30', owner=chef1)
         dish2.save()
-        dish3 = Dish(name='dish3', description='dish3Description', owner=chef2)
+        dish3 = Dish(name='dish3', description='dish3Description', date='2017-3-5 14:30', owner=chef2)
         dish3.save()
-        dish4 = Dish(name='dish4', description='dish4Description', owner=chef2)
+        dish4 = Dish(name='dish4', description='dish4Description', date='2017-8-9 14:30', owner=chef2)
         dish4.save()
-        dish5 = Dish(name='dish5', description='dish5Description', owner=chef2)
+        dish5 = Dish(name='dish5', description='dish5Description', date='2017-8-5 14:30', owner=chef2)
         dish5.save()
 
         print ('Dishes... Ok')

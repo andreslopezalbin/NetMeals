@@ -27,11 +27,11 @@ def findmine(request):
 
 def details(request, dish_id):
     dish = Dish.objects.get(id=dish_id)
-    if request.user.groups.filter(name='Chef').exists() and dish.owner == request.user.guest.chef:
-        context = {'dish': dish}
-        return render(request, '../templates/dish/details.html', context)
-    else:
-        return render(request, '../../core/templates/no_permission.html')
+    # if request.user.groups.filter(name='Chef').exists() and dish.owner == request.user.guest.chef:
+    context = {'dish': dish}
+    return render(request, '../templates/dish/details.html', context)
+    # else:
+    #     return render(request, '../../core/templates/no_permission.html')
 
 
 @method_decorator(group_required('Chef'), name='dispatch')
