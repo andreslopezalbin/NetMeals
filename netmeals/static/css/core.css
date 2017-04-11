@@ -1,46 +1,53 @@
 body {
-  padding-top: 5rem;
+    padding-top: 5rem;
 }
 
-.vertical-align{
+.vertical-align {
     position: absolute;
     top: 50%;
-    left:50%;
-    transform: translate(-50%,-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
 /* Menu*/
-.language-menu .dropdown-item, .activities-menu .dropdown-item, #language-dropdown, #activities-dropdown{
-	cursor: pointer;
+.language-menu .dropdown-item, .activities-menu .dropdown-item, #language-dropdown, #activities-dropdown {
+    cursor: pointer;
 }
+
 .signin-menu {
-	min-width: 220px;
+    min-width: 220px;
 }
-.username-menu{
-	margin-right:10px;
-	font-weight: bold;
+
+.username-menu {
+    margin-right: 10px;
+    font-weight: bold;
 }
-@media only screen and (min-width: 992px){
-	#singout-form {
-		float: right !important;
-	}
+
+@media only screen and (min-width: 992px) {
+    #singout-form {
+        float: right !important;
+    }
 }
 
 /* Signup form */
 .form-group.required label:after {
-  content:"*";
-  color:red;
-}
-.pwstrength-error, .repeatPassword-error{
-	color: #d9534f;
-}
-.signup-password{
-	margin-bottom: 5px;
+    content: "*";
+    color: red;
 }
 
-.signup-roles{
+.pwstrength-error, .repeatPassword-error {
+    color: #d9534f;
+}
+
+.signup-password {
+    margin-bottom: 5px;
+}
+
+.signup-roles {
 
 }
-.signup-role{
+
+.signup-role {
     border: 2px solid #aaaaaa;
     border-radius: 25px;
     min-height: 200px;
@@ -49,32 +56,32 @@ body {
     text-shadow: 2px 2px 4px #000000;
 }
 
-.signup-role > p{
+.signup-role > p {
     color: #ffffff;
     font-weight: bold;
     font-size: 3em;
     vertical-align: middle;
-    opacity:0.7;
+    opacity: 0.7;
 }
 
-.signup-role-selected{
+.signup-role-selected {
     background-color: #ffffff;
-    opacity:0.6;
+    opacity: 0.6;
 }
 
-.signup-plan-selected{
+.signup-plan-selected {
     background-color: #ffffff;
-    opacity:0.6;
+    opacity: 0.6;
 }
 
-.signup-plan{
+.signup-plan {
     border: 2px solid #cccccc;
     border-radius: 25px;
     min-height: 200px;
- }
+}
 
 /* Signup form roles*/
-.signup-cheff{
+.signup-cheff {
     background-color: #324A5E;
     background-image: url('/static/images/chef.svg');
     background-repeat: no-repeat;
@@ -83,7 +90,7 @@ body {
     vertical-align: middle;
 }
 
-.signup-manager{
+.signup-manager {
     background-color: #FFD05B;
     background-image: url('/static/images/menu.svg');
     background-repeat: no-repeat;
@@ -92,7 +99,7 @@ body {
     vertical-align: middle;
 }
 
-.signup-monitor{
+.signup-monitor {
     background-color: #D8B177;
     background-image: url('/static/images/rolling-pin.svg');
     background-repeat: no-repeat;
@@ -109,4 +116,45 @@ body {
     line-height: 60px;
     position: absolute;
     width: 100%;
+}
+
+.Span {
+    float: left;
+    min-height: 1px;
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+}
+
+.Block {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin-bottom: 1.5em;
+    background-color: #fff;
+    padding: 1.5em;
+    margin-top: 0.5em;
+}
+
+.Block-section {
+    margin-top: 1.5em;
+    box-sizing: border-box;
+    padding: 1.5em;
+    border-top: 1px solid #ddd;
+}
+
+.Booking-seatAvailable {
+    display: block;
+    box-sizing: border-box;
+    width: 50px;
+    height: 50px;
+    border: 2px dashed #333;
+    border-radius: 50%;
+}
+.Booking-occupant {
+    display: inline-block;
+    margin-top: 10px;
+}
+ul.u-reset {
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
 }

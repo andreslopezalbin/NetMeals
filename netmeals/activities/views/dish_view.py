@@ -28,7 +28,8 @@ def findmine(request):
 def details(request, dish_id):
     dish = Dish.objects.get(id=dish_id)
     # if request.user.groups.filter(name='Chef').exists() and dish.owner == request.user.guest.chef:
-    context = {'dish': dish}
+    available_seats = dish.max_assistants - len(dish.assistants.all())
+    context = {'dish': dish, 'available_seats': range(0, available_seats)}
     return render(request, '../templates/dish/details.html', context)
     # else:
     #     return render(request, '../../core/templates/no_permission.html')

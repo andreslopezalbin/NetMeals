@@ -61,7 +61,7 @@
         {% if user.is_authenticated %}
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
-                    <span class="navbar-text username-menu">Hello {{ user.get_username }}!</span>
+                    <span class="navbar-text username-menu">{% trans 'Hello ' %} {{ user.get_username }}!</span>
                     <form class="my-2 my-lg-0" id="singout-form" action="{% url "logout" %}" method="post">
                         {% csrf_token %}
                         <button id="signup-button" type="submit"

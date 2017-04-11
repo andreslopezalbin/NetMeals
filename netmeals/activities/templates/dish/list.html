@@ -1,6 +1,7 @@
 {% extends 'masterpage/masterpage.html' %}
 {% load staticfiles %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 {% crispy form form.helper %}
 
 {% block title %}All Dishes{% endblock %}
@@ -13,7 +14,7 @@
                         <div class="col-md-4">
                             <div class="thumbnail">
                                 <img alt="{{ dish.name }}"
-                                     src="{{ dish.photo }}" style="width:90% ; border-radius: 5% "/>
+                                     src="{{ dish.photo }}" style="height:220px; width:320px ; border-radius: 5% "/>
                                 <div class="caption">
                                     <h3>
                                         {{ dish.name }}
@@ -22,8 +23,9 @@
                                         {{ dish.description }}
                                     </p>
                                     <p>
-                                        <a class="btn btn-primary" href="{% url 'dish_details' dish_id=dish.id %}">Details</a>
-{#                                        <a class="btn" href="{% url "dish_dish" %}">Edit</a>#}
+                                        <a class="btn btn-primary"
+                                           href="{% url 'dish_details' dish_id=dish.id %}">{% trans 'Details' %}</a>
+                                        {#                                        <a class="btn" href="{% url "dish_dish" %}">Edit</a>#}
                                     </p>
                                 </div>
                             </div>
