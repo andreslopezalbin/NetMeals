@@ -15,10 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from core.views import change_language
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('core.urls')),
     url(r'', include('activities.urls')),
-    url(r'', include('users.urls'))
+    url(r'', include('users.urls')),
+
+    # i18n
+    url(r'i18n/change_language', change_language, name='change_language'),
+
 ]
