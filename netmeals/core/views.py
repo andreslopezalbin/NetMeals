@@ -30,3 +30,7 @@ def change_language(request):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
+def prueba(request):
+    return render(request, 'prueba.html')
+
+

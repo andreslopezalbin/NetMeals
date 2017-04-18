@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-07 17:05+0200\n"
+"POT-Creation-Date: 2017-04-11 17:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,6 +25,10 @@ msgstr "Nombre"
 #: .\activities\forms\DishForm.py:14
 msgid "Photo"
 msgstr "Fotografía"
+
+#: .\activities\templates\dish\list.html:27
+msgid "Details"
+msgstr "Detalles"
 
 #: .\activities\templates\dish\prueba.html:118
 msgid "The best social network, your table"
@@ -51,6 +55,22 @@ msgstr "Grandes imagenes grandes páginas"
 #: .\activities\templates\dish\prueba.html:131
 msgid "One Image = One thousand words"
 msgstr "Una imagen vale más que mil palabras"
+
+#: .\activities\templates\includes\dish_menu.html:5
+msgid "Dishes"
+msgstr "Platos"
+
+#: .\activities\templates\includes\dish_menu.html:8
+msgid "All Dishes"
+msgstr "Todos los platos"
+
+#: .\activities\templates\includes\dish_menu.html:10
+msgid "My Dishes"
+msgstr "Mis platos"
+
+#: .\activities\templates\includes\dish_menu.html:12
+msgid "New Dish"
+msgstr "Nuevo plato"
 
 #: .\core\templates\masterpage\includes\menu.html:15
 msgid "Home"
@@ -82,9 +102,13 @@ msgstr "Contraseña"
 msgid "Signup"
 msgstr "Registrate"
 
+#: .\core\templates\masterpage\includes\menu.html:64
+msgid "Hello "
+msgstr "Hola "
+
 #: .\core\templates\masterpage\includes\menu.html:68
 msgid "Signout"
-msgstr "Iniciar sesión"
+msgstr "Cerrar sesión"
 
 #: .\core\templates\masterpage\includes\menu.html:79
 msgid "Language"

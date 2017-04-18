@@ -6,41 +6,183 @@
 {% block title %}Dish Details{% endblock %}
 {% block content %}
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="thumbnail">
-                            <img alt="{{ dish.name }}"
-                                 src="{{ dish.photo }}"/>
-                            <div>
-                                <h3>
-                                    {{ dish.name }}
-                                </h3>
-                                <p>
-                                    {{ dish.description }}
-                                </p>
-                                <p>
-                                    <a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a>
-                                </p>
+
+    <div class="container">
+        {% if not mobile %}
+            <div class="row">
+                <div class="col-xl-7 col-xs-9 Block Span">
+                    <div class="row">
+                        <div class="col-xl-8">
+                            <h2>
+                                {{ dish.name }}
+                            </h2>
+
+                            <div class="col-xl-8">
+                                <img alt="{{ dish.name }}" src="{{ dish.photo }}"
+                                     style="height:220px; width:320px ; border-radius: 5% "/>
                             </div>
                         </div>
                     </div>
+                    <div class="Block">
+                        <h3>
+                            MENU
+                        </h3>
+
+                        <ul>
+                            <li>
+                                Plato
+                            </li>
+                            <li>
+                                Bebida
+                            </li>
+                            <li>
+                                ¿Incluye postre?
+                            </li>
+
+                        </ul>
+                    </div>
+                    <address>
+                        <strong>Twitter, Inc.</strong><br/> 795 Folsom Ave, Suite 600<br/> San Francisco, CA 94107<br/>
+                        <abbr title="Phone">P:</abbr> (123) 456-7890
+                    </address>
 
                 </div>
-            </div>
-            <div class="col-md-6">
+                <div class="col-xl-4 col-xs-9">
 
-                <img alt="{{ request.user.first_name }}" src="{% static request.user.guest.avatar %}"
-                     class="img-circle"/>
-                <blockquote>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
-                    </p>
-                    <small>Someone famous <cite>Source Title</cite></small>
-                </blockquote>
+                    <div class="row">
+                        <div class="Span col-xl-12 col-xs-9 Block">
+                            <h2>
+                                Contribucion {{ dish.contribution }} Euros
+                            </h2>
+                            <div class="Block-section">
+                                <div>
+                                    <strong>Plazas reservadas: </strong><br/>
+                                    <ul class="u-reset">
+                                        <div class="row">
+                                            {% for assistant in  dish.assistants.all %}
+                                                <li class="Booking-occupant">
+                                                    <img alt="{{ assistant.username }}"
+                                                         src="{% static assistant.avatar %}"
+                                                         height="50px" width="50px" class="rounded-circle"/>
+                                                </li>
+                                            {% endfor %}
+                                            {% for i in available_seats %}
+                                                <li class="Booking-occupant">
+                                                    <span class="Booking-seatAvailable"></span>
+                                                </li>
+                                            {% endfor %}
+                                        </div>
+
+                                    </ul>
+
+                                    <div class="text-center">
+                                        <br> <a class="btn btn-primary subscribe" href="#">Subscribe!</a>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <dl>
+                                <dt>
+                                    Description lists
+                                </dt>
+                                <dd>
+                                    A description list is perfect for defining terms.
+                                </dd>
+
+                            </dl>
+                        </div>
+                    </div>
+
+
+                    <div class="row ">
+                        <div class="Span col-xl-12 col-xs-9 Block">
+                            <div>
+                                <img alt="{{ dish.owner.username }}" src="{% static dish.owner.avatar %}"
+                                     height="180px" width="180px" class="rounded-circle mx-auto d-block"/>
+                            </div>
+                            <h3>
+                                h3. Lorem ipsum dolor sit amet.
+                            </h3>
+                            <dl>
+                                <dt>
+                                    Description lists
+                                </dt>
+                                <dd>
+                                    A description list is perfect for defining terms.
+                                </dd>
+
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="Span col-xl-12 col-xs-9 Block">
+                            <div class="panel-group" id="panel-500434">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <a class="panel-title" data-toggle="collapse" data-parent="#panel-500434"
+                                           href="#panel-element-511958">Collapsible Group Item #1</a>
+                                    </div>
+                                    <div id="panel-element-511958" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            Anim pariatur cliche...
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <a class="panel-title" data-toggle="collapse" data-parent="#panel-500434"
+                                           href="#panel-element-259355">Collapsible Group Item #2</a>
+                                    </div>
+                                    <div id="panel-element-259355" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            Anim pariatur cliche...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        {% else %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+                </tbody>
+            </table>
+        {% endif %}
     </div>
+
+    <script>
+        document.querySelector('a.btn.btn-primary.subscribe').onclick = function () {
+            swal("Good job!", "Now you are subscribed!", "success");
+        };
+
+    </script>
 {% endblock %}

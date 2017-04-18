@@ -1,9 +1,11 @@
 from __future__ import unicode_literals
 
+from django.core.exceptions import ValidationError
 from django.db import models as models
 from core import models as core_models
 from django.contrib.auth.models import User
 from users.models import Chef, Guest, Manager, Monitor
+from django.utils.translation import ugettext_lazy as _
 
 
 # Create your models here.
@@ -16,16 +18,28 @@ class Ingredients(models.Model):
         return self.name
 
 
+default_pic = 'http://i.huffpost.com/gen/1452575/images/o-BEAUTIFUL-FOOD-facebook.jpg'
+
+
 class Dish(models.Model):
     name = models.TextField(max_length=30)
     description = models.TextField(max_length=250)
     owner = models.ForeignKey(Chef)
-    photo = models.URLField()
+    photo = models.URLField(default=default_pic)
     ingredients = models.ManyToManyField(Ingredients)
+    max_assistants = models.PositiveIntegerField(default=1)
     assistants = models.ManyToManyField(Guest, related_name='dish_assisted')
+    contribution = models.DecimalField(default=1.0, max_digits=4, decimal_places=2)
+    date = models.DateTimeField()
 
     def __str__(self):
         return self.name + ':' + self.owner.get_username()
+
+    def clean(self):
+        if self.max_assistants <= 0:
+            raise ValidationError(_("You must add more assistants"))
+        if self.max_assistants > len(self.assistants):
+            raise ValidationError(_("Too much assistants"))
 
 
 class Feedback(core_models.Feedback):

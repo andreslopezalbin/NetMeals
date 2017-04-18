@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'activities',
     'netmeals',
     'users',
+
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+
 ]
 
 ROOT_URLCONF = 'netmeals.urls'
@@ -118,7 +121,12 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# Dir for i18n
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "locale"),
+)
+
+# USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
@@ -135,6 +143,4 @@ LOGIN_URL = "/login"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
-DATE_INPUT_FORMATS = ('%d/%m/%Y')
-
-
+DATE_INPUT_FORMATS = '%d/%m/%Y'

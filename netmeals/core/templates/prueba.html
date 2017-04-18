@@ -1,4 +1,5 @@
 {% extends 'masterpage/masterpage.html' %}
+{% load i18n %}
 {% block content %}
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -9,8 +10,8 @@
         <meta name="Resource-type" content="Document"/>
 
 
-        <link rel="stylesheet" type="text/css" href="../../../static/css/jquery.fullPage.css"/>
-        <link rel="stylesheet" type="text/css" href="../../../static/css/examples.css"/>
+        <link rel="stylesheet" type="text/css" href="../../static/css/jquery.fullPage.css"/>
+        <link rel="stylesheet" type="text/css" href="../../static/css/examples.css"/>
         <style>
 
             /* Style for our header texts
@@ -42,7 +43,7 @@
             /* Defining each section background and styles
             * --------------------------------------- */
             #section0 {
-                background-image: url(../../../static/images/bg1.jpg);
+                background-image: url(../../static/images/bg1.jpg);
             }
 
             #section0 h1 {
@@ -52,12 +53,12 @@
             }
 
             #section2 {
-                background-image: url(../../../static/images/bg3.jpg);
+                background-image: url(../../static/images/bg3.jpg);
                 padding: 6% 0 0 0;
             }
 
             #section3 {
-                background-image: url(../../../static/images/bg4.jpeg);
+                background-image: url(../../static/images/bg4.jpeg);
                 padding: 6% 0 0 0;
             }
 
@@ -68,17 +69,17 @@
             /*Adding background for the slides
             * --------------------------------------- */
             #slide1 {
-                background-image: url(../../../static/images/bg2.jpg);
+                background-image: url(../../static/images/bg2.jpg);
                 padding: 6% 0 0 0;
             }
 
             #slide2 {
-                background-image: url(../../../static/images/bg5.jpg);
+                background-image: url(../../static/images/bg5.jpg);
                 padding: 6% 0 0 0;
             }
 
             #slide3 {
-                background-image: url(../../../static/images/bg5.jpg);
+                background-image: url(../../static/images/bg5.jpg);
                 padding: 6% 0 0 0;
             }
 
@@ -92,8 +93,8 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 
-        <script type="text/javascript" src="../../../static/js/jquery.fullPage.js"></script>
-        <script type="text/javascript" src="../../../static/js/examples.js"></script>
+        <script type="text/javascript" src="../../static/js/jquery.fullPage.js"></script>
+        <script type="text/javascript" src="../../static/js/examples.js"></script>
 
         <script type="text/javascript">
             $(document).ready(function () {
@@ -114,20 +115,20 @@
 
     <div id="fullpage">
         <div class="section " id="section0"><h1>NetMeals</h1>
-            <h1 style="color: #c9302c">La mejor red social, tu mesa</h1></div>
+            <h1 style="color: #c9302c">{% trans 'The best social network, your table' %}</h1></div>
         <div class="section" id="section1">
             <div class="slide" id="slide2"><h1>Chef</h1></div>
             <div class="slide active" id="slide1">
                 <div class="intro">
-                    <h1>Usuarios</h1>
-                    <p>Go to the first section and scroll up or to the last one and scroll down to see how it works.</p>
+                    <h1>{% trans 'Users' %}</h1>
+                    <p>{% trans 'Go to the first section and scroll up or to the last one and scroll down to see how it works.' %}</p>
                 </div>
             </div>
 
-            <div class="slide" id="slide3"><h1>Guest</h1></div>
+            <div class="slide" id="slide3"><h1>{% trans 'Guest' %}</h1></div>
         </div>
-        <div class="section" id="section2"><h1>Lovely images <br/>for a lovely page</h1></div>
-        <div class="section" id="section3"><h1>One Image = One thousand words</h1></div>
+        <div class="section" id="section2"><h1>{% trans 'Lovely images for a lovely page' %}</h1></div>
+        <div class="section" id="section3"><h1>{% trans 'One Image = One thousand words' %}</h1></div>
     </div>
 
     </body>
