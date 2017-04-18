@@ -83,10 +83,12 @@
         $(".alert").slideUp(500);
     });
 
-    $(".activity-edit").click(function () {
-        var url = '{% url "activity_edit" activity_id %}';
-        window.open(url, "_self");
-    });
+    {% if not is_edit and not is_new %}
+        $(".activity-edit").click(function () {
+            var url = '{% url "activity_edit" activity_id %}';
+            window.open(url, "_self");
+        });
+
 
     $(".activity-unsubscribe").click(function () {
         var url = '{% url "activity_unsubscribe" activity_id %}';
@@ -97,6 +99,8 @@
         var url = '{% url "activity_subscribe" activity_id %}';
         window.open(url, "_self");
     });
+
+    {% endif %}
 
     $(".activity-remove").click(function(){
        var form = $("#activity-delete-form");

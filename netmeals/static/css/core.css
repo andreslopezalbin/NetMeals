@@ -128,11 +128,13 @@ body {
 }
 
 .activity-detail-photo {
-    height: 25vh;
+    max-height: 25vh;
+    min-height: 25vh;
 }
 
 .activity-detail-photo > img {
     border-radius: 3em;
+    max-height: inherit;
 }
 
 .activity-date{
