@@ -6,10 +6,9 @@ from users.services import UserService
 
 
 class AddRoleView(View):
-
     def post(self, request):
         current_user = request.user
-        if(current_user.is_authenticated):
+        if current_user.is_authenticated:
             error_roles = ''
             roles = request.POST.getlist('selected_roles[]')
             for role in roles:
@@ -20,9 +19,9 @@ class AddRoleView(View):
                     current_user.groups.add(group)
                     user.groups.add(group)
                 except Exception as e:
-                    print e
+                    print(e)
                     error_roles = error_roles + role + ' '
 
-            if(error_roles != ''):
+            if error_roles != '':
                 pass
         return HttpResponseRedirect("/")

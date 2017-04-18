@@ -1,10 +1,10 @@
-from compiler.ast import obj
 
 from activities.models import Activity
 
 
 def save(activity):
     activity.save()
+
 
 def update(activity):
     Activity.objects.filter(id=activity.id).update(

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'activities',
     'netmeals',
     'users',
+
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+
 ]
 
 ROOT_URLCONF = 'netmeals.urls'
@@ -141,4 +143,4 @@ LOGIN_URL = "/login"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
-DATE_INPUT_FORMATS = ('%d/%m/%Y')
+DATE_INPUT_FORMATS = '%d/%m/%Y'
