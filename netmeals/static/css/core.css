@@ -110,13 +110,14 @@ body {
 
 /* Footer */
 .footer {
-    background-color: #f5f5f5;
+   background-color: #292c2f;
     bottom: 0;
     height: 60px;
     line-height: 60px;
     position: absolute;
     width: 100%;
 }
+
 
 .Span {
     float: left;

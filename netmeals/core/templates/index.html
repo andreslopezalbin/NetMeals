@@ -1,11 +1,331 @@
 {% extends 'masterpage/masterpage.html' %}
+{% load i18n %}
 {% load staticfiles %}
-{% block title %}Home{% endblock %}
+{% load crispy_forms_tags %}
 {% block content %}
-    <div class="container">
-        Hola
-        {% if guest.is_administrator %}
-            hola admin
-        {% endif %}
+
+    <link rel="stylesheet" type="text/css" href="../../static/css/jquery.fullPage.css"/>
+
+    <style>
+
+        /* Style for our header texts
+        * --------------------------------------- */
+        h1 {
+            font-size: 5em;
+            font-family: arial, helvetica;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Centered texts in each section
+        * --------------------------------------- */
+        .section {
+            text-align: center;
+        }
+
+        /* Backgrounds will cover all the section
+        * --------------------------------------- */
+        .section {
+            background-size: cover;
+        }
+
+        .slide {
+            background-size: cover;
+        }
+
+        /* Defining each section background and styles
+        * --------------------------------------- */
+        .filter {
+            height: 100%;
+            width: 100%;
+            background-color: #ffdb99;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .divs {
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            position: absolute;
+            top: 30%;
+
+        }
+
+        #section0 {
+        {#            background-image: url(../../static/images/bg1.jpg);#}
+        }
+
+        #section0 h1 {
+            top: 50%;
+            transform: translateY(-50%);
+            position: relative;
+        }
+
+        #section1 {
+            background-image: url(../../static/images/bg1.jpg);
+        }
+
+        #section2 {
+            background-image: url(../../static/images/bg3.jpg);
+        }
+
+        #section3 {
+            background-image: url(../../static/images/bg4.jpeg);
+        }
+
+        #section3 h1 {
+            color: #000;
+        }
+
+        {#        /*Adding background for the slides#}
+        {#        * --------------------------------------- */#}
+        {#        #slide1 {#}
+        {#            background-image: url(../../static/images/bg2.jpg);#}
+        {#            padding: 6% 0 0 0;#}
+        {#        }#}
+        {##}
+        {#        #slide2 {#}
+        {#            background-image: url(../../static/images/bg5.jpg);#}
+        {#            padding: 6% 0 0 0;#}
+        {#        }#}
+        {##}
+        {#        #slide3 {#}
+        {#            background-image: url(../../static/images/bg5.jpg);#}
+        {#            padding: 6% 0 0 0;#}
+        {#        }#}
+        #bg-video {
+            top: 0px;
+            left: 0px;
+            position: absolute;
+            width: 100%;
+        }
+
+        .panel-pricing {
+            -moz-transition: all .3s ease;
+            -o-transition: all .3s ease;
+            -webkit-transition: all .3s ease;
+        }
+
+        .panel-pricing:hover {
+            box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .panel-pricing .panel-heading {
+            padding: 20px 10px;
+        }
+
+        .panel-pricing .panel-heading .fa {
+            margin-top: 10px;
+            font-size: 58px;
+        }
+
+        .panel-pricing .list-group-item {
+            color: #777777;
+            border-bottom: 1px solid rgba(250, 250, 250, 0.5);
+        }
+
+        .panel-pricing .list-group-item:last-child {
+            border-bottom-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+        }
+
+        .panel-pricing .list-group-item:first-child {
+            border-top-right-radius: 0px;
+            border-top-left-radius: 0px;
+        }
+
+        .panel-pricing .panel-body {
+            background-color: #f0f0f0;
+            font-size: 40px;
+            color: #777777;
+            padding: 20px;
+            margin: 0px;
+        }
+
+        .panel-free > .panel-heading {
+            color: #5e5e5e;
+            background-color: #C1C1C1;
+            border-color: #ebccd1;
+        }
+
+        .panel-lite > .panel-heading {
+            color: #ff5c5c;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        .panel-premium > .panel-heading {
+            color: #c9d439;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+        .details {
+            font-size: 40px;
+            color: #000000;
+           }
+    </style>
+
+
+
+    <script type="text/javascript" src="../../static/js/jquery.fullPage.js"></script>
+    <script type="text/javascript" src="../../static/js/examples.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#fullpage').fullpage({
+                verticalCentered: true
+            });
+        });
+    </script>
+
+    <div id="fullpage">
+
+        <div class="section" id="section0">
+            <div class="divs">
+                <img alt="NetMeals" src="{% static 'images/logo.png' %}"
+                     class="img-fluid"/>
+            </div>
+            <div class="filter">
+                <video id="bg-video" loop muted data-autoplay>
+                    <source src="{% static 'images/559567712.mp4' %}" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+
+        <div class="section" id="section1">
+            <div class="divs">
+                <div class="container">
+                    <div class="row ">
+                        <div class="col-md-4 text-center details">
+                            <div class="row">
+                                <div class="col-md-12">
+                                     <i class="fa fa-compass fa-5x"></i>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p><strong>The best activities from the city</strong></p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center details">
+                           <div class="row">
+                                <div class="col-md-12">
+                                    <i class="fa fa-cutlery fa-5x"></i>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p><strong>Find typical food</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center details">
+                            <div class="row">
+                                <div class="col-md-12">
+                                     <i class="fa fa-users fa-5x"></i>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p><strong>Meet new people!</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="filter"></div>
+        </div>
+
+
+        <div class="section" id="section2">
+            <div class="divs">
+                <section id="plans">
+                    <div class="container">
+                        <div class="row">
+
+                            <!-- item -->
+                            <div class="col-md-4 text-center">
+                                <div class="panel panel-free panel-pricing">
+                                    <div class="panel-heading">
+                                        <i class="fa fa-desktop"></i>
+                                        <h3>Free</h3>
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <p><strong>Free</strong></p>
+                                    </div>
+                                    <ul class="list-group text-center">
+                                        <li class="list-group-item"><i class="fa fa-check"></i> Personal use</li>
+                                        <li class="list-group-item"><i class="fa fa-check"></i> Unlimited projects</li>
+                                        <li class="list-group-item"><i class="fa fa-check"></i> 27/7 support</li>
+                                    </ul>
+                                    <div class="panel-footer">
+                                        <a class="btn btn-lg btn-block" style="background-color:#5e5e5e; color: #FFFFFF"
+                                           href="#">BUY NOW!</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /item -->
+
+                            <!-- item -->
+                            <div class="col-md-4 text-center">
+                                <div class="panel panel-lite panel-pricing">
+                                    <div class="panel-heading">
+                                        <i class="fa fa-desktop"></i>
+                                        <h3>Lite</h3>
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <p><strong>10€ / Month</strong></p>
+                                    </div>
+                                    <ul class="list-group text-center">
+                                        <li class="list-group-item"><i class="fa fa-check"></i> Personal use</li>
+                                        <li class="list-group-item"><i class="fa fa-check"></i> Unlimited projects</li>
+                                        <li class="list-group-item"><i class="fa fa-check"></i> 27/7 support</li>
+                                    </ul>
+                                    <div class="panel-footer">
+                                        <a class="btn btn-lg btn-block" style="background-color:#ff5c5c; color: #FFFFFF"
+                                           href="#">BUY NOW!</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /item -->
+
+                            <!-- item -->
+                            <div class="col-md-4 text-center">
+                                <div class="panel panel-premium panel-pricing">
+                                    <div class="panel-heading">
+                                        <i class="fa fa-desktop"></i>
+                                        <h3>Premium</h3>
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <p><strong>30€ / Month</strong></p>
+                                    </div>
+                                    <ul class="list-group text-center">
+                                        <li class="list-group-item"><i class="fa fa-check"></i> Personal use</li>
+                                        <li class="list-group-item"><i class="fa fa-check"></i> Unlimited projects</li>
+                                        <li class="list-group-item"><i class="fa fa-check"></i> 27/7 support</li>
+                                    </ul>
+                                    <div class="panel-footer">
+                                        <a class="btn btn-lg btn-block" style="background-color:#c9d439; color: #FFFFFF"
+                                           href="#">BUY NOW!</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /item -->
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="filter"></div>
+        </div>
+
+
     </div>
+
 {% endblock %}
