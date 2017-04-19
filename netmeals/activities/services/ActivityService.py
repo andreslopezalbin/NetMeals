@@ -9,11 +9,17 @@ def save(activity):
 def update(activity):
     Activity.objects.filter(id=activity.id).update(
         name=activity.name,
+        short_description=activity.short_description,
         description=activity.description,
         place=activity.place,
         latitude=activity.latitude,
         longitude=activity.longitude,
-        photo=activity.photo,
         start_date=activity.start_date,
         end_date=activity.end_date
     )
+    if activity.photo is not None:
+        Activity.objects.filter(id=activity.id).update(
+            photo=activity.photo
+        )
+
+

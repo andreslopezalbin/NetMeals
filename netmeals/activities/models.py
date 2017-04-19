@@ -50,12 +50,13 @@ class Feedback(core_models.Feedback):
 
 
 class Activity(models.Model):
-    name = models.TextField(max_length=30)
+    name = models.TextField(max_length=70)
+    short_description = models.TextField(max_length=140)
     description = models.TextField(max_length=250)
     place = models.TextField(max_length=250)
     latitude = models.DecimalField(max_digits=23, decimal_places=20)
     longitude = models.DecimalField(max_digits=23, decimal_places=20)
-    photo = models.URLField(default=default_pic)
+    photo = models.ImageField(upload_to='media/', null=True, blank=True)
     start_date = models.DateField()
     end_date = models.DateField()
     # Relationships
