@@ -1,4 +1,4 @@
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
