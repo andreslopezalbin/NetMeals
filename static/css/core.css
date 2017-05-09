@@ -1,0 +1,266 @@
+body {
+    padding-top: 5rem;
+}
+
+.vertical-align {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.datepicker table {
+    width: 100%;
+}
+
+.dropdown-menu {
+    min-width: 20rem;
+}
+
+/* Menu*/
+.language-menu .dropdown-item, .activities-menu .dropdown-item, #language-dropdown, #activities-dropdown {
+    cursor: pointer;
+}
+
+.signin-menu {
+    min-width: 220px;
+}
+
+.username-menu {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* Signup form */
+.form-group.required label:after {
+    content: "*";
+    color: red;
+}
+
+.pwstrength-error, .repeatPassword-error {
+    color: #d9534f;
+}
+
+.signup-password {
+    margin-bottom: 5px;
+}
+
+.signup-roles {
+
+}
+
+.signup-role {
+    border: 2px solid #aaaaaa;
+    border-radius: 25px;
+    min-height: 200px;
+    display: inline-block;
+    cursor: pointer;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.signup-role > p {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 3em;
+    vertical-align: middle;
+    opacity: 0.7;
+}
+
+.signup-role-selected {
+    background-color: #ffffff;
+    opacity: 0.6;
+}
+
+.signup-plan-selected {
+    background-color: #ffffff;
+    opacity: 0.6;
+}
+
+.signup-plan {
+    border: 2px solid #cccccc;
+    border-radius: 25px;
+    min-height: 200px;
+}
+
+/* Signup form roles*/
+.signup-cheff {
+    background-color: #324A5E;
+    background-image: url('/static/images/chef.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.signup-manager {
+    background-color: #FFD05B;
+    background-image: url('/static/images/menu.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.signup-monitor {
+    background-color: #D8B177;
+    background-image: url('/static/images/rolling-pin.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Activities */
+.activity-list-element:hover{
+    text-decoration: none;
+}
+
+.activity-list-img{
+    width:100%;
+    max-height:200px;
+    min-height: 200px;
+    border-radius: 5%
+}
+
+.activity-list-name{
+    height: 10vh;
+    word-wrap: break-word;
+}
+
+.activity-list-short-desc{
+    word-wrap: break-word;
+    height: 9vh;
+}
+
+.activity-detail-photo {
+    max-height: 25vh;
+    min-height: 25vh;
+}
+
+.activity-detail-photo > img {
+    border-radius: 3em;
+    max-height: inherit;
+}
+
+.activity-date{
+    cursor: pointer;
+}
+
+.form-control[readonly].activity-date {
+    background-color: #ffffff;
+}
+
+.activity-short-description{
+    max-height: 100px;
+}
+
+.activity-price{
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: none;
+    margin: 0;
+}
+
+.delete-popup{
+    display: none;
+    overflow: hidden;
+}
+
+.delete-popup.visible{
+    display: block;
+    width: 500px;
+    height: 115px;
+    padding: 16px;
+    border-radius: 5px;
+    background-color: white;
+    z-index: 1002;
+    opacity: 1;
+}
+
+.delete-popup-background{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.delete-popup-background.visible{
+    display: block;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    background-color: black;
+    z-index: 1001;
+    -moz-opacity: 0.8;
+    opacity: .80;
+    filter: alpha(opacity=80);
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.cancel{
+    background-color: #ff6169;
+    border-color: #ff6169;
+}
+
+.cancel:hover {
+    color: #fff;
+    background-color: #d5555d;
+    border-color: #d5555d;
+}
+/* Footer */
+.footer {
+   background-color: #292c2f;
+    bottom: 0;
+    height: 60px;
+    line-height: 60px;
+    position: absolute;
+    width: 100%;
+}
+
+
+.Span {
+    float: left;
+    min-height: 1px;
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+}
+
+.Block {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin-bottom: 1.5em;
+    background-color: #fff;
+    padding: 1.5em;
+    margin-top: 0.5em;
+}
+
+.Block-section {
+    margin-top: 1.5em;
+    box-sizing: border-box;
+    padding: 1.5em;
+    border-top: 1px solid #ddd;
+}
+
+.Booking-seatAvailable {
+    display: block;
+    box-sizing: border-box;
+    width: 50px;
+    height: 50px;
+    border: 2px dashed #333;
+    border-radius: 50%;
+}
+.Booking-occupant {
+    display: inline-block;
+    margin-top: 10px;
+}
+ul.u-reset {
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+}

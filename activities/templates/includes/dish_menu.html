@@ -1,0 +1,16 @@
+{% load user_tags %}
+{% load i18n %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" id="dishes-dropdown" data-toggle="dropdown" aria-haspopup="true"
+       aria-expanded="false">{% trans 'Dishes' %}</a>
+    <div class="dropdown-menu activities-menu" aria-labelledby="dishes-dropdown">
+        {#        {% if request.user.is_authenticated%}#}
+        <a class="dropdown-item" href="{% url "all_dishes" %}">{% trans 'All Dishes' %}</a>
+        {% if request.user|has_group:"Chef" %}
+            <a class="dropdown-item" href="{% url "my_dishes" %}">{% trans 'My Dishes' %}</a>
+            {% if request.user.is_active %}
+                <a class="dropdown-item" href="{% url "new_dish" %}">{% trans 'New Dish' %}</a>
+            {% endif %}
+        {% endif %}
+    </div>
+</li>
