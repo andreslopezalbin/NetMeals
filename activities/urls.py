@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from activities.views.activity_view import ListAllActivityView, ActivityDetailView, ActivitySubscriptionView, \
     ListSubscribedActivitiesView, ActivityUnsubscriptionView
 from activities.views.monitor_activity_view import CreateActivityView, ListActivityView, DeleteActivityView
-from activities.views.dish_view import findall, findmine, EditDish, details
+from activities.views.dish_view import findall, findmine, EditDish, details, delete
 
 urlpatterns = [
     # Users URLs ----------------------------------------------------------------------
