@@ -166,6 +166,7 @@ class Command(BaseCommand):
             latitude=10.0,
             longitude=10.0,
             start_date='2017-3-5',
+            price_per_person=6,
             end_date='2017-7-29',
             owner=monitor1
         )
@@ -180,7 +181,8 @@ class Command(BaseCommand):
             latitude=10.0,
             longitude=10.0,
             start_date='2010-3-15',
-            end_date='2011-3-15',
+            end_date='2017-7-29',
+            price_per_person=6,
             owner=monitor2,
         )
         activity2.save()

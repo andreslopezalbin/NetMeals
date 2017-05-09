@@ -219,7 +219,7 @@ body {
     bottom: 0;
     height: 60px;
     line-height: 60px;
-    position: absolute;
+    /*position: absolute;*/
     width: 100%;
 }
 
