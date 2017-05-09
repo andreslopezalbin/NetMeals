@@ -149,6 +149,13 @@ body {
     max-height: 100px;
 }
 
+.activity-price{
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: none;
+    margin: 0;
+}
+
 .delete-popup{
     display: none;
     overflow: hidden;

@@ -62,10 +62,17 @@ class CreateActivityView(View):
         if form.is_valid():
             activity = form.create(request)
             if(activity.id is None or activity.id == ''):
-                is_new = True
-                ActivityService.save(activity)
-                success_msg = 'Activity saved successfully'
-                request.session[SESSION_ACTIVITY_CREATED_SUCCEEDED] = True
+                is_periodocally = form.cleaned_data['is_periodically']
+                if(is_periodocally):
+                    context = {
+                        'form': form
+                    }
+                    return render(request, 'activities/new_periodically.html', context)
+                else:
+                    is_new = True
+                    ActivityService.save(activity)
+                    success_msg = 'Activity saved successfully'
+                    request.session[SESSION_ACTIVITY_CREATED_SUCCEEDED] = True
             else:
                 is_edit = True
                 ActivityService.update(activity)
@@ -122,7 +129,7 @@ class DeleteActivityView(DeleteView):
         if(self.request.META.get('HTTP_REFERER') is not None):
             relative_path = urlparse(self.request.META.get('HTTP_REFERER')).path
             kwargs = {}
-            if "detail" in relative_path:
+            if "detail" in relative_path or "edit" in relative_path:
                 redirect_url = 'my_activities'
             else:
                 match = resolve(relative_path)

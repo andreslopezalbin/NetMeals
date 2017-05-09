@@ -48,6 +48,7 @@ class Activity(models.Model):
     photo = models.ImageField(upload_to='media/', null=True, blank=True)
     start_date = models.DateField()
     end_date = models.DateField()
+    price_per_person = models.DecimalField(max_digits=5, decimal_places=2)
     # Relationships
     owner = models.ForeignKey(Monitor)
     assistants = models.ManyToManyField(Guest, related_name='activity_assisted')
