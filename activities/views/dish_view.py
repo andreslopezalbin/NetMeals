@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 
 from activities.forms.DishForm import DishForm
@@ -27,12 +28,28 @@ def findmine(request):
 
 def details(request, dish_id):
     dish = Dish.objects.get(id=dish_id)
-    # if request.user.groups.filter(name='Chef').exists() and dish.owner == request.user.guest.chef:
-    mobile = False
-    available_seats = dish.max_assistants - len(dish.assistants.all())
-    if 'Android' in request.META['HTTP_USER_AGENT'] or 'iPhone' in request.META['HTTP_USER_AGENT']: mobile = True
-    context = {'dish': dish, 'available_seats': range(0, available_seats), 'mobile': mobile}
-    return render(request, '../templates/dish/details.html', context)
+    if request.user.groups.filter(name='Chef').exists() and dish.owner == request.user.guest.chef:
+        available_seats = dish.max_assistants - len(dish.assistants.all())
+        context = {'dish': dish, 'available_seats': range(0, available_seats)}
+        return render(request, '../templates/dish/details.html', context)
+    else:
+        return render(request, '../../core/templates/no_permission.html')
+
+
+def delete(request, dish_id):
+    dish = Dish.objects.get(id=dish_id)
+    if request.user.groups.filter(name='Chef').exists() and dish.owner == request.user.guest.chef:
+        dish.delete()
+        redirect_url = 'my_dishes'
+        reverse_url = reverse(redirect_url)
+        return HttpResponseRedirect(reverse_url)
+    else:
+        available_seats = dish.max_assistants - len(dish.assistants.all())
+        context = {'dish': dish, 'available_seats': range(0, available_seats), 'delete_error':True}
+        return render(request, '../templates/dish/details.html', context)
+
+
+
     # else:
     #     return render(request, '../../core/templates/no_permission.html')
 
