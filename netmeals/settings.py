@@ -80,17 +80,29 @@ WSGI_APPLICATION = 'netmeals.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'netmeals',
+        'NAME': 'netmealsDB',
         'USER': 'dev_admin',
         'PASSWORD': 'development_password',
-        'HOST': '',
-        'PORT': '',
+        'HOST': 'netmeals.chyi7lbixtbw.eu-west-1.rds.amazonaws.com',
+        'PORT': '3306',
         'ATOMIC_REQUESTS': 'True'
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'netmeals',
+#         'USER': 'dev_admin',
+#         'PASSWORD': 'development_password',
+#         'HOST': '',
+#         'PORT': '',
+#         'ATOMIC_REQUESTS': 'True'
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators

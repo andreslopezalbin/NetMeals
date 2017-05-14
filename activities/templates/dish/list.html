@@ -30,11 +30,22 @@
                                 </div>
                             </div>
                         </div>
+                    {% empty %}
+                        <i class="fa fa-exclamation-triangle fa-5x" ></i> Nada que mostrar
                     {% endfor %}
 
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+
+        $(document).ready(function () {
+            if ("{{deleted}}") {
+                swal("Deleted!", "Your imaginary file has been deleted!", "success");
+            }
+        });
+    </script>
 
 {% endblock %}
