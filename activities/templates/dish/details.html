@@ -14,9 +14,9 @@
                     <div class="col-xl-8">
                         <h2>
                             {{ dish.name }}
-                            {#                            <a class="btn btn-primary delete"#}
-                            {#                                               href="{% url 'dish_delete' dish_id=dish.id %}">{% trans 'Delete' %}</a>#}
-                            <a class="btn btn-primary delete" href="#">delete!</a>
+                            {% if dish.owner == request.user.guest.chef %}
+                                <a class="btn btn-primary delete" href="#">{% trans "Delete" %}</a>
+                            {% endif %}
                         </h2>
 
 
@@ -151,34 +151,37 @@
     </div>
 
     <script>
+
+        $(document).ready(function () {
+            if ("{{delete_error}}") {
+                swal("{% trans "Well, this is embarrassing" %}", "{% trans "Something went wrong!" %}", "error");
+            } else if ("{{deleted}}") {
+                swal("Deleted!", "Your imaginary file has been deleted!", "success");
+            }
+        });
+
         document.querySelector('a.btn.btn-primary.subscribe').onclick = function () {
             swal("Good job!", "Now you are subscribed!", "success");
+
         };
 
         document.querySelector('a.btn.btn-primary.delete').onclick = function () {
             swal({
-                        title: "Are you sure?",
-                        text: "You will not be able to recover this imaginary file!",
+                        title: "{% trans "Are you sure?" %}",
+                        text: "{% trans "This acction cant be undone" %}",
                         type: "warning",
                         showCancelButton: true,
                         confirmButtonColor: '#DD6B55',
-                        confirmButtonText: 'Yes, delete it!',
-                        cancelButtonText: "No, cancel plx!",
+                        confirmButtonText: '{% trans "Yes, delete it!" %}',
+                        cancelButtonText: "{% trans "Cancel" %}",
                         closeOnConfirm: false,
-                        closeOnCancel: false
+                        closeOnCancel: true
                     },
                     function (isConfirm) {
                         if (isConfirm) {
-                            swal("Deleted!", "Your imaginary file has been deleted!", "success");
-                            setTimeout('location.href = "{% url 'dish_delete' dish_id=dish.id %}";', 1500);
-                        } else {
-                            swal("Cancelled", "Your imaginary file is safe :)", "error");
+                            location.replace("{% url 'dish_delete' dish_id=dish.id %}")
                         }
                     });
-        };
-
-        document.querySelector('.showcase.sweet button').onclick = function () {
-            swal("Oops...", "Something went wrong!", "error");
         };
     </script>
 {% endblock %}

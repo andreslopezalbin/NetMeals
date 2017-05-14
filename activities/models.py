@@ -25,21 +25,27 @@ class Dish(models.Model):
     name = models.TextField(max_length=30)
     description = models.TextField(max_length=250)
     owner = models.ForeignKey(Chef)
-    photo = models.URLField(default=default_pic)
+    photo = models.URLField()
     ingredients = models.ManyToManyField(Ingredients)
     max_assistants = models.PositiveIntegerField(default=1)
     assistants = models.ManyToManyField(Guest, related_name='dish_assisted')
     contribution = models.DecimalField(default=1.0, max_digits=4, decimal_places=2)
-    date = models.DateTimeField()
+    date = models.DateField()
+    hour = models.TimeField()
 
     def __str__(self):
-        return self.name + ':' + self.owner.get_username()
+        return self.name
 
-    def clean(self):
-        if self.max_assistants <= 0:
-            raise ValidationError(_("You must add more assistants"))
-        if self.max_assistants > len(self.assistants):
-            raise ValidationError(_("Too much assistants"))
+    def save(self, *args, **kwargs):
+        # delete old file when replacing by updating the file
+        try:
+            if not self.photo:
+                self.photo = "/static/images/dish-food-1.jpg"
+        except:
+            # when new photo then we do nothing, normal case
+            pass
+        super(Dish, self).save(*args, **kwargs)
+
 
 
 class Feedback(core_models.Feedback):

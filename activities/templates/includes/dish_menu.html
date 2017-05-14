@@ -10,6 +10,7 @@
             <a class="dropdown-item" href="{% url "my_dishes" %}">{% trans 'My Dishes' %}</a>
             {% if request.user.is_active %}
                 <a class="dropdown-item" href="{% url "new_dish" %}">{% trans 'New Dish' %}</a>
+                <a class="dropdown-item" href="{% url "schedule" %}">{% trans 'Schedule' %}</a>
             {% endif %}
         {% endif %}
     </div>

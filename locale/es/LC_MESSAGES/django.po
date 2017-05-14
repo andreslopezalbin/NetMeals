@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-11 17:43+0200\n"
+"POT-Creation-Date: 2017-05-14 18:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,43 +18,82 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\activities\forms\DishForm.py:12
+#: .\activities\forms\DishForm.py:15 .\activities\forms\DishForm.py:28
 msgid "Name"
 msgstr "Nombre"
 
-#: .\activities\forms\DishForm.py:14
+#: .\activities\forms\DishForm.py:16 .\activities\forms\DishForm.py:29
+msgid "Description"
+msgstr "Descripción"
+
+#: .\activities\forms\DishForm.py:17 .\activities\forms\DishForm.py:30
 msgid "Photo"
 msgstr "Fotografía"
+
+#: .\activities\forms\DishForm.py:31
+msgid "date"
+msgstr "Fecha"
+
+#: .\activities\forms\DishForm.py:32
+msgid "hour"
+msgstr "Hora"
+
+#: .\activities\forms\DishForm.py:33
+msgid "max_assistants"
+msgstr "asistentes"
+
+#: .\activities\forms\DishForm.py:34
+msgid "contribution"
+msgstr "Aporte"
+
+#: .\activities\forms\DishForm.py:44
+msgid "You must add more assistants"
+msgstr "Debes añadir mas asistentes"
+
+#: .\activities\forms\DishForm.py:46
+msgid "WOW! Its so cheap!"
+msgstr "Vaya! Es demasiado barato!"
+
+#: .\activities\forms\DishForm.py:48
+msgid "You cant share a old dish, sorry"
+msgstr "No puedes compartir platos del pasado, lo siento :("
+
+#: .\activities\templates\dish\details.html:18
+msgid "Delete"
+msgstr "Eliminar"
+
+#: .\activities\templates\dish\details.html:157
+msgid "Well, this is embarrassing"
+msgstr "Bueno, esto es embarazoso"
+
+#: .\activities\templates\dish\details.html:157
+msgid "Something went wrong!"
+msgstr "Algo no ha salido como esperabamos"
+
+#: .\activities\templates\dish\details.html:170
+msgid "Are you sure?"
+msgstr "¿Estás seguro?"
+
+#: .\activities\templates\dish\details.html:171
+msgid "This acction cant be undone"
+msgstr "Esta acción no se puede deshacer"
+
+#: .\activities\templates\dish\details.html:175
+msgid "Yes, delete it!"
+msgstr "Si, borrarlo!"
+
+#: .\activities\templates\dish\details.html:176
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: .\activities\templates\dish\edit.html:7
+#: .\activities\templates\includes\dish_menu.html:12
+msgid "New Dish"
+msgstr "Nuevo plato"
 
 #: .\activities\templates\dish\list.html:27
 msgid "Details"
 msgstr "Detalles"
-
-#: .\activities\templates\dish\prueba.html:118
-msgid "The best social network, your table"
-msgstr "La mejor red social, tu mesa"
-
-#: .\activities\templates\dish\prueba.html:123
-msgid "Users"
-msgstr "Usuarios"
-
-#: .\activities\templates\dish\prueba.html:124
-msgid ""
-"Go to the first section and scroll up or to the last one and scroll down to "
-"see how it works."
-msgstr "tira pa'alla"
-
-#: .\activities\templates\dish\prueba.html:128
-msgid "Guest"
-msgstr "Invitados"
-
-#: .\activities\templates\dish\prueba.html:130
-msgid "Lovely images for a lovely page"
-msgstr "Grandes imagenes grandes páginas"
-
-#: .\activities\templates\dish\prueba.html:131
-msgid "One Image = One thousand words"
-msgstr "Una imagen vale más que mil palabras"
 
 #: .\activities\templates\includes\dish_menu.html:5
 msgid "Dishes"
@@ -68,57 +107,57 @@ msgstr "Todos los platos"
 msgid "My Dishes"
 msgstr "Mis platos"
 
-#: .\activities\templates\includes\dish_menu.html:12
-msgid "New Dish"
-msgstr "Nuevo plato"
+#: .\activities\templates\includes\dish_menu.html:13
+msgid "Schedule"
+msgstr "Calendario"
 
-#: .\core\templates\masterpage\includes\menu.html:15
+#: .\core\templates\masterpage\includes\menu.html:19
 msgid "Home"
 msgstr "Inicio"
 
-#: .\core\templates\masterpage\includes\menu.html:20
+#: .\core\templates\masterpage\includes\menu.html:24
 msgid "Feedback"
 msgstr "Contacta"
 
-#: .\core\templates\masterpage\includes\menu.html:23
+#: .\core\templates\masterpage\includes\menu.html:27
 msgid "About Us"
 msgstr "Sobre nosotros"
 
-#: .\core\templates\masterpage\includes\menu.html:32
-#: .\core\templates\masterpage\includes\menu.html:45
+#: .\core\templates\masterpage\includes\menu.html:36
+#: .\core\templates\masterpage\includes\menu.html:49
 msgid "Signin"
 msgstr "Iniciar sesión"
 
-#: .\core\templates\masterpage\includes\menu.html:37
+#: .\core\templates\masterpage\includes\menu.html:41
 msgid "User"
 msgstr "Usuario"
 
-#: .\core\templates\masterpage\includes\menu.html:40
+#: .\core\templates\masterpage\includes\menu.html:44
 #: .\users\forms\GuestForms.py:13
 msgid "Password"
 msgstr "Contraseña"
 
-#: .\core\templates\masterpage\includes\menu.html:55
+#: .\core\templates\masterpage\includes\menu.html:59
 msgid "Signup"
 msgstr "Registrate"
 
-#: .\core\templates\masterpage\includes\menu.html:64
+#: .\core\templates\masterpage\includes\menu.html:68
 msgid "Hello "
 msgstr "Hola "
 
-#: .\core\templates\masterpage\includes\menu.html:68
+#: .\core\templates\masterpage\includes\menu.html:72
 msgid "Signout"
 msgstr "Cerrar sesión"
 
-#: .\core\templates\masterpage\includes\menu.html:79
+#: .\core\templates\masterpage\includes\menu.html:83
 msgid "Language"
 msgstr "Idioma"
 
-#: .\core\templates\masterpage\includes\menu.html:81
+#: .\core\templates\masterpage\includes\menu.html:85
 msgid "Spanish"
 msgstr "Español"
 
-#: .\core\templates\masterpage\includes\menu.html:82
+#: .\core\templates\masterpage\includes\menu.html:86
 msgid "English"
 msgstr "Inglés"
 

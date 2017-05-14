@@ -188,7 +188,7 @@ class Command(BaseCommand):
         activity2.save()
         activity2.assistants.add(guest1)
 
-        print ('Activities... ok')
+        print('Activities... ok')
         # ==================================================================================================
         # ==================================================================================================
 
@@ -210,32 +210,32 @@ class Command(BaseCommand):
             manager=manager2)
         local2.save()
 
-        print ('Locals... Ok')
+        print('Locals... Ok')
 
         # ==================================================================================================
         #  Dish
         # ==================================================================================================
 
-        dish1 = Dish(name='dish1', description='dish1Description', date='2017-2-5 12:00', owner=chef1,
+        dish1 = Dish(name='dish1', description='dish1Description', date='2017-02-5', hour='12:00', owner=chef1,
                      max_assistants=3, contribution=5.6,
                      photo='http://valenciaoberta.es/wp-content/uploads/2016/08/paella-2.jpg')
         dish1.save()
         dish1.assistants.add(guest1)
         dish1.assistants.add(guest2)
-        dish2 = Dish(name='dish2', description='dish2Description', date='2017-3-5 14:30', owner=chef1,
+        dish2 = Dish(name='dish2', description='dish2Description', date='2017-03-15', hour='13:00', owner=chef1,
                      max_assistants=3, contribution=4.0)
         dish2.save()
-        dish3 = Dish(name='dish3', description='dish3Description', date='2017-3-5 14:30', owner=chef2,
+        dish3 = Dish(name='dish3', description='dish3Description', date='2017-03-25', hour='14:00', owner=chef2,
                      max_assistants=1, contribution=2.0)
         dish3.save()
-        dish4 = Dish(name='dish4', description='dish4Description', date='2017-8-9 14:30', owner=chef2,
+        dish4 = Dish(name='dish4', description='dish4Description', date='2017-08-29', hour='14:00', owner=chef2,
                      max_assistants=5, contribution=5.0)
         dish4.save()
-        dish5 = Dish(name='dish5', description='dish5Description', date='2017-8-5 14:30', owner=chef2,
+        dish5 = Dish(name='dish5', description='dish5Description', date='2017-8-25', hour='15:00', owner=chef2,
                      max_assistants=10, contribution=3.6)
         dish5.save()
 
-        print ('Dishes... Ok')
+        print('Dishes... Ok')
 
         print('Populating database...OK\n'
               'Ready to use!')
