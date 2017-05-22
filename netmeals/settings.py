@@ -175,7 +175,7 @@ else:
         }
     }
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['*']
 
 print(os.environ.get('DEVELOPMENT'))
 print(os.environ.get('USER'))
