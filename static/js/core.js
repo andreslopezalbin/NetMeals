@@ -71,6 +71,21 @@ $(document).ready(function(){
                 alert("An error occured: " + xhr.status + " " + xhr.statusText);
         }});
     });
+
+    $(".week-day").click(function(){
+        console.log($(this).data("weeks-day") + " pressed");
+        if(!$(this).hasClass("week-day-selected")) {
+            $(this).addClass("week-day-selected");
+        }else{
+            $(this).removeClass("week-day-selected");
+        }
+        var weekDays = [];
+        $(".week-day.week-day-selected").each(function(){
+
+            weekDays.push($(this).data("weeks-day"));
+            console.log(weekDays);
+        });
+    });
 });
 
 function changeLanguage(cookieLanguageCode, language) {

@@ -71,6 +71,11 @@ body {
     opacity: 0.6;
 }
 
+.week-day-selected{
+    background-color: #ffffff;
+    opacity: 0.6;
+}
+
 .signup-plan-selected {
     background-color: #ffffff;
     opacity: 0.6;
@@ -212,6 +217,10 @@ body {
     color: #fff;
     background-color: #d5555d;
     border-color: #d5555d;
+}
+
+.week-day{
+    margin-bottom: 5px;
 }
 /* Footer */
 .footer {

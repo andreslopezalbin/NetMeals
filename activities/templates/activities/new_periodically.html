@@ -1,0 +1,70 @@
+{% extends 'masterpage/masterpage.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+{% load activities_extra %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<form>
+    <div class="container">
+        <div class="row">
+            <div id="div_id_start_date" class="form-group">
+                <label for="id_start_date" class="control-label  requiredField">
+                            Start date<span class="asteriskField">*</span>
+                </label>
+                <div class="controls ">
+                    <div class="input-group">
+                        <input class="form-control activity-date form-control-success dateinput form-control" id="id_start_date" name="start_date" placeholder="Start date" readonly="" required="" type="text">
+                            <span class="input-group-addon active">
+                                <i class="fa fa-calendar activity-date" aria-hidden="true"> </i>
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <input id="id_start_date" class="form-control activity-date form-control-success dateinput form-control" name="start_date" placeholder="Start date" readonly="" required="" type="text">
+                <span class="input-group-addon active">
+                    <i class="fa fa-calendar activity-date" aria-hidden="true"></i>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="week-day monday col-sm-12 col-md-4 col-lg-1" data-weeks-day="1">monday</div>
+            <div class="week-day thesday col-sm-12 col-md-4 col-lg-1" data-weeks-day="2">thesday</div>
+            <div class="week-day wednesday col-sm-12 col-md-4 col-lg-1" data-weeks-day="3">wednesday</div>
+            <div class="week-day thursday col-sm-12 col-md-4 col-lg-1" data-weeks-day="4">thursday</div>
+            <div class="week-day friday col-sm-12 col-md-4 col-lg-1" data-weeks-day="5">friday</div>
+            <div class="week-day saturday col-sm-12 col-md-4 col-lg-1" data-weeks-day="6">saturday</div>
+            <div class="week-day sunday col-sm-12 col-md-4 col-lg-1" data-weeks-day="7">sunday</div>
+        </div>
+        <div class="row">
+            <div class="input-group">
+                <input id="id_end_hour" class="form-control activity-date form-control-success timeinput form-control" name="end_hour" placeholder="End hour" readonly="" required="" type="text">
+                <span class="input-group-addon active">
+                    <i class="fa fa-clock-o activity-time" aria-hidden="true"></i>
+                </span>
+            </div>
+            <div class="input-group">
+                <input id="id_end_hour" class="form-control activity-date form-control-success timeinput form-control" name="end_hour" placeholder="End hour" readonly="" required="" type="text">
+                <span class="input-group-addon active">
+                    <i class="fa fa-clock-o activity-time" aria-hidden="true"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+<script>
+    $('.dateinput').datepicker({
+        format: "dd/mm/yyyy",
+        startView: 2,
+        clearBtn: true,
+        autoclose: true
+    });
+
+    $('.timeinput').clockpicker({
+        autoclose: true
+    });
+</script>
+{% endblock %}
