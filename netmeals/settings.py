@@ -12,11 +12,19 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
+from dotenv import load_dotenv
+from os.path import join, dirname
+
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.conf import settings
 from django.conf.urls.static import static
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -80,30 +88,6 @@ WSGI_APPLICATION = 'netmeals.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'netmealsDB',
-        'USER': 'dev_admin',
-        'PASSWORD': 'development_password',
-        'HOST': 'netmeals.chyi7lbixtbw.eu-west-1.rds.amazonaws.com',
-        'PORT': '3306',
-        'ATOMIC_REQUESTS': 'True'
-    }
-}
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'netmeals',
-#         'USER': 'dev_admin',
-#         'PASSWORD': 'development_password',
-#         'HOST': '',
-#         'PORT': '',
-#         'ATOMIC_REQUESTS': 'True'
-#     }
-# }
-
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
@@ -147,13 +131,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
+
 
 
 APPEND_SLASH = False
@@ -164,3 +145,43 @@ LOGIN_URL = "/login"
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 DATE_INPUT_FORMATS = '%d/%m/%Y'
+
+if os.environ.get('DEVELOPMENT') == 'True':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME':  os.environ.get('NAME'),
+            'USER': os.environ.get('USER'),
+            'PASSWORD': os.environ.get('PASSWORD'),
+            'HOST': '',
+            'PORT': '',
+            'ATOMIC_REQUESTS': 'True'
+        }
+    }
+
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, "static"),
+    )
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ.get('NAME'),
+            'USER': os.environ.get('USER'),
+            'PASSWORD': os.environ.get('PASSWORD'),
+            'HOST': os.environ.get('HOST'),
+            'PORT': os.environ.get('PORT'),
+            'ATOMIC_REQUESTS': 'True'
+        }
+    }
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+print(os.environ.get('DEVELOPMENT'))
+print(os.environ.get('USER'))
+print(os.environ.get('NAME'))
+print(os.environ.get('PASSWORD'))
+print(os.environ.get('HOST'))
+print(os.environ.get('PORT'))
+
+
