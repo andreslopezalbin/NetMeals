@@ -16,7 +16,6 @@ from dotenv import load_dotenv
 from os.path import join, dirname
 
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.conf import settings
 from django.conf.urls.static import static
@@ -33,9 +32,8 @@ load_dotenv(dotenv_path)
 SECRET_KEY = 'aha2$_zsc4sfxf-s=y2=o+-)@6ikd97)@oeypt#pnd-*2)pda9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.13', '127.0.0.1']
+DEBUG = True if os.environ.get('DEVELOPMENT') == "True" else False
 
 # Application definition
 
@@ -162,6 +160,8 @@ if os.environ.get('DEVELOPMENT') == 'True':
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, "static"),
     )
+    ALLOWED_HOSTS = ['192.168.1.13', '127.0.0.1']
+
 else:
     DATABASES = {
         'default': {
@@ -175,7 +175,7 @@ else:
         }
     }
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
+    ALLOWED_HOSTS = []
 
 print(os.environ.get('DEVELOPMENT'))
 print(os.environ.get('USER'))
