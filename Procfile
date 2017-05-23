@@ -1,1 +1,1 @@
-web: gunicorn netmeals.wsgi --log-file -
+web: gunicorn netmeals.wsgi --timeout 15 --log-file -
