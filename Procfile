@@ -1,1 +1,1 @@
-web: gunicorn netmeals.wsgi
+web: gunicorn netmeals:app --preload
