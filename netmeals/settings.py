@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'activities',
     'netmeals',
     'users',
+    'gunicorn'
 ]
 
 MIDDLEWARE = [
