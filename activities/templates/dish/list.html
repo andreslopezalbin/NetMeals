@@ -1,0 +1,51 @@
+{% extends 'masterpage/masterpage.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% crispy form form.helper %}
+
+{% block title %}All Dishes{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    {% for dish in dishes %}
+                        <div class="col-md-4">
+                            <div class="thumbnail">
+                                <img alt="{{ dish.name }}"
+                                     src="{{ dish.photo }}" style="height:220px; width:320px ; border-radius: 5% "/>
+                                <div class="caption">
+                                    <h3>
+                                        {{ dish.name }}
+                                    </h3>
+                                    <p>
+                                        {{ dish.description }}
+                                    </p>
+                                    <p>
+                                        <a class="btn btn-primary"
+                                           href="{% url 'dish_details' dish_id=dish.id %}">{% trans 'Details' %}</a>
+                                        {#                                        <a class="btn" href="{% url "dish_dish" %}">Edit</a>#}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <i class="fa fa-exclamation-triangle fa-5x" ></i> Nada que mostrar
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            if ("{{deleted}}") {
+                swal("Deleted!", "Your imaginary file has been deleted!", "success");
+            }
+        });
+    </script>
+
+{% endblock %}

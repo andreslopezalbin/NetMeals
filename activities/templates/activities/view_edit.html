@@ -1,0 +1,265 @@
+{% extends 'masterpage/masterpage.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+{% load activities_extra %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+
+    {% if error_msg %}
+        <div class="container alerts">
+            <div class="alert alert-danger alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong class="error-msg">{{error_msg}}</strong>
+            </div>
+        </div>
+    {% elif success_msg %}
+        <div class="container alerts">
+            <div class="alert alert-success alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>{{success_msg}}</strong>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="delete-popup centered">
+        <form id="activity-delete-form" action="" method="post">{% csrf_token %}
+            <p>Are you sure you want to delete the activity?</p>
+            <div class="row container-fluid">
+                <input type="submit" class="col-4 btn btn-primary" value="Confirm" />
+                <div class="col-4"></div>
+                <input type="button" class="col-4 cancel btn btn-primary" value="Cancel" />
+            </div>
+        </form>
+    </div>
+    <div class="delete-popup-background"></div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfD-gZKxc_qrC1clMF9U3OPfm5U3iUwE0&libraries=places&callback=initAutocomplete"
+         async defer></script>
+<div class="container">
+
+    {% if is_edit %}
+        {% url "activity_edit" activity_id  as form_action %}
+    {% else %}
+        {% url "new_activity" as form_action %}
+    {% endif %}
+
+    <form id="activity-form" action="{{ form_action }}" method="post" enctype="multipart/form-data">
+        <div class="row activity-detail-photo">
+            <span class="col-3 hidden-xs hidden-sm"></span>
+            <img id="activity-photo" class="col-6 col-xs-12 col sm-12 " src="{{ activity_photo }}" onerror="this.src='/static/images/activity-default.svg'" />
+            <span class="col-3 hidden-xs hidden-sm"></span>
+        </div>
+        {%  crispy form %}
+        <div id="map"></div>
+        {% if is_edit or is_new %}
+		    <button type="submit" class="btn btn-primary activity-submit">Submit</button>
+            {% if not is_new %}
+                <button type="button" class="btn btn-primary activity-remove" data-id="{{ activity_id }}">Remove</button>
+            {% endif %}
+        {% else %}
+            <button type="button" class="btn btn-primary activity-edit">Edit</button>
+            <button type="button" class="btn btn-primary activity-remove" data-id="{{ activity_id }}">Remove</button>
+        {% endif %}
+	</form>
+    {% if user.is_authenticated and not request.user|is_activity_owner:activity_id and activity_id %}
+        {% if request.user|is_subscribed:activity_id  %}
+            <a class="btn btn-primary activity-unsubscribe">Unsubscribe</a>
+        {% else %}
+            <a class="btn btn-primary activity-subscribe">Subscribe!</a>
+        {% endif %}
+    {% endif %}
+
+<script>
+    $('.dateinput').datepicker({
+        format: "dd/mm/yyyy",
+        startView: 2,
+        clearBtn: true,
+        autoclose: true
+    });
+
+    $('.timeinput').clockpicker({
+        autoclose: true
+    });
+
+    $(".alert").fadeTo(3000, 500).slideUp(500, function(){
+        $(".alert").slideUp(500);
+    });
+
+    {% if not is_edit and not is_new %}
+
+    $(".activity-edit").click(function () {
+        var url = '{% url "activity_edit" activity_id %}';
+        window.open(url, "_self");
+    });
+
+
+    $(".activity-unsubscribe").click(function () {
+        var url = '{% url "activity_unsubscribe" activity_id %}';
+        window.open(url, "_self");
+    });
+
+    $(".activity-subscribe").click(function () {
+        var url = '{% url "activity_subscribe" activity_id %}';
+        window.open(url, "_self");
+    });
+
+    {% endif %}
+
+    $(".activity-remove").click(function(){
+       var form = $("#activity-delete-form");
+       var id = $(this).data("id");
+       var url = "{% url "activity_delete" 0 %}".replace("0", id);
+       form.attr('action', url);
+       $(".delete-popup").addClass("visible")
+       $(".delete-popup-background").addClass("visible")
+    });
+
+    $(".delete-popup.centered .cancel").click(function(){
+        $(".delete-popup").removeClass("visible")
+        $(".delete-popup-background").removeClass("visible")
+    });
+
+    $("#activity-form").submit(function( event ) {
+        if(!checkMandatoryFields()){
+            event.preventDefault();
+            $(".error-msg").val("One or more mandatory fields are blank");
+        }else if(!checkHiddenFields()){
+            event.preventDefault();
+        }
+    });
+
+    function checkMandatoryFields(){
+        var result = false;
+
+        var name = $("#id_name").val();
+        var desc = $("#id_description").val();
+        var startDate = $("#id_start_date").val();
+        var startHour = $("#id_start_hour").val();
+        var endHour = $("#id_end_hour").val();
+        var place = $("#id_place").val();
+        var activityType = $('activity-type input:checked', '#activity-form').val();
+
+        result = name != ""
+                && desc != ""
+                && place != ""
+                && (
+                    activityType != "one_time"
+                    ||
+                    (
+                        activityType == "one_time"
+                        && startDate != ""
+                        && startHour != ""
+                        && endHour != ""
+                    )
+                );
+
+        return result;
+    }
+
+    function checkHiddenFields(){
+        var result = false;
+
+        var latitude = $("#id_latitude").val();
+        var longitude = $("#id_longitude").val();
+
+         result = latitude != ""
+                && longitude != "";
+
+        return result;
+    }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#activity-photo').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#id_photo").change(function(){
+        if(validate($(this).val())){
+            readURL(this);
+        }
+
+    });
+
+    function validate(file) {
+        var result = true;
+        if(file == ""){
+            return false;
+        }
+        var ext = file.split(".");
+        ext = ext[ext.length-1].toLowerCase();
+        var arrayExtensions = ["jpg" , "jpeg", "png", "gif"];
+
+        if (arrayExtensions.lastIndexOf(ext) == -1) {
+            alert("We only accept .jpg, .jpeg, .png and .gif extensions.");
+            $("#id_photo").val("");
+            result = false;
+        }
+        return result;
+    }
+
+    function checkHiddenFields(){
+        var result = false;
+
+        var latitude = $("#id_latitude").val();
+        var longitude = $("#id_longitude").val();
+
+         result = latitude != ""
+                && longitude != "";
+
+        return result;
+    }
+
+    $(".activity-type").click(function(){
+        setDateTimeInputs();
+        setIsPeriodicallyField();
+    });
+
+    function setDateTimeInputs(){
+        var activityType = $('.activity-type:input:checked');
+        var isSet =  activityType.val() == "one_time";
+
+        var startDateInput = $("#div_id_start_date");
+        var startHourInput = $("#div_id_start_hour");
+        var endHourInput = $("#div_id_end_hour");
+        if(isSet){
+            if(startDateInput.hasClass("hidden-xl-down")){
+                startDateInput.removeClass("hidden-xl-down");
+            }
+            if(startHourInput.hasClass("hidden-xl-down")){
+                startHourInput.removeClass("hidden-xl-down");
+            }
+            if(endHourInput.hasClass("hidden-xl-down")){
+                endHourInput.removeClass("hidden-xl-down");
+            }
+        }else{
+            if(!startDateInput.hasClass("hidden-xl-down")){
+                startDateInput.addClass("hidden-xl-down");
+            }
+            if(!startHourInput.hasClass("hidden-xl-down")){
+                startHourInput.addClass("hidden-xl-down");
+            }
+            if(!endHourInput.hasClass("hidden-xl-down")){
+                endHourInput.addClass("hidden-xl-down");
+            }
+        }
+    }
+
+    function setIsPeriodicallyField(){
+        var activityType = $('.activity-type:input:checked');
+        var isSet =  activityType.val() != "one_time";
+
+        var isPeriodicallyInput = $("#id_is_periodically");
+        isPeriodicallyInput.val(isSet);
+    }
+</script>
+</div>
+{% endblock %}
