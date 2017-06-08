@@ -7,7 +7,62 @@
     <script type="text/javascript" src="{% static "fullcalendar/moment.min.js" %}"></script>
     <script type="text/javascript" src="{% static "fullcalendar/fullcalendar.min.js" %}"></script>
     <script type="text/javascript" src="{% static "fullcalendar/locale/es.js" %}"></script>
+    <style>
 
+        #full-calendar {
+            padding-top: 30px;
+        }
+
+        #calendar h2 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            line-height: 35px;
+        }
+
+        #calendar .fc-day-header {
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        #external-events {
+            padding-top: 50px;
+        }
+
+        #external-events .fc-event {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px;
+            margin-bottom: 10px;
+            cursor: all-scroll;
+            border: none;
+        }
+
+        .fc button {
+            background: #fff;
+        }
+
+        .fc td,
+        .fc th {
+            border-width: 0px !important;
+        }
+
+        thead {
+            border-top: 1px solid #d0d0d0;
+        }
+
+        #calendar > div.fc-view-container > div > table > thead > tr > td > div {
+            border-bottom: 1px solid #d0d0d0;
+        }
+
+        .fc-state-active,
+        .fc-state-down {
+            color: #ff5c5c !important;
+        }
+
+        .fc-unthemed td.fc-today {
+            background: #e4b9b9;
+        }
+    </style>
 
     <script>
 
@@ -17,12 +72,12 @@
                 header: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'month,agendaWeek,agendaDay,listMonth'
+                    right: 'month,basicWeek,basicDay'
                 },
                 defaultDate: '{{ today |safe }}',
                 locale: '{{ language|safe }}',
                 {#                buttonIcons: false, // show the prev/next text#}
-                weekNumbers: true,
+                weekNumbers: false,
                 {#                navLinks: true, // can click day/week names to navigate views#}
                 {#                editable: true,#}
                 eventLimit: false, // allow "more" link when too many events
@@ -33,12 +88,6 @@
         });
 
     </script>
-    <style>
-        #calendar {
-            max-width: 50%;
-            margin: auto;
-        }
-    </style>
 
-    <div id='calendar'></div>
+    <div id='calendar' class="mx-auto col-md-12 col-lg-7 wow fadeIn " data-wow-delay="0.2s"></div>
 {% endblock %}
