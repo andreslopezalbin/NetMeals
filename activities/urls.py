@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from activities.views.activity_view import ListAllActivityView, ActivityDetailView, ActivitySubscriptionView, \
     ListSubscribedActivitiesView, ActivityUnsubscriptionView
 from activities.views.monitor_activity_view import CreateActivityView, ListActivityView, DeleteActivityView
-from activities.views.dish_view import findall, findmine, EditDish, details
+from activities.views.dish_view import findall, findmine, edit_dish, details, delete, schedule
 
 urlpatterns = [
     # Users URLs ----------------------------------------------------------------------
@@ -22,10 +22,11 @@ urlpatterns = [
     # Dish --------------------------------------------------------------------------
     url(r'^dish/findall$', findall, name='all_dishes'),
     url(r'^dish/mydishes$', findmine, name='my_dishes'),
-    url(r'^dish/new$', EditDish.as_view(), name='new_dish'),
+    url(r'^dish/new$', edit_dish, name='new_dish'),
     url(r'^dish/mydishes$', findmine, name='my_dishes'),
     url(r'^dish/details/(?P<dish_id>[0-9]+)$', details, name='dish_details'),
-    # url(r'^dish/new$', EditDish.as_view(), name='new_dish'),
+    url(r'^dish/delete/(?P<dish_id>[0-9]+)$', delete, name='dish_delete'),
+    url(r'^dish/schedule$', schedule, name='schedule'),
 
 
 ]

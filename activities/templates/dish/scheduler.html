@@ -1,0 +1,44 @@
+{% extends 'masterpage/masterpage.html' %}
+{% load staticfiles %}
+
+{% block title %}All Dishes{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static "fullcalendar/fullcalendar.min.css" %}"/>
+    <script type="text/javascript" src="{% static "fullcalendar/moment.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "fullcalendar/fullcalendar.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "fullcalendar/locale/es.js" %}"></script>
+
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay,listMonth'
+                },
+                defaultDate: '{{ today |safe }}',
+                locale: '{{ language|safe }}',
+                {#                buttonIcons: false, // show the prev/next text#}
+                weekNumbers: true,
+                {#                navLinks: true, // can click day/week names to navigate views#}
+                {#                editable: true,#}
+                eventLimit: false, // allow "more" link when too many events
+                events: {{ items|safe }}
+
+            });
+
+        });
+
+    </script>
+    <style>
+        #calendar {
+            max-width: 50%;
+            margin: auto;
+        }
+    </style>
+
+    <div id='calendar'></div>
+{% endblock %}
