@@ -13,7 +13,7 @@ from django.views.generic import DeleteView
 from  django.views.generic.list import ListView
 
 from activities.forms.ActivityForm import ActivityForm
-from activities.models import Activity
+from activities.models import Activity, ActivityTime
 from activities.services import ActivityService
 from django.shortcuts import get_object_or_404
 
@@ -32,6 +32,8 @@ class CreateActivityView(View):
         is_edit = False
         is_new = False
         title = "New Activity"
+        if request.session.get(SESSION_ACTIVITY_CREATED_SUCCEEDED):
+            del request.session[SESSION_ACTIVITY_CREATED_SUCCEEDED]
         if activity_id:
             activity = get_object_or_404(Activity, id=activity_id)
             if(activity.owner_id != request.user.id):
@@ -67,6 +69,8 @@ class CreateActivityView(View):
                     context = {
                         'form': form
                     }
+                    ActivityService.save(activity)
+                    request.session[SESSION_ACTIVITY_PENDING] = activity.id
                     return render(request, 'activities/new_periodically.html', context)
                 else:
                     is_new = True
@@ -101,6 +105,38 @@ class CreateActivityView(View):
             reverse_url = reverse(redirect_url)
             return HttpResponseRedirect(reverse_url)
 
+@method_decorator(group_required('Monitor'), name='dispatch')
+class CreateActivityPeriodicallyView(View):
+
+    def post(self, request, activity_id=None):
+        success_msg = ''
+        error_msg = ''
+        if request.session.get(SESSION_ACTIVITY_PENDING):
+            activity_id = request.session[SESSION_ACTIVITY_PENDING]
+
+            week_days = request.POST.get('weekDays')
+            week_days = week_days.split(",")
+            start_date = request.POST.get('start_date')
+            start_date = datetime.strptime(start_date, '%d/%m/%Y')
+            end_date = request.POST.get('end_date')
+            end_date = datetime.strptime(end_date, '%d/%m/%Y')
+            start_hour = request.POST.get('start_hour')
+            end_hour = request.POST.get('end_hour')
+
+            days = ActivityService.datesBeween(start_date, end_date, week_days)
+            for day in days:
+                activity_time = ActivityTime()
+                activity_time.date = day
+                activity_time.start_hour = start_hour
+                activity_time.end_hour = end_hour
+                activity_time.activity_id = activity_id
+                activity_time.save()
+        else:
+            error_msg = 'ERROR'
+
+        redirect_url = 'my_activities'
+        reverse_url = reverse(redirect_url)
+        return HttpResponseRedirect(reverse_url)
 
 @method_decorator(group_required('Monitor'), name='dispatch')
 class ListActivityView(ListView):

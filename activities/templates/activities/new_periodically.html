@@ -6,7 +6,9 @@
 
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
-<form>
+<form action="{% url "new_activity_periodically" %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" id="week-days" name="weekDays" />
     <div class="container">
         <div class="row">
             <div id="div_id_start_date" class="form-group">
@@ -23,7 +25,7 @@
                 </div>
             </div>
             <div class="input-group">
-                <input id="id_start_date" class="form-control activity-date form-control-success dateinput form-control" name="start_date" placeholder="Start date" readonly="" required="" type="text">
+                <input id="id_start_date" class="form-control activity-date form-control-success dateinput form-control" name="end_date" placeholder="End date" readonly="" required="" type="text">
                 <span class="input-group-addon active">
                     <i class="fa fa-calendar activity-date" aria-hidden="true"></i>
                 </span>
@@ -40,7 +42,7 @@
         </div>
         <div class="row">
             <div class="input-group">
-                <input id="id_end_hour" class="form-control activity-date form-control-success timeinput form-control" name="end_hour" placeholder="End hour" readonly="" required="" type="text">
+                <input id="id_end_hour" class="form-control activity-date form-control-success timeinput form-control" name="start_hour" placeholder="Start hour" readonly="" required="" type="text">
                 <span class="input-group-addon active">
                     <i class="fa fa-clock-o activity-time" aria-hidden="true"></i>
                 </span>
@@ -66,5 +68,7 @@
     $('.timeinput').clockpicker({
         autoclose: true
     });
+
+
 </script>
 {% endblock %}

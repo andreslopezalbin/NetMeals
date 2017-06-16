@@ -1,3 +1,4 @@
+var weekDays = [];
 $(document).ready(function(){
 
     var languageMenu = $("#language-dropdown");
@@ -79,12 +80,14 @@ $(document).ready(function(){
         }else{
             $(this).removeClass("week-day-selected");
         }
-        var weekDays = [];
-        $(".week-day.week-day-selected").each(function(){
-
-            weekDays.push($(this).data("weeks-day"));
-            console.log(weekDays);
-        });
+        var value = $(this).data("weeks-day");
+        var isInArray = $.inArray(value, weekDays);
+        if(isInArray != -1){
+            weekDays.splice(isInArray,1);
+        }else{
+            weekDays.push(value);
+        }
+        var days = $("#week-days").val(weekDays)
     });
 });
 

@@ -80,7 +80,8 @@ class Activity(models.Model):
 
 class ActivityTime(models.Model):
     date = models.DateTimeField()
-    duration = models.DecimalField(max_digits=5, decimal_places=2)
+    start_hour = models.TextField(max_length=5)
+    end_hour = models.TextField(max_length=5)
 
     # Relationships
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)

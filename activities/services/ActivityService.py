@@ -1,3 +1,4 @@
+from datetime import timedelta
 
 from activities.models import Activity
 
@@ -22,5 +23,18 @@ def update(activity):
         Activity.objects.filter(id=activity.id).update(
             photo=activity.photo
         )
+
+def daterange(start_date, end_date):
+    for n in range(int ((end_date - start_date).days)):
+        yield start_date + timedelta(n)
+
+def datesBeween(start_date, end_date, daysOfWeek):
+    result = []
+
+    for date in daterange(start_date, end_date):
+        if str(date.isoweekday()) in daysOfWeek:
+            result.append(date)
+
+    return result
 
 
