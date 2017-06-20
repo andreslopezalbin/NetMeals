@@ -9,20 +9,13 @@
 <form action="{% url "new_activity_periodically" %}" method="POST">
     {% csrf_token %}
     <input type="hidden" id="week-days" name="weekDays" />
-    <div class="container">
+    <div class="container activity-periodically">
         <div class="row">
-            <div id="div_id_start_date" class="form-group">
-                <label for="id_start_date" class="control-label  requiredField">
-                            Start date<span class="asteriskField">*</span>
-                </label>
-                <div class="controls ">
-                    <div class="input-group">
-                        <input class="form-control activity-date form-control-success dateinput form-control" id="id_start_date" name="start_date" placeholder="Start date" readonly="" required="" type="text">
-                            <span class="input-group-addon active">
-                                <i class="fa fa-calendar activity-date" aria-hidden="true"> </i>
-                            </span>
-                    </div>
-                </div>
+            <div class="input-group">
+                <input id="id_start_date" class="form-control activity-date form-control-success dateinput form-control" name="start_date" placeholder="Start date" readonly="" required="" type="text">
+                <span class="input-group-addon active">
+                    <i class="fa fa-calendar activity-date" aria-hidden="true"></i>
+                </span>
             </div>
             <div class="input-group">
                 <input id="id_start_date" class="form-control activity-date form-control-success dateinput form-control" name="end_date" placeholder="End date" readonly="" required="" type="text">
@@ -32,13 +25,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="week-day monday col-sm-12 col-md-4 col-lg-1" data-weeks-day="1">monday</div>
-            <div class="week-day thesday col-sm-12 col-md-4 col-lg-1" data-weeks-day="2">thesday</div>
-            <div class="week-day wednesday col-sm-12 col-md-4 col-lg-1" data-weeks-day="3">wednesday</div>
-            <div class="week-day thursday col-sm-12 col-md-4 col-lg-1" data-weeks-day="4">thursday</div>
-            <div class="week-day friday col-sm-12 col-md-4 col-lg-1" data-weeks-day="5">friday</div>
-            <div class="week-day saturday col-sm-12 col-md-4 col-lg-1" data-weeks-day="6">saturday</div>
-            <div class="week-day sunday col-sm-12 col-md-4 col-lg-1" data-weeks-day="7">sunday</div>
+            <div class="week-day monday col-12" data-weeks-day="1">Monday</div>
+            <div class="week-day thesday col-12" data-weeks-day="2">Thuesday</div>
+            <div class="week-day wednesday col-12" data-weeks-day="3">Wednesday</div>
+            <div class="week-day thursday col-12" data-weeks-day="4">Thursday</div>
+            <div class="week-day friday col-12" data-weeks-day="5">Friday</div>
+            <div class="week-day saturday col-12" data-weeks-day="6">Saturday</div>
+            <div class="week-day sunday col-12" data-weeks-day="7">Sunday</div>
         </div>
         <div class="row">
             <div class="input-group">
@@ -54,8 +47,8 @@
                 </span>
             </div>
         </div>
+        <button type="submit" class="btn btn-primary activity-periodically-submit">Submit</button>
     </div>
-    <button type="submit">Submit</button>
 </form>
 <script>
     $('.dateinput').datepicker({

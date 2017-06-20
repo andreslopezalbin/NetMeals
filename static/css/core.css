@@ -222,6 +222,28 @@ body {
 .week-day{
     margin-bottom: 5px;
 }
+
+.activity-periodically .input-group{
+    margin-bottom: 2vh;
+}
+
+.activity-periodically .row .week-day {
+    background-color:#c9d439;
+    cursor: pointer;
+    height: 50px;
+    /*max-width: 40vw;*/
+    border-radius: 3px;
+    margin: auto auto 5px;
+    text-align: center;
+    display: inline-grid;
+    align-items: center;
+}
+
+.activity-periodically-submit{
+    width: 100%;
+    margin-bottom: 5px;
+    height: 50px;
+}
 /* Footer */
 .footer {
    background-color: #292c2f;
