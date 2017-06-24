@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-14 18:18+0200\n"
+"POT-Creation-Date: 2017-06-08 21:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,7 +91,7 @@ msgstr "Cancelar"
 msgid "New Dish"
 msgstr "Nuevo plato"
 
-#: .\activities\templates\dish\list.html:27
+#: .\activities\templates\dish\list.html:59
 msgid "Details"
 msgstr "Detalles"
 
@@ -111,55 +111,65 @@ msgstr "Mis platos"
 msgid "Schedule"
 msgstr "Calendario"
 
-#: .\core\templates\masterpage\includes\menu.html:19
-msgid "Home"
-msgstr "Inicio"
-
-#: .\core\templates\masterpage\includes\menu.html:24
-msgid "Feedback"
-msgstr "Contacta"
-
-#: .\core\templates\masterpage\includes\menu.html:27
-msgid "About Us"
-msgstr "Sobre nosotros"
-
-#: .\core\templates\masterpage\includes\menu.html:36
-#: .\core\templates\masterpage\includes\menu.html:49
-msgid "Signin"
+#: .\core\templates\masterpage\includes\menu.html:78
+#: .\core\templates\masterpage\includes\menu.html:141
+msgid "Log in"
 msgstr "Iniciar sesión"
 
-#: .\core\templates\masterpage\includes\menu.html:41
+#: .\core\templates\masterpage\includes\menu.html:85
+#: .\core\templates\masterpage\includes\menu.html:169
+msgid "Signup"
+msgstr "Registrate"
+
+#: .\core\templates\masterpage\includes\menu.html:95
+msgid "Hello "
+msgstr "Hola "
+
+#: .\core\templates\masterpage\includes\menu.html:100
+msgid "Signout"
+msgstr "Cerrar sesión"
+
+#: .\core\templates\masterpage\includes\menu.html:115
+msgid "Language"
+msgstr "Idioma"
+
+#: .\core\templates\masterpage\includes\menu.html:117
+msgid "Spanish"
+msgstr "Español"
+
+#: .\core\templates\masterpage\includes\menu.html:118
+msgid "English"
+msgstr "Inglés"
+
+#: .\core\templates\masterpage\includes\menu.html:123
+msgid "Search CP"
+msgstr "Buscar CP"
+
+#: .\core\templates\masterpage\includes\menu.html:151
 msgid "User"
 msgstr "Usuario"
 
-#: .\core\templates\masterpage\includes\menu.html:44
+#: .\core\templates\masterpage\includes\menu.html:157
+#: .\core\templates\masterpage\includes\menu.html:170
 #: .\users\forms\GuestForms.py:13
 msgid "Password"
 msgstr "Contraseña"
 
-#: .\core\templates\masterpage\includes\menu.html:59
-msgid "Signup"
-msgstr "Registrate"
+#: .\core\templates\masterpage\includes\menu.html:161
+msgid "Enter"
+msgstr "Entrar"
 
-#: .\core\templates\masterpage\includes\menu.html:68
-msgid "Hello "
-msgstr "Hola "
+#: .\core\templates\masterpage\includes\menu.html:169
+msgid "Not a member?"
+msgstr "¿No eres miembro aún?"
 
-#: .\core\templates\masterpage\includes\menu.html:72
-msgid "Signout"
-msgstr "Cerrar sesión"
+#: .\core\templates\masterpage\includes\menu.html:170
+msgid "Forgot"
+msgstr "Olvidó la "
 
-#: .\core\templates\masterpage\includes\menu.html:83
-msgid "Language"
-msgstr "Idioma"
-
-#: .\core\templates\masterpage\includes\menu.html:85
-msgid "Spanish"
-msgstr "Español"
-
-#: .\core\templates\masterpage\includes\menu.html:86
-msgid "English"
-msgstr "Inglés"
+#: .\core\templates\masterpage\includes\menu.html:173
+msgid "Close"
+msgstr "Cerrar"
 
 #: .\users\forms\GuestForms.py:11
 msgid "First name"
