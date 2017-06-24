@@ -87,7 +87,3 @@ def edit_dish(request):
         }
     return render(request, 'dish/edit.html', context)
 
-
-def create_without_login(request):
-    if request.method == 'GET':
-        return render(request, '../templates/dish/create_w_login.html')
