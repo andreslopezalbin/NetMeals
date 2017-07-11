@@ -120,3 +120,39 @@ function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
+
+function paypalButton(elementId, importe, description){
+    var CREATE_PAYMENT_URL  = 'http://192.168.1.99:8000/paypal/create-payment';
+    var EXECUTE_PAYMENT_URL = 'http://192.168.1.99:8000/paypal/execute-payment';
+
+    paypal.Button.render({
+
+        env: 'sandbox', // Or 'sandbox'
+
+        commit: true, // Show a 'Pay Now' button
+
+        payment: function() {
+            return paypal.request.post(CREATE_PAYMENT_URL, {importe: importe, description: description, csrfmiddlewaretoken: getCookieValue("csrftoken")}).then(function(data) {
+                console.log(data.payment_id);
+                if(data.payment_id != null) {
+                    return data.payment_id;
+                }else{
+                    alert("Error al crear el pago");
+                }
+            });
+        },
+
+        onAuthorize: function(data) {
+            return paypal.request.post(EXECUTE_PAYMENT_URL, {
+                csrfmiddlewaretoken: getCookieValue("csrftoken"),
+                paymentID: data.paymentID,
+                payerID:   data.payerID
+            }).then(function() {
+                console.log("Payment Executed!!!")
+                // The payment is complete!
+                // You can now show a confirmation message to the customer
+            });
+        }
+
+    }, elementId);
+}

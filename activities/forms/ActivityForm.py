@@ -85,6 +85,8 @@ class ActivityForm(forms.ModelForm):
         self.fields['name'].disabled = disabled
         self.fields['short_description'].disabled = disabled
         self.fields['description'].disabled = disabled
+        if(disabled):
+            self.fields['type_of_activity'].widget.attrs = {'disabled':'disabled'}
         self.fields['price_per_person'].disabled = disabled
         self.fields['type_of_activity'].widget.disabled = disabled
         self.fields['start_date'].disabled = disabled
