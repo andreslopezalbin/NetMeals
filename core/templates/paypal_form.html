@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        {% load staticfiles %}
+        <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+        <script type="text/javascript" src="{% static "js/core.js" %}"></script>
+    </head>
+
+    <body>
+        <div id="paypal-button"></div>
+
+        <script>
+            paypalButton('#paypal-button', 10.39, 'activity de prueba');
+        </script>
+    </body>
+</html>

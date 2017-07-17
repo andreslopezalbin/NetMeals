@@ -4,7 +4,9 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^no_permission', views.no_permission, name='no_permission')
-
-    ,
+    url(r'^no_permission', views.no_permission, name='no_permission'),
+    # PayPal ----------------------------------------------
+    url(r'^paypal$', views.paypal_test, name='paypal_test'),
+    url(r'^paypal/create-payment$', views.paypal_create_payment, name='create_payment'),
+    url(r'^paypal/execute-payment$', views.paypal_execute_payment, name='execute_payment'),
 ]

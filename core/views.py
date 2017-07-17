@@ -1,10 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
+from django.template import RequestContext
 
+from core.services import paypal_service
 from users.util.users_util import *
 
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, JsonResponse
 from django.utils import translation
 
+from django.views.decorators.csrf import csrf_protect
 
 # Create your views here.
 
@@ -30,7 +33,32 @@ def change_language(request):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-def prueba(request):
-    return render(request, 'prueba.html')
+@csrf_protect
+def paypal_test(request):
+    if request.method == "GET":
+        paypal_service.create_billing_plan()
+        csrfContext = RequestContext(request)
+        return render_to_response('paypal_form.html', csrfContext)
+
+def paypal_create_payment(request):
+    response = {}
+    if request.method == "POST":
+        importe = request.POST['importe']
+        description = request.POST['description']
+        payment_id = paypal_service.create_payment(importe, description)
+        if(payment_id is not None):
+            response = {"payment_id" : payment_id}
+    return JsonResponse(response)
+
+def paypal_execute_payment(request):
+    response = {}
+    if request.method == "POST":
+        payment_id = request.POST['paymentID']
+        payer_id = request.POST['payerID']
+        is_executed = paypal_service.execute_payment(payment_id, payer_id)
+        if(is_executed):
+            response = {"payment_id" : payment_id,
+                        "executed" : is_executed}
+    return JsonResponse(response)
 
 
