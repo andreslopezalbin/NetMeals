@@ -3,7 +3,7 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User, Permission
 from django.contrib.auth.models import Group
-from activities.models import Local, Activity, Dish
+from activities.models import Activity, Dish
 from users.models import Guest, Chef, Monitor, Manager, Plan
 from django.contrib.contenttypes.models import ContentType
 
@@ -18,7 +18,6 @@ class Command(BaseCommand):
 
         User.objects.all().delete()
         Activity.objects.all().delete()
-        Local.objects.all().delete()
         Dish.objects.all().delete()
 
         print('Dropping tables...OK')
@@ -189,28 +188,6 @@ class Command(BaseCommand):
         activity2.assistants.add(guest1)
 
         print('Activities... ok')
-        # ==================================================================================================
-        # ==================================================================================================
-
-        local1 = Local(
-            name='local1',
-            description='description',
-            address='address1',
-            latitude=10.00,
-            longitude=12.00,
-            manager=manager1)
-        local1.save()
-
-        local2 = Local(
-            name='local2',
-            description='description',
-            address='address2',
-            latitude=10.00,
-            longitude=12.00,
-            manager=manager2)
-        local2.save()
-
-        print('Locals... Ok')
 
         # ==================================================================================================
         #  Dish

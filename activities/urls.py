@@ -5,7 +5,7 @@ from activities.views.activity_view import ListAllActivityView, ActivityDetailVi
     ListSubscribedActivitiesView, ActivityUnsubscriptionView
 from activities.views.monitor_activity_view import CreateActivityView, ListActivityView, DeleteActivityView, \
     CreateActivityPeriodicallyView
-from activities.views.dish_view import findall, findmine, edit_dish, details, schedule, delete
+from activities.views.dish_view import findall, findmine, create, edit, details, schedule, delete
 
 urlpatterns = [
     # Users URLs ----------------------------------------------------------------------
@@ -24,10 +24,10 @@ urlpatterns = [
     # Dish --------------------------------------------------------------------------
     url(r'^dish/findall$', findall, name='all_dishes'),
     url(r'^dish/mydishes$', findmine, name='my_dishes'),
-    url(r'^dish/new$', edit_dish, name='new_dish'),
-    url(r'^dish/mydishes$', findmine, name='my_dishes'),
-    url(r'^dish/details/(?P<dish_id>[0-9]+)$', details, name='dish_details'),
-    url(r'^dish/delete/(?P<dish_id>[0-9]+)$', delete, name='dish_delete'),
+    url(r'^dish/new$', create, name='new_dish'),
+    url(r'^dish/details/(?P<dish_id>[0-9]+)$', details, name='details_dish'),
+    url(r'^dish/edit/(?P<dish_id>[0-9]+)$', edit, name='edit_dish'),
+    url(r'^dish/delete/(?P<dish_id>[0-9]+)$', delete, name='delete_dish'),
     url(r'^dish/schedule$', schedule, name='schedule'),
 
 

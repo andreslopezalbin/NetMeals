@@ -47,14 +47,6 @@ class Dish(models.Model):
         super(Dish, self).save(*args, **kwargs)
 
 
-
-class Feedback(core_models.Feedback):
-    dish = models.ForeignKey(Dish)
-
-    def __str__(self):
-        return self.actor.get_username() + ':' + self.comment + ':' + self.dish
-
-
 class Activity(models.Model):
     name = models.TextField(max_length=70)
     short_description = models.TextField(max_length=140)
@@ -90,19 +82,15 @@ class ActivityTime(models.Model):
         return self.activity.name + ':' + self.date
 
 
-class Local(models.Model):
-    name = models.TextField(max_length=30)
-    description = models.TextField(max_length=250)
-    address = models.TextField(max_length=250)
-    latitude = models.DecimalField(max_digits=9, decimal_places=6)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    manager = models.ForeignKey(Manager)
+class DishFeedback(core_models.Feedback):
+    dish = models.ForeignKey(Dish)
+
+    def __str__(self):
+        return self.actor.get_username() + ':' + self.comment + ':' + self.dish
 
 
-class Event(models.Model):
-    transaction_uid = models.TextField(max_length=50)
-    date = models.DateField()
+class ActivityFeedback(core_models.Feedback):
+    activity = models.ForeignKey(Activity)
 
-    # Relationships
-    user = models.ForeignKey(Guest)
-    local = models.ForeignKey(Local)
+    def __str__(self):
+        return self.actor.get_username() + ':' + self.comment + ':' + self.activity

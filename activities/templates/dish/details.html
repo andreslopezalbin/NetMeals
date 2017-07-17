@@ -16,6 +16,7 @@
                             {{ dish.name }}
                             {% if dish.owner == request.user.guest.chef %}
                                 <a class="btn btn-primary delete" href="#">{% trans "Delete" %}</a>
+                                <a class="btn btn-primary edit" href="{% url 'edit_dish' dish_id=dish.id %}">{% trans "Edit" %}</a>
                             {% endif %}
                         </h2>
 
@@ -179,7 +180,7 @@
                     },
                     function (isConfirm) {
                         if (isConfirm) {
-                            location.replace("{% url 'dish_delete' dish_id=dish.id %}")
+                            location.replace("{% url 'delete_dish' dish_id=dish.id %}")
                         }
                     });
         };

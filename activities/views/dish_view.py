@@ -1,9 +1,12 @@
+from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.shortcuts import render, redirect
 from activities.forms.DishForm import DishForm
 from activities.models import Dish
 import json
 from datetime import date
 from django.core.exceptions import ObjectDoesNotExist
+
 
 def findall(request):
     if request.method == "GET":
@@ -67,23 +70,56 @@ def delete(request, dish_id):
         return render(request, '../templates/dish/list.html', context)
 
 
+@login_required
+@transaction.atomic
+def create(request):
+    if request.user.groups.filter(name='Chef').exists():
+        if request.method == "POST":
+            form = DishForm(request.POST)
+            if form.is_valid():
+                dish = form.create(request)
+                dish.save()
 
-def edit_dish(request):
-    if request.method == "POST":
-        form = DishForm(request.POST)
-        if form.is_valid():
-            dish = form.create(request)
-            dish.save()
-
-            return redirect("my_dishes")
+                return redirect("my_dishes")
+            else:
+                context = {
+                    'form': form,
+                }
         else:
+            form = DishForm()
             context = {
                 'form': form,
             }
+        return render(request, 'dish/edit.html', context)
     else:
-        form = DishForm()
-        context = {
-            'form': form,
-        }
-    return render(request, 'dish/edit.html', context)
+        return render(request, '../../core/templates/no_permission.html')
 
+
+@transaction.atomic
+@login_required()
+def edit(request, dish_id):
+    if request.user.groups.filter(name='Chef').exists():
+        dish = Dish.objects.get(id=dish_id)
+        if dish.date > date.today() and len(dish.assistants.all()) == 0:
+            if request.method == "POST":
+                form = DishForm(data=request.POST, instance=dish, prefix='dish')
+                if form.is_valid():
+                    dish = form.create(request)
+                    dish.save()
+
+                    return redirect("my_dishes")
+                else:
+                    context = {
+                        'form': form,
+                    }
+            else:
+                form = DishForm(instance=dish, prefix='dish')
+                context = {
+                    'form': form,
+                }
+            return render(request, 'dish/edit.html', context)
+        else:
+            return render(request, '../../core/templates/no_permission.html')
+
+    else:
+        return render(request, '../../core/templates/no_permission.html')

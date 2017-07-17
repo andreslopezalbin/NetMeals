@@ -1,12 +1,16 @@
 from __future__ import unicode_literals
 
+from statistics import mode
+
 from django.db import models
 from django.contrib.auth.models import User
 
 
 # Create your models here.
 class Guest(User):
-    avatar = models.URLField(default='/images/profilePicture.jpg')
+    avatar = models.ImageField(upload_to='media/', null=True, blank=True, default='/images/profilePicture.jpg')
+    birthday = models.DateField(null=True, blank=True)
+    phone = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.get_username()

@@ -35,9 +35,16 @@ class RegistrationView(View):  # Vista de la Registracion basada en vistas de Dj
             return render(request, 'registerGuest.html', context)
 
 
-class Profile(View):
+class EditProfile(View):
     def get(self, request):
         context = {
 
         }
-        return render(request, 'edit_profile.html', context)
+        return render(request, 'profile/edit_profile.html', context)
+
+
+def view_profile(request):
+    if request.method == "GET":
+        context = {
+        }
+        return render(request, 'profile/profile.html', context)
