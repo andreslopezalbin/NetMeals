@@ -161,9 +161,9 @@ def create_payment(importe, description):
     return result
 
 
-def execute_payment(payment_id, payer_id):
+def execute_payment(paypal_payment_id, payer_id):
     result = None
-    payment = Payment.find(payment_id)
+    payment = Payment.find(paypal_payment_id)
     if payment is not None:
         # PayerID is required to approve the payment.
         if payment.execute({"payer_id": payer_id}):  # return True or False

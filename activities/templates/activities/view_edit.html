@@ -1,6 +1,8 @@
 {% extends 'masterpage/masterpage.html' %}
 {% load staticfiles %}
 {% load crispy_forms_tags %}
+{% load i18n %}
+{% load l10n %}
 {% crispy form form.helper %}
 {% load activities_extra %}
 
@@ -53,21 +55,28 @@
         </div>
         {%  crispy form %}
         <div id="map"></div>
-        {% if is_edit or is_new %}
-		    <button type="submit" class="btn btn-primary activity-submit">Submit</button>
-            {% if not is_new %}
+        {% if request.user|is_activity_owner:activity_id %}
+            {% if is_edit or is_new %}
+                <button type="submit" class="btn btn-primary activity-submit">Submit</button>
+                {% if not is_new %}
+                    <button type="button" class="btn btn-primary activity-remove" data-id="{{ activity_id }}">Remove</button>
+                {% endif %}
+            {% else %}
+                <button type="button" class="btn btn-primary activity-edit">Edit</button>
                 <button type="button" class="btn btn-primary activity-remove" data-id="{{ activity_id }}">Remove</button>
             {% endif %}
-        {% else %}
-            <button type="button" class="btn btn-primary activity-edit">Edit</button>
-            <button type="button" class="btn btn-primary activity-remove" data-id="{{ activity_id }}">Remove</button>
         {% endif %}
 	</form>
     {% if user.is_authenticated and not request.user|is_activity_owner:activity_id and activity_id %}
         {% if request.user|is_subscribed:activity_id  %}
-            <a class="btn btn-primary activity-unsubscribe">Unsubscribe</a>
+            <a id="activity-unsubscribe" class="btn btn-primary unsubscribe" href="#">
+                <span>Unsubscribe</span>
+            </a>
         {% else %}
-            <a class="btn btn-primary activity-subscribe">Subscribe!</a>
+            <a id="activity-subscribe" class="btn btn-primary subscribe" href="#">
+                <span>Subscribe!</span>
+                <div id="subscribe"></div>
+            </a>
         {% endif %}
     {% endif %}
 
@@ -94,16 +103,66 @@
         window.open(url, "_self");
     });
 
-
-    $(".activity-unsubscribe").click(function () {
-        var url = '{% url "activity_unsubscribe" activity_id %}';
-        window.open(url, "_self");
+    $("#activity-unsubscribe").click(function(){
+        activityUnsubscribe("{% url "activity_unsubscribe" activity_id %}");
     });
 
-    $(".activity-subscribe").click(function () {
-        var url = '{% url "activity_subscribe" activity_id %}';
-        window.open(url, "_self");
+    paypalButton("#activity-subscribe", {{ activity.price_per_person|unlocalize }}, "{{ activity.name }}", {{ activity_id }}, "activity", function(){
+        activitySubscribe("{% url "activity_subscribe" activity_id %}");
     });
+
+    function activitySubscribe(url){
+            $.ajax({
+            method: "POST",
+            url: url,
+            data : {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
+            success: function(res){
+                swal(
+                    {
+                        title: "Good job!",
+                        text: "Now you are subscribed!",
+                        type:"success"
+                    }
+                    , function(){
+                    location.reload();
+                });
+            },
+            error: function(xhr){
+                alert("An error occured: " + xhr.status + " " + xhr.statusText);
+            }});
+        }
+
+        function activityUnsubscribe(url){
+            swal(
+                {
+                    title: "Are you sure?",
+                    text: "You will unsubscribe this activity!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, unsubscribe it!",
+                    cancelButtonText: "Cancel",
+                    closeOnConfirm: false
+                }, function() {
+                    $.ajax({
+                        method: "POST",
+                        url: url,
+                        data: {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
+                        success: function (res) {
+                            swal({
+                                title: "Good Job!",
+                                text: "Now you are unsubscribed!",
+                                type: "success",
+                            }, function () {
+                                location.reload();
+                            });
+                        },
+                        error: function (xhr) {
+                            alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                        }
+                    });
+                });
+        }
 
     {% endif %}
 

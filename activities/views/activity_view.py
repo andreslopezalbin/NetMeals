@@ -1,20 +1,15 @@
 import datetime
 from urllib.parse import urlparse
 
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect, request
-from django.shortcuts import render, redirect
-from django.utils.decorators import method_decorator
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.views import View
-from django.views.generic import DetailView
-from django.views.generic import FormView
 from  django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
-from django.core.urlresolvers import resolve, reverse
 
 from activities.forms.ActivityForm import ActivityForm
 from activities.models import Activity
+from activities.services import activity_service
 from core.util import session_utils
 from users.models import Guest
 from core.util.session_constants import *
@@ -31,7 +26,8 @@ class ActivityDetailView(View):
             'form': form,
             'is_edit': False,
             'activity_id': activity.id,
-            'activity_photo': activity_photo
+            'activity_photo': activity_photo,
+            'activity': activity
         }
 
         session_utils.set_context_with_activity_session(self.request.session, context)
@@ -40,34 +36,21 @@ class ActivityDetailView(View):
 
 class ActivitySubscriptionView(View):
 
-    def get(self, request, activity_id):
-        activity = get_object_or_404(Activity, id=activity_id)
-
-        guest = Guest.objects.get(id=request.user.id)
-
-        if(activity.owner_id != request.user.id):
-            activity.assistants.add(guest)
-
+    def post(self, request, activity_id):
+        activity_service.subscribe(activity_id, request)
         result_url = "/"
-        if(request.META.get('HTTP_REFERER') is not None):
-            result_url =  urlparse(request.META.get('HTTP_REFERER')).path
-            request.session[SESSION_SUBSCRIPTION_SUCCEEDED] = True
+        if (request.META.get('HTTP_REFERER') is not None):
+            result_url = urlparse(request.META.get('HTTP_REFERER')).path
 
         return HttpResponseRedirect(result_url)
 
-
 class ActivityUnsubscriptionView(View):
 
-    def get(self, request, activity_id):
-        activity = get_object_or_404(Activity, id=activity_id)
-
-        guest = Guest.objects.get(id=request.user.id)
-        activity.assistants.remove(guest)
-
+    def post(self, request, activity_id):
+        activity_service.unsubscribe(activity_id, request)
         result_url = "/"
         if(request.META.get('HTTP_REFERER') is not None):
             result_url = urlparse(request.META.get('HTTP_REFERER')).path
-            request.session[SESSION_UNSUBSCRIPTION_SUCCEEDED] = True
 
         return HttpResponseRedirect(result_url)
 

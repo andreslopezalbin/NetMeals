@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
 
+from activities.services import activity_service
+from activities.services import dish_service
+from core.models import IncomingPayment
+from core.services import incoming_payments_service
 from core.services import paypal_service
 from users.util.users_util import *
 
@@ -43,21 +47,29 @@ def paypal_test(request):
 def paypal_create_payment(request):
     response = {}
     if request.method == "POST":
-        importe = request.POST['importe']
+        amount = request.POST['amount']
         description = request.POST['description']
-        payment_id = paypal_service.create_payment(importe, description)
-        if(payment_id is not None):
-            response = {"payment_id" : payment_id}
+        event_id = request.POST['eventId']
+        event_type = request.POST['eventType']
+        paypal_payment_id = paypal_service.create_payment(amount, description)
+        if(paypal_payment_id is not None):
+            incoming_payment = incoming_payments_service.create_incoming_payment(amount, event_id, event_type, request.user, paypal_payment_id)
+            incoming_payment.save()
+
+            response = {"paypal_payment_id" : paypal_payment_id}
+
     return JsonResponse(response)
 
 def paypal_execute_payment(request):
     response = {}
     if request.method == "POST":
-        payment_id = request.POST['paymentID']
+        paypal_payment_id = request.POST['paymentID']
         payer_id = request.POST['payerID']
-        is_executed = paypal_service.execute_payment(payment_id, payer_id)
+        is_executed = paypal_service.execute_payment(paypal_payment_id, payer_id)
         if(is_executed):
-            response = {"payment_id" : payment_id,
+            incoming_payment = incoming_payments_service.update_executed_payment(paypal_payment_id)
+
+            response = {"payment_id" : paypal_payment_id,
                         "executed" : is_executed}
     return JsonResponse(response)
 

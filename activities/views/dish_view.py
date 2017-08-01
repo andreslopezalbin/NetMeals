@@ -1,9 +1,19 @@
-from django.shortcuts import render, redirect
+from urllib.parse import urlparse
+
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views import View
+
 from activities.forms.DishForm import DishForm
 from activities.models import Dish
 import json
 from datetime import date
 from django.core.exceptions import ObjectDoesNotExist
+
+from activities.services import dish_service
+from core.util.session_constants import SESSION_UNSUBSCRIPTION_SUCCEEDED
+from users.models import Guest
+
 
 def findall(request):
     if request.method == "GET":
@@ -87,3 +97,23 @@ def edit_dish(request):
         }
     return render(request, 'dish/edit.html', context)
 
+
+class DishSubscriptionView(View):
+
+    def post(self, request, dish_id):
+        dish_service.subscribe(dish_id, request)
+        result_url = "/"
+        if (request.META.get('HTTP_REFERER') is not None):
+            result_url = urlparse(request.META.get('HTTP_REFERER')).path
+
+        return HttpResponseRedirect(result_url)
+
+class DishUnsubscriptionView(View):
+
+    def post(self, request, dish_id):
+        dish_service.unsubscribe(dish_id, request)
+        result_url = "/"
+        if(request.META.get('HTTP_REFERER') is not None):
+            result_url = urlparse(request.META.get('HTTP_REFERER')).path
+
+        return HttpResponseRedirect(result_url)

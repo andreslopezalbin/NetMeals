@@ -3,6 +3,8 @@
 {% load crispy_forms_tags %}
 {% crispy form form.helper %}
 {% load i18n %}
+{% load l10n %}
+{% load dishes_extra %}
 {% block title %}Dish Details{% endblock %}
 {% block content %}
 
@@ -79,7 +81,19 @@
                                 </ul>
 
                                 <div class="text-center">
-                                    <br> <a class="btn btn-primary subscribe" href="#">Subscribe!</a>
+                                    <br>
+                                    {% if user.is_authenticated and not request.user|is_dish_owner:dish.id %}
+                                        {% if request.user|is_subscribed:dish.id  %}
+                                            <a id="dish-unsubscribe" class="btn btn-primary unsubscribe" href="#">
+                                                <span>Unsubscribe</span>
+                                            </a>
+                                        {% else %}
+                                            <a id="dish-subscribe" class="btn btn-primary subscribe" href="#">
+                                                <span>Subscribe!</span>
+                                                <div id="subscribe"></div>
+                                            </a>
+                                        {% endif %}
+                                    {% endif %}
                                 </div>
 
                             </div>
@@ -151,7 +165,6 @@
     </div>
 
     <script>
-
         $(document).ready(function () {
             if ("{{delete_error}}") {
                 swal("{% trans "Well, this is embarrassing" %}", "{% trans "Something went wrong!" %}", "error");
@@ -160,10 +173,13 @@
             }
         });
 
-        document.querySelector('a.btn.btn-primary.subscribe').onclick = function () {
-            swal("Good job!", "Now you are subscribed!", "success");
+        $("#dish-unsubscribe").click(function(){
+            dishUnsubscribe("{% url "dish_unsubscribe" dish.id %}");
+        });
 
-        };
+        paypalButton(subscribe, {{ dish.contribution|unlocalize }}, "{{ dish.name }}", {{ dish.id }}, "dish", function(){
+            dishSubscribe("{% url "dish_subscribe" dish.id %}");
+        });
 
         document.querySelector('a.btn.btn-primary.delete').onclick = function () {
             swal({
@@ -183,5 +199,58 @@
                         }
                     });
         };
+
+        function dishSubscribe(url){
+            $.ajax({
+            method: "POST",
+            url: url,
+            data : {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
+            success: function(res){
+                swal(
+                    {
+                        title: "Good job!",
+                        text: "Now you are subscribed!",
+                        type:"success"
+                    }
+                    , function(){
+                    location.reload();
+                });
+            },
+            error: function(xhr){
+                alert("An error occured: " + xhr.status + " " + xhr.statusText);
+            }});
+        }
+
+        function dishUnsubscribe(url){
+            swal(
+                {
+                    title: "Are you sure?",
+                    text: "You will unsubscribe this dish!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, unsubscribe it!",
+                    cancelButtonText: "Cancel",
+                    closeOnConfirm: false
+                }, function() {
+                    $.ajax({
+                        method: "POST",
+                        url: url,
+                        data: {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
+                        success: function (res) {
+                            swal({
+                                title: "Good Job!",
+                                text: "Now you are unsubscribed!",
+                                type: "success",
+                            }, function () {
+                                location.reload();
+                            });
+                        },
+                        error: function (xhr) {
+                            alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                        }
+                    });
+                });
+        }
     </script>
 {% endblock %}

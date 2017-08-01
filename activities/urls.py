@@ -5,7 +5,8 @@ from activities.views.activity_view import ListAllActivityView, ActivityDetailVi
     ListSubscribedActivitiesView, ActivityUnsubscriptionView
 from activities.views.monitor_activity_view import CreateActivityView, ListActivityView, DeleteActivityView, \
     CreateActivityPeriodicallyView
-from activities.views.dish_view import findall, findmine, edit_dish, details, schedule, delete
+from activities.views.dish_view import findall, findmine, edit_dish, details, schedule, delete, DishUnsubscriptionView, \
+    DishSubscriptionView
 
 urlpatterns = [
     # Users URLs ----------------------------------------------------------------------
@@ -29,6 +30,8 @@ urlpatterns = [
     url(r'^dish/details/(?P<dish_id>[0-9]+)$', details, name='dish_details'),
     url(r'^dish/delete/(?P<dish_id>[0-9]+)$', delete, name='dish_delete'),
     url(r'^dish/schedule$', schedule, name='schedule'),
+    url(r'^dish/(?P<dish_id>\d+)/subscribe', login_required(DishSubscriptionView.as_view()), name='dish_subscribe'),
+    url(r'^dish/(?P<dish_id>\d+)/unsubscribe', login_required(DishUnsubscriptionView.as_view()), name='dish_unsubscribe'),
 
 
 ]

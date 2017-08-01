@@ -121,7 +121,7 @@ function csrfSafeMethod(method) {
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 
-function paypalButton(elementId, importe, description){
+function paypalButton(elementId, amount, description, eventId, eventType, functionAfterExecutePayment){
     var CREATE_PAYMENT_URL  = 'http://192.168.1.99:8000/paypal/create-payment';
     var EXECUTE_PAYMENT_URL = 'http://192.168.1.99:8000/paypal/execute-payment';
 
@@ -129,13 +129,21 @@ function paypalButton(elementId, importe, description){
 
         env: 'sandbox', // Or 'sandbox'
 
-        commit: true, // Show a 'Pay Now' button
+        commit: false, // Show a 'Pay Now' button
 
         payment: function() {
-            return paypal.request.post(CREATE_PAYMENT_URL, {importe: importe, description: description, csrfmiddlewaretoken: getCookieValue("csrftoken")}).then(function(data) {
-                console.log(data.payment_id);
-                if(data.payment_id != null) {
-                    return data.payment_id;
+            return paypal.request.post(CREATE_PAYMENT_URL,
+                {
+                    amount: amount,
+                    description: description,
+                    csrfmiddlewaretoken: getCookieValue("csrftoken"),
+                    eventId: eventId,
+                    eventType: eventType
+                }
+            ).then(function(data) {
+                console.log(data.paypal_payment_id);
+                if(data.paypal_payment_id != null) {
+                    return data.paypal_payment_id;
                 }else{
                     alert("Error al crear el pago");
                 }
@@ -148,9 +156,12 @@ function paypalButton(elementId, importe, description){
                 paymentID: data.paymentID,
                 payerID:   data.payerID
             }).then(function() {
-                console.log("Payment Executed!!!")
-                // The payment is complete!
-                // You can now show a confirmation message to the customer
+                console.log("Payment Executed!!!");
+                try{
+                    functionAfterExecutePayment();
+                }catch(e){
+                    console.log(e);
+                }
             });
         }
 

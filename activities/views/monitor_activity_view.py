@@ -14,7 +14,7 @@ from  django.views.generic.list import ListView
 
 from activities.forms.ActivityForm import ActivityForm
 from activities.models import Activity, ActivityTime
-from activities.services import ActivityService
+from activities.services import activity_service
 from django.shortcuts import get_object_or_404
 
 from core.util import session_utils
@@ -69,17 +69,17 @@ class CreateActivityView(View):
                     context = {
                         'form': form
                     }
-                    ActivityService.save(activity)
+                    activity_service.save(activity)
                     request.session[SESSION_ACTIVITY_PENDING] = activity.id
                     return render(request, 'activities/new_periodically.html', context)
                 else:
                     is_new = True
-                    ActivityService.save(activity)
+                    activity_service.save(activity)
                     success_msg = 'Activity saved successfully'
                     request.session[SESSION_ACTIVITY_CREATED_SUCCEEDED] = True
             else:
                 is_edit = True
-                ActivityService.update(activity)
+                activity_service.update(activity)
                 success_msg = 'Activity updated successfully'
                 request.session[SESSION_ACTIVITY_MOD_SUCCEEDED] = True
         else:
@@ -123,7 +123,7 @@ class CreateActivityPeriodicallyView(View):
             start_hour = request.POST.get('start_hour')
             end_hour = request.POST.get('end_hour')
 
-            days = ActivityService.datesBeween(start_date, end_date, week_days)
+            days = activity_service.datesBeween(start_date, end_date, week_days)
             for day in days:
                 activity_time = ActivityTime()
                 activity_time.date = day
