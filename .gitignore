@@ -3,3 +3,4 @@
 core/migrations
 activities/migrations
 users/migrations
+media

@@ -5,7 +5,7 @@ from users.views.GuestViews import RegistrationView
 from django.contrib.auth.views import login, logout
 from users.views.SignupViews import SignupView
 from users.views.AddRoleView import AddRoleView
-from users.views.GuestViews import Profile
+from users.views.GuestViews import edit_profile, view_profile
 
 urlpatterns = [
     url(r'^signup$', SignupView.as_view(), name='signup'),
@@ -13,5 +13,6 @@ urlpatterns = [
 
     url(r'^login$', login, {'template_name': '../templates/login.html'}, name="login"),
     url(r'^logout$', logout, {'next_page': '/'}, name="logout"),
-    url(r'^profile', Profile.as_view(), name='profile'),
+    url(r'^profile/edit$', edit_profile, name='profile_edit'),
+    url(r'^profile$', view_profile, name='profile'),
 ]

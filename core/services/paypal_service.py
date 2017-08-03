@@ -2,6 +2,7 @@ import paypalrestsdk
 from paypalrestsdk import BillingAgreement
 from paypalrestsdk import BillingPlan
 from paypalrestsdk import Payment
+from paypalrestsdk import Sale
 
 token = 'access_token$sandbox$s4xv6j5c5hgh3jbw$b6e7603b2a57c2c6915ac51969d330b5'
 CLIENT_ID = 'AS6PPPNw9w6jyG1ln2LLyy-aeJNk2yxuD7DEsBLbrUqhOv_fhTRT1hCVfDo67hJnQaVwYiM5mTAb4_hQ'
@@ -170,3 +171,19 @@ def execute_payment(paypal_payment_id, payer_id):
             result = True
 
     return result
+
+
+def execute_refound(sales_id):
+    sale = Sale.find(sales_id)
+
+    refund = sale.refund({
+      "amount": {
+        "total": "1.31",
+        "currency": "USD"
+      }
+    })
+
+    if refund.success():
+        print("Refund[%s] Success" % refund.id)
+    else:
+        print(refund.error)

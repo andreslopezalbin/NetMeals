@@ -73,33 +73,24 @@
                             {% if user.is_anonymous %}
                                 <ul class="navbar-nav">
                                     <li class="nav-item dropdown">
-                                        <button type="button" class="btn btn-primary waves-effect waves-light"
-                                                data-toggle="modal"
-                                                data-target="#modalLogin">{% trans "Log in" %}</button>
+                                        <a class=" dropdown-item"
+                                           data-toggle="modal"
+                                           data-target="#modalLogin">{% trans "Log in" %}</a>
+                                        <a class=" dropdown-item"
+                                           href="{% url "signup" %}">{% trans "Signup" %}</a>
                                     </li>
                                 </ul>
-                                <ul class="navbar-nav">
-                                    <li class="nav-item dropdown">
-                                        <form class="my-2 my-lg-0" action="{% url "signup" %}" method="get">
-                                            <button id="signup-button" type="submit"
-                                                    class="btn btn-outline-success my-2 my-sm-0">{% trans "Signup" %}
-                                            </button>
-                                        </form>
-                                    </li>
-                                </ul>
+
                             {% endif %}
 
                             {% if user.is_authenticated %}
                                 <ul class="navbar-nav">
                                     <li class="nav-item dropdown">
                                         <span class="navbar-text username-menu">{% trans 'Hello ' %} {{ user.get_username }}!</span>
-                                        <form class="my-2 my-lg-0" id="singout-form" action="{% url "logout" %}"
-                                              method="post">
-                                            {% csrf_token %}
-                                            <button id="signup-button" type="submit"
-                                                    class="btn btn-outline-success my-2 my-sm-0">{% trans "Signout" %}
-                                            </button>
-                                        </form>
+                                        <a class="dropdown-item" href="{% url "logout" %}">{% trans 'Signout' %}</a>
+                                        <a class="dropdown-item" href="{% url "profile" %}">{% trans 'Profile' %}</a>
+                                        <a class="dropdown-item" href="{% url "profile_edit" %}">{% trans 'Edit Profile' %}</a>
+
                                     </li>
                                 </ul>
                             {% endif %}
