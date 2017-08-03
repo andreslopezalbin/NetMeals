@@ -173,7 +173,7 @@ def execute_payment(payment_id, payer_id):
     return result
 
 
-def execute_refound( sales_id):
+def execute_refound(sales_id):
     sale = Sale.find(sales_id)
 
     refund = sale.refund({

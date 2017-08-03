@@ -64,7 +64,6 @@ class Command(BaseCommand):
             username='guest1',
             email='guest1@guest1.com',
             first_name='guest1',
-            avatar='/images/user1.ico',
         )
         guest1.set_password('guest1')
         guest1.save()

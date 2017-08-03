@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Guest(User):
-    avatar = models.ImageField(upload_to='media/', null=True, blank=True, default='/images/profilePicture.jpg')
+    photo = models.ImageField(upload_to='media/', null=True, blank=True)
     birthday = models.DateField(null=True, blank=True)
     phone = models.IntegerField(null=True, blank=True)
 

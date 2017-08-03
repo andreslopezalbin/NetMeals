@@ -83,12 +83,12 @@ def create(request):
                 return redirect("my_dishes")
             else:
                 context = {
-                    'form': form,
+                    'form': form, 'create': True
                 }
         else:
             form = DishForm()
             context = {
-                'form': form,
+                'form': form, 'create': True
             }
         return render(request, 'dish/edit.html', context)
     else:
