@@ -178,7 +178,7 @@
             dishUnsubscribe("{% url "dish_unsubscribe" dish.id %}");
         });
 
-        paypalButton(subscribe, {{ dish.contribution|unlocalize }}, "{{ dish.name }}", {{ dish.id }}, "dish", function(){
+        paypalButton("#subscribe", {{ dish.contribution|unlocalize }}, "{{ dish.name }}", {{ dish.id }}, "dish", function(){
             dishSubscribe("{% url "dish_subscribe" dish.id %}");
         });
 

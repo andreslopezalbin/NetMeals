@@ -122,8 +122,10 @@ function csrfSafeMethod(method) {
 }
 
 function paypalButton(elementId, amount, description, eventId, eventType, functionAfterExecutePayment){
-    var CREATE_PAYMENT_URL  = 'http://192.168.1.99:8000/paypal/create-payment';
-    var EXECUTE_PAYMENT_URL = 'http://192.168.1.99:8000/paypal/execute-payment';
+   var host = window.location.href.split('/').slice(0, 3).join('/');
+
+    var CREATE_PAYMENT_URL  = host + '/paypal/create-payment';
+    var EXECUTE_PAYMENT_URL = host + '/paypal/execute-payment';
 
     paypal.Button.render({
 
