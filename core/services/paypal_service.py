@@ -9,9 +9,10 @@ CLIENT_ID = 'AS6PPPNw9w6jyG1ln2LLyy-aeJNk2yxuD7DEsBLbrUqhOv_fhTRT1hCVfDo67hJnQaV
 SECRET = 'EEQF5Alt6vA9i09irdnDmMIFFMpITieZj3y_4VN6P5mMN_5hElDQkw54OptPqWjHJg-jCQ2r4kiy9nzW'
 
 paypalrestsdk.configure({
-  "mode": "sandbox", # sandbox or live
-  "client_id": CLIENT_ID,
-  "client_secret": SECRET })
+    "mode": "sandbox",  # sandbox or live
+    "client_id": CLIENT_ID,
+    "client_secret": SECRET})
+
 
 def create_billing_plan():
     result = None
@@ -96,6 +97,7 @@ def create_billing_agreement(plan_id):
 
     return result
 
+
 def create_payment(importe, description):
     result = None
     payment = Payment({
@@ -130,7 +132,7 @@ def create_payment(importe, description):
                             "name": "\"" + description + "\"",
                             # "description": "Brown hat.",
                             "quantity": "1",
-                            "price": importe ,
+                            "price": importe,
                             # "tax": "0.01",
                             # "sku": "1",
                             "currency": "EUR"
@@ -173,14 +175,18 @@ def execute_payment(paypal_payment_id, payer_id):
     return result
 
 
-def execute_refound(sales_id):
-    sale = Sale.find(sales_id)
+def execute_refound(sale_id):
+    sale = Sale.find(sale_id)
+    currency = str(sale['amount']['currency'])
+
+    amount = float(sale['amount']['total'])
+    importe = 'u'(amount-amount*0.05)
 
     refund = sale.refund({
-      "amount": {
-        "total": "1.31",
-        "currency": "USD"
-      }
+        "amount": {
+            "total": importe,
+            "currency": currency
+        }
     })
 
     if refund.success():
