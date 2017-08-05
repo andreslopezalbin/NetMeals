@@ -9,4 +9,9 @@ urlpatterns = [
     url(r'^paypal$', views.paypal_test, name='paypal_test'),
     url(r'^paypal/create-payment$', views.paypal_create_payment, name='create_payment'),
     url(r'^paypal/execute-payment$', views.paypal_execute_payment, name='execute_payment'),
+
+    url(r'dashboard$', views.dashboard, name='dashboard'),
+    url(r'dashboard/users$', views.dashboard_users, name='users_dashboard')
+
+
 ]
