@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 from users.forms.GuestForms import SignUpForm
+from users.forms.ProfileForm import GuestForm
 from users.services import UserService
 
 
@@ -35,9 +37,29 @@ class RegistrationView(View):  # Vista de la Registracion basada en vistas de Dj
             return render(request, 'registerGuest.html', context)
 
 
-class Profile(View):
-    def get(self, request):
-        context = {
+@login_required
+@transaction.atomic
+def edit_profile(request):
+    guest = request.user.guest
+    if request.method == "POST":
+        form = GuestForm(data=request.POST, instance=guest, prefix='guest')
+        if form.is_valid():
+            form.save()
+            return redirect("profile")
+        else:
+            context = {
+                'guest_form': form,
+            }
+    else:
+        guest_form = GuestForm(instance=guest, prefix='guest')
+        context = {'guest_form': guest_form
 
+                   }
+    return render(request, 'profile/edit_profile.html', context)
+
+
+def view_profile(request):
+    if request.method == "GET":
+        context = {
         }
-        return render(request, 'edit_profile.html', context)
+        return render(request, 'profile/profile.html', context)

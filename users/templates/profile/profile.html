@@ -1,0 +1,131 @@
+{% extends 'masterpage/masterpage.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+    <style>
+        .author-box {
+            margin-bottom: 2rem;
+            padding: 3rem;
+            background-color: #fff;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12)
+        }
+
+
+    </style>
+    <div class="container-fluid col-lg-10 col-md-12">
+        <div class="author-box">
+            <!--Name-->
+            <h3 class="h3-responsive text-center">About author</h3>
+            <hr>
+            <div class="row">
+                <!--Avatar-->
+                <div class="col-12 col-sm-2">
+                    <img id="guest-avatar" class="img-fluid rounded-circle z-depth-2"
+                         src="{{ request.user.guest.avatar }}"
+                         onerror="this.src='{% static 'images/profilePicture.jpg' %}'"/>
+                </div>
+                <!--Author Data-->
+                <div class=" col-12 col-sm-10">
+                    <p><strong>John Doe</strong></p>
+                    <div class="personal-sm">
+                        <a class="email-ic"><i class="fa fa-home"> </i></a>
+                        <a class="fb-ic"><i class="fa fa-facebook"> </i></a>
+                        <a class="tw-ic"><i class="fa fa-twitter"> </i></a>
+                        <a class="gplus-ic"><i class="fa fa-google-plus"> </i></a>
+                        <a class="li-ic"><i class="fa fa-linkedin"> </i></a>
+                        <a class="email-ic"><i class="fa fa-envelope-o"> </i></a>
+                    </div>
+                    <p>Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+                    <p class="hidden-md-down">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint esse nulla
+                        quia
+                        quam veniam commodi dicta, iusto inventore. Voluptatum pariatur eveniet ea, officiis vitae
+                        praesentium beatae quas libero, esse facere.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <link rel="stylesheet" media="screen" href="{% static "materialize/rotating-card.css" %}"/>
+    <!--/.Author box-->
+    <div class="container body-cards">
+        <div class="row">
+            {% for i in 'xxx' %}
+
+                <div class="col-md-4 col-sm-12">
+                    <div class="card-container">
+                        <div class="card">
+                            <div class="front">
+                                <div class="cover">
+                                    <img src="images/rotating_card_thumb2.png"/>
+                                </div>
+                                <div class="user">
+                                    <img class="img-circle" src="images/rotating_card_profile3.png"/>
+                                </div>
+                                <div class="content">
+                                    <div class="main">
+                                        <h3 class="name">John Marvel</h3>
+                                        <p class="profession">CEO</p>
+                                        <p class="text-center">"I'm the new Sinatra, and since I made it here I can
+                                            make
+                                            it anywhere, yeah, they love me everywhere"</p>
+                                    </div>
+                                    <div class="footer">
+                                        <i class="fa fa-mail-forward"></i> Auto Rotation
+                                    </div>
+                                </div>
+                            </div> <!-- end front panel -->
+                            <div class="back">
+                                <div class="header">
+                                    <h5 class="motto">"To be or not to be, this is my awesome motto!"</h5>
+                                </div>
+                                <div class="content">
+                                    <div class="main">
+                                        <h4 class="text-center">Job Description</h4>
+                                        <p class="text-center">Web design, Adobe Photoshop, HTML5, CSS3, Corel and
+                                            many
+                                            others...</p>
+
+                                        <div class="stats-container">
+                                            <div class="stats">
+                                                <h4>235</h4>
+                                                <p>
+                                                    Followers
+                                                </p>
+                                            </div>
+                                            <div class="stats">
+                                                <h4>114</h4>
+                                                <p>
+                                                    Following
+                                                </p>
+                                            </div>
+                                            <div class="stats">
+                                                <h4>35</h4>
+                                                <p>
+                                                    Projects
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="footer">
+                                    <div class="social-links text-center">
+                                        <a href="http://creative-tim.com" class="facebook"><i
+                                                class="fa fa-facebook fa-fw"></i></a>
+                                        <a href="http://creative-tim.com" class="google"><i
+                                                class="fa fa-google-plus fa-fw"></i></a>
+                                        <a href="http://creative-tim.com" class="twitter"><i
+                                                class="fa fa-twitter fa-fw"></i></a>
+                                    </div>
+                                </div>
+                            </div> <!-- end back panel -->
+                        </div> <!-- end card -->
+                    </div> <!-- end card-container -->
+                </div> <!-- end col sm 3 -->
+            {% endfor %}
+        </div> <!-- end row -->
+        <div class="space-200"></div>
+    </div>
+{% endblock content %}

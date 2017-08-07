@@ -3,8 +3,7 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User, Permission
 from django.contrib.auth.models import Group
-from activities.models import Local, Activity, Dish
-from core.services import paypal_service
+from activities.models import Activity, Dish
 from users.models import Guest, Chef, Monitor, Manager, Plan
 from django.contrib.contenttypes.models import ContentType
 
@@ -21,7 +20,6 @@ class Command(BaseCommand):
 
         User.objects.all().delete()
         Activity.objects.all().delete()
-        Local.objects.all().delete()
         Dish.objects.all().delete()
 
         print('Dropping tables...OK')
@@ -86,9 +84,21 @@ class Command(BaseCommand):
         # ==================================================================================================
         # ==================================================================================================
 
+        admin_2 = User(
+            username='admin2',
+            email='admin2@admin2.com',
+            date_joined='2016-9-5')
+        admin_2.set_password('admin2')
+        admin_2.is_staff = True
+        admin_2.is_superuser = True
+        admin_2.save()
+
+        print('Admins created...Ok')
+
         admin_admin = User(
             username='admin',
-            email='admin@admin.com')
+            email='admin@admin.com',
+            date_joined='2016-9-5')
         admin_admin.set_password('admin')
         admin_admin.is_staff = True
         admin_admin.is_superuser = True
@@ -103,7 +113,7 @@ class Command(BaseCommand):
             username='guest1',
             email='guest1@guest1.com',
             first_name='guest1',
-            avatar='/images/user1.ico'
+            date_joined='2016-10-5'
         )
         guest1.set_password('guest1')
         guest1.save()
@@ -112,12 +122,45 @@ class Command(BaseCommand):
         guest2 = Guest(
             username='guest2',
             email='guest2@guest2.com',
-            first_name='guest2'
+            first_name='guest2',
+            date_joined='2016-11-13'
         )
         guest2.set_password('guest2')
         guest2.save()
         guest2.groups.add(Group.objects.get(name='Guest'))
         print('Guests created...Ok')
+
+        guest3 = Guest(
+            username='guest3',
+            email='guest3@guest3.com',
+            first_name='guest3',
+            date_joined='2016-12-5'
+        )
+        guest3.set_password('guest3')
+        guest3.save()
+        guest3.groups.add(Group.objects.get(name='Guest'))
+
+        guest4 = Guest(
+            username='guest4',
+            email='guest4@guest4.com',
+            first_name='guest4',
+            date_joined='2017-1-5'
+        )
+        guest4.set_password('guest4')
+        guest4.save()
+        guest4.groups.add(Group.objects.get(name='Guest'))
+
+        guest5 = Guest(
+            username='guest5',
+            email='guest5@guest5.com',
+            first_name='guest5',
+            date_joined='2017-2-5'
+        )
+        guest5.set_password('guest5')
+        guest5.save()
+        guest5.groups.add(Group.objects.get(name='Guest'))
+
+
 
         # ==================================================================================================
         # ==================================================================================================
@@ -126,7 +169,7 @@ class Command(BaseCommand):
             username='chef1',
             email='chef1@chef1.com',
             first_name='chef1',
-            plan_id = free_plan.id
+            date_joined='2017-3-5'
         )
         chef1.set_password('chef1')
         chef1.save()
@@ -137,7 +180,7 @@ class Command(BaseCommand):
             username='chef2',
             email='chef2@chef2.com',
             first_name='chef2',
-            plan_id = premium_plan.id
+            date_joined='2017-4-5'
         )
         chef2.set_password('chef2')
         chef2.save()
@@ -153,7 +196,7 @@ class Command(BaseCommand):
             username='monitor1',
             email='monitor1@monitor1.com',
             first_name='monitor1',
-            plan_id = lite_plan.id
+            date_joined='2017-5-5'
         )
         monitor1.set_password('monitor1')
         monitor1.save()
@@ -164,7 +207,7 @@ class Command(BaseCommand):
             username='monitor2',
             email='monitor2@monitor2.com',
             first_name='monitor2',
-            plan_id = premium_plan.id
+            date_joined='2017-6-5'
         )
         monitor2.set_password('monitor2')
         monitor2.save()
@@ -180,7 +223,7 @@ class Command(BaseCommand):
             username='manager1',
             email='manager1@manager1.com',
             first_name='manager1',
-            plan_id = lite_plan.id
+            date_joined='2017-7-5'
         )
         manager1.set_password('manager1')
         manager1.save()
@@ -191,7 +234,7 @@ class Command(BaseCommand):
             username='manager2',
             email='manager1@manager2.com',
             first_name='manager2',
-            plan_id = premium_plan.id
+            date_joined='2017-8-5'
         )
         manager2.set_password('manager2')
         manager2.save()
@@ -233,28 +276,6 @@ class Command(BaseCommand):
         activity2.assistants.add(guest1)
 
         print('Activities... ok')
-        # ==================================================================================================
-        # ==================================================================================================
-
-        local1 = Local(
-            name='local1',
-            description='description',
-            address='address1',
-            latitude=10.00,
-            longitude=12.00,
-            manager=manager1)
-        local1.save()
-
-        local2 = Local(
-            name='local2',
-            description='description',
-            address='address2',
-            latitude=10.00,
-            longitude=12.00,
-            manager=manager2)
-        local2.save()
-
-        print('Locals... Ok')
 
         # ==================================================================================================
         #  Dish

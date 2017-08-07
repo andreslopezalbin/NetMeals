@@ -18,6 +18,7 @@
                             {{ dish.name }}
                             {% if dish.owner == request.user.guest.chef %}
                                 <a class="btn btn-primary delete" href="#">{% trans "Delete" %}</a>
+                                <a class="btn btn-primary edit" href="{% url 'edit_dish' dish_id=dish.id %}">{% trans "Edit" %}</a>
                             {% endif %}
                         </h2>
 
@@ -177,7 +178,7 @@
             dishUnsubscribe("{% url "dish_unsubscribe" dish.id %}");
         });
 
-        paypalButton(subscribe, {{ dish.contribution|unlocalize }}, "{{ dish.name }}", {{ dish.id }}, "dish", function(){
+        paypalButton("#subscribe", {{ dish.contribution|unlocalize }}, "{{ dish.name }}", {{ dish.id }}, "dish", function(){
             dishSubscribe("{% url "dish_subscribe" dish.id %}");
         });
 
@@ -195,7 +196,7 @@
                     },
                     function (isConfirm) {
                         if (isConfirm) {
-                            location.replace("{% url 'dish_delete' dish_id=dish.id %}")
+                            location.replace("{% url 'delete_dish' dish_id=dish.id %}")
                         }
                     });
         };

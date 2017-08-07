@@ -1,3 +1,6 @@
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.models import User
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib.auth.models import Group
 from django.db import transaction
 from django.shortcuts import render, redirect, render_to_response
@@ -19,6 +22,12 @@ from django.http.response import HttpResponseRedirect, JsonResponse
 from django.utils import translation
 
 from django.views.decorators.csrf import csrf_protect
+
+from django.db.models import Count
+from django.db.models.functions import TruncMonth
+from datetime import date
+import json
+
 
 # Create your views here.
 
@@ -136,3 +145,38 @@ def paypal_execute_payment(request):
     return JsonResponse(response)
 
 
+@staff_member_required
+def dashboard(request):
+    users_register = (User.objects
+                      .annotate(month=TruncMonth('date_joined'))  # Truncate to month and add to select list
+                      .values('month')  # Group By month
+                      .annotate(c=Count('id'))  # Select the count of the grouping
+                      .values('month', 'c')
+                      .order_by('month'))  # (might be redundant, haven't tested) select month and count)
+
+    meses = []
+    users = []
+    for m in users_register[len(users_register) - 12:]:
+        meses.append(m['month'].strftime("%B")[:3])
+        users.append(m['c'])
+
+    return render(request, 'dashboard/dashboard.html',
+                  {'users_register': users_register, 'meses': meses, 'users': users})
+
+
+@staff_member_required
+def dashboard_users(request):
+    user_list = User.objects.all()
+    paginator = Paginator(user_list, 5)  # Show 25 contacts per page
+
+    page = request.GET.get('page')
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        users = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        users = paginator.page(paginator.num_pages)
+
+    return render(request, 'dashboard/table.html', {'users': users})

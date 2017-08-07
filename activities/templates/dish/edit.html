@@ -7,7 +7,11 @@
 {% block title %}{% trans 'New Dish' %}{% endblock %}
 {% block content %}
     <div class="container">
-
+    {% if create %}
+        <h1>{% trans 'Create Dish' %}</h1>
+    {% else %}
+         <h1>{% trans 'Edit Dish' %}</h1>
+    {%endif  %}
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% crispy form %}

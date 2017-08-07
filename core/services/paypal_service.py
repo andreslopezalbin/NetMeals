@@ -4,9 +4,15 @@ import paypalrestsdk
 from paypalrestsdk import BillingAgreement
 from paypalrestsdk import BillingPlan
 from paypalrestsdk import Payment
-import socket
+from paypalrestsdk import Sale
 
 HOST = "http://192.168.1.99:8000/"
+# netmeals
+# token = 'access_token$sandbox$s4xv6j5c5hgh3jbw$b6e7603b2a57c2c6915ac51969d330b5'
+# CLIENT_ID = 'AcgW36TC9aM9kml9lrKX-_oze10ts4JGIYfsertYZ0DjfoyeqGBTYWVCWg5Cvc2vACl2FyQfASwY_ZPQ'
+# SECRET = 'EIoZfr6_3k7AxeeK0ysKaOA9SKLI4EeVo8JL6amppTnRQvj09mu_hvPZhJ2uufrX-74UyDo94nAkPvta'
+
+# Antonio
 token = 'access_token$sandbox$s4xv6j5c5hgh3jbw$b6e7603b2a57c2c6915ac51969d330b5'
 CLIENT_ID = 'AS6PPPNw9w6jyG1ln2LLyy-aeJNk2yxuD7DEsBLbrUqhOv_fhTRT1hCVfDo67hJnQaVwYiM5mTAb4_hQ'
 SECRET = 'EEQF5Alt6vA9i09irdnDmMIFFMpITieZj3y_4VN6P5mMN_5hElDQkw54OptPqWjHJg-jCQ2r4kiy9nzW'
@@ -195,7 +201,7 @@ def create_payment(importe, description):
                             "name": "\"" + description + "\"",
                             # "description": "Brown hat.",
                             "quantity": "1",
-                            "price": importe ,
+                            "price": importe,
                             # "tax": "0.01",
                             # "sku": "1",
                             "currency": "EUR"
@@ -239,3 +245,38 @@ def execute_payment(paypal_payment_id, payer_id):
                 result = None
 
     return result
+
+
+def execute_refound(sales_id):
+    sale = Sale.find("8TP02835YE0436714")
+    amount = float(sale['amount']['total'])
+    currency = str(sale['amount']['currency'])
+    refund = sale.refund({
+      "amount": {
+        "total": str(amount),
+        "currency": currency
+      }
+    })
+
+    if refund.success():
+        print("Refund[%s] Success" % refund.id)
+    else:
+        print(refund.error)
+
+# def execute_refound(sale_id):
+#     sale = Sale.find(sale_id)
+#     currency = str(sale['amount']['currency'])
+#
+#     amount = sale['amount']['total']
+#     # importe = (amount-amount*0.05)
+#
+#     refund = sale.refund({
+#         "amount": {
+#             "total": amount,
+#             "currency": currency
+#         }})
+#
+#     if refund.success():
+#         print("Refund[%s] Success" % refund.id)
+#     else:
+#         print(refund.error)
