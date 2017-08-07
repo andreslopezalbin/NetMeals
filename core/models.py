@@ -10,7 +10,7 @@ from users.models import Guest
 class Feedback(models.Model):
     score = models.PositiveSmallIntegerField()
     comment = models.CharField(max_length=140)
-    actor = models.ForeignKey(Guest)
+    actor = models.ForeignKey(Guest) #Comentador
 
     class Meta:
         abstract = True

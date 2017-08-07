@@ -137,6 +137,10 @@
     </nav>
     <!--/.Navbar-->
 
+   {% if user.is_superuser %}
+        <meta http-equiv="REFRESH" content="0;url={% url "dashboard" %}">
+   {% endif %}
+
     {% if user.is_anonymous %}
         <!--Modal: Login Form-->
         <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
