@@ -1,28 +1,88 @@
+import datetime
+
 import paypalrestsdk
 from paypalrestsdk import BillingAgreement
 from paypalrestsdk import BillingPlan
 from paypalrestsdk import Payment
+import socket
 
+HOST = "http://192.168.1.99:8000/"
 token = 'access_token$sandbox$s4xv6j5c5hgh3jbw$b6e7603b2a57c2c6915ac51969d330b5'
 CLIENT_ID = 'AS6PPPNw9w6jyG1ln2LLyy-aeJNk2yxuD7DEsBLbrUqhOv_fhTRT1hCVfDo67hJnQaVwYiM5mTAb4_hQ'
 SECRET = 'EEQF5Alt6vA9i09irdnDmMIFFMpITieZj3y_4VN6P5mMN_5hElDQkw54OptPqWjHJg-jCQ2r4kiy9nzW'
+
 
 paypalrestsdk.configure({
   "mode": "sandbox", # sandbox or live
   "client_id": CLIENT_ID,
   "client_secret": SECRET })
 
-def create_billing_plan():
+def create_lite_billing_plan():
     result = None
     billing_plan = BillingPlan({
         "name": "Lite",
         "description": "NetMeals Lite Plan",
         "merchant_preferences": {
             "auto_bill_amount": "yes",
-            "cancel_url": "http://www.paypal.com/cancel",
+            "cancel_url": HOST + "paypal/subscription/cancel",
             "initial_fail_amount_action": "continue",
             "max_fail_attempts": "1",
-            "return_url": "http://www.paypal.com/execute",
+            "return_url": HOST + "paypal/subscription/execute",
+            # "setup_fee": {
+            #     "currency": "USD",
+            #     "value": "25"
+            # }
+        },
+        "payment_definitions": [
+            {
+                "amount": {
+                    "currency": "EUR",
+                    "value": "9.99"
+                },
+                "charge_models": [
+                    {
+                        "amount": {
+                            "currency": "EUR",
+                            "value": "7.89"
+                        },
+                        "type": "SHIPPING"
+                    },
+                    {
+                        "amount": {
+                            "currency": "EUR",
+                            "value": "2.10"
+                        },
+                        "type": "TAX"
+                    }
+                ],
+                "cycles": "0",
+                "frequency": "MONTH",
+                "frequency_interval": "1",
+                "name": "Lite",
+                "type": "REGULAR"
+            }
+        ],
+        "type": "INFINITE"
+    })
+
+    if billing_plan.create():
+        result = billing_plan.id
+
+    billing_plan.activate()
+
+    return result
+
+def create_premium_billing_plan():
+    result = None
+    billing_plan = BillingPlan({
+        "name": "Premium",
+        "description": "NetMeals Premium Plan",
+        "merchant_preferences": {
+            "auto_bill_amount": "yes",
+            "cancel_url": HOST + "paypal/subscription/cancel",
+            "initial_fail_amount_action": "continue",
+            "max_fail_attempts": "1",
+            "return_url": HOST + "paypal/subscription/execute",
             # "setup_fee": {
             #     "currency": "USD",
             #     "value": "25"
@@ -53,7 +113,7 @@ def create_billing_plan():
                 "cycles": "0",
                 "frequency": "MONTH",
                 "frequency_interval": "1",
-                "name": "Lite",
+                "name": "Premium",
                 "type": "REGULAR"
             }
         ],
@@ -67,31 +127,37 @@ def create_billing_plan():
 
     return result
 
-
-def create_billing_agreement(plan_id):
+def create_billing_agreement(plan):
     result = None
-    billing_agreement = BillingAgreement({
-        "name": "Fast Speed Agreement",
-        "description": "Agreement for Fast Speed Plan",
-        "start_date": "2015-02-19T00:37:04Z",
-        "plan": {
-            "id": "plan_id"
-        },
-        "payer": {
-            "payment_method": "paypal"
-        },
-        "shipping_address": {
-            "line1": "StayBr111idge Suites",
-            "line2": "Cro12ok Street",
-            "city": "San Jose",
-            "state": "CA",
-            "postal_code": "95112",
-            "country_code": "US"
-        }
-    })
 
-    if billing_agreement.create():
-        result = billing_agreement.id
+    if(plan is not None and plan.paypal_plan_id is not None):
+        time_agreement = datetime.datetime.now() + datetime.timedelta(hours=1)
+        billing_agreement = BillingAgreement({
+            "name": "Fast Speed Agreement",
+            "description": "Agreement for Fast Speed Plan",
+            "start_date": time_agreement.strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "plan": {
+                "id": plan.paypal_plan_id
+            },
+            "payer": {
+                "payment_method": "paypal"
+            }
+            # ,
+            # "shipping_address": {
+            #     "line1": "StayBr111idge Suites",
+            #     "line2": "Cro12ok Street",
+            #     "city": "San Jose",
+            #     "state": "CA",
+            #     "postal_code": "95112",
+            #     "country_code": "US"
+            # }
+        })
+
+        if billing_agreement.create():
+            for link in billing_agreement.links:
+                if link.rel == "approval_url":
+                    result = link.href
+                    break;
 
     return result
 
@@ -167,6 +233,9 @@ def execute_payment(paypal_payment_id, payer_id):
     if payment is not None:
         # PayerID is required to approve the payment.
         if payment.execute({"payer_id": payer_id}):  # return True or False
-            result = True
+            try:
+                result = payment.transactions[0].related_resources[0].sale.id
+            except:
+                result = None
 
     return result

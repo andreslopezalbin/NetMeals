@@ -1,6 +1,8 @@
 {% extends 'masterpage/masterpage.html' %}
 {% load staticfiles %}
 {% load crispy_forms_tags %}
+{% load i18n %}
+{% load l10n %}
 {% crispy form form.helper %}
 {% block title %}Signup{% endblock %}
 {% block content %}
@@ -42,4 +44,54 @@
             </div>
         </div>
     </div>
+
+    <script>
+
+        $(".signup-plan").click(function(){
+            var plan = $(this).data("plan");
+            swal({
+                    title: "{% trans "Are you sure?" %}",
+                    text: "{% trans "You are going " %}",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#DD6B55',
+                    confirmButtonText: '{% trans "Yes, im sure!" %}',
+                    cancelButtonText: "{% trans "Cancel" %}",
+                    closeOnConfirm: false,
+                    closeOnCancel: true,
+                    showLoaderOnConfirm: true,
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        console.log($(this).data("plan") + " pressed");
+                        if(!$(this).hasClass("signup-plan-selected")) {
+                            $(this).addClass("signup-plan-selected");
+                        }else{
+                            $(this).removeClass("signup-plan-selected");
+                        }
+
+                        var roles = [];
+                        $(".signup-role.signup-role-selected").each(function(){
+                            roles.push($(this).data("role"));
+                        });
+                        $.ajax({
+                            method: "POST",
+                            url: "/add_role",
+                            data : {"selected_plan" : plan, "selected_roles":roles},
+                            success: function(res){
+                                if(res.approval_href != null){
+                                    document.location.href=res.approval_href;
+                                }else{
+                                    document.location.href="/";
+                                }
+
+                            },
+                            error: function(xhr){
+                                alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                        }});
+                    }
+                });
+    });
+
+    </script>
 {% endblock %}

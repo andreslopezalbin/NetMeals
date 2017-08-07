@@ -4,8 +4,11 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User, Permission
 from django.contrib.auth.models import Group
 from activities.models import Local, Activity, Dish
+from core.services import paypal_service
 from users.models import Guest, Chef, Monitor, Manager, Plan
 from django.contrib.contenttypes.models import ContentType
+
+from users.util.users_constants import PLAN_FREE, PLAN_LITE, PLAN_PREMIUM
 
 
 class Command(BaseCommand):
@@ -32,6 +35,41 @@ class Command(BaseCommand):
         Group.objects.get_or_create(name='Chef')
         Group.objects.get_or_create(name='Manager')
         print('Groups created...Ok')
+
+        # ==================================================================================================
+        #  Billing Plans
+        # ==================================================================================================
+        free_plan = Plan(
+            paypal_plan_id='',
+            amount=0.00,
+            name = PLAN_FREE,
+            description='NetMeals Free Plan'
+        )
+        free_plan.save()
+
+        premium_plan = None
+        premium_plan_id = paypal_service.create_premium_billing_plan()
+        if (premium_plan_id is not None):
+            premium_plan = Plan(
+                paypal_plan_id=premium_plan_id,
+                amount=14.99,
+                name = PLAN_PREMIUM,
+                description='NetMeals Premium Plan'
+            )
+            premium_plan.save()
+
+        lite_plan = None
+        lite_plan_id = paypal_service.create_lite_billing_plan()
+        if (lite_plan_id is not None):
+            lite_plan = Plan(
+                paypal_plan_id=lite_plan_id,
+                amount=9.99,
+                name = PLAN_LITE,
+                description='NetMeals Lite Plan'
+            )
+            lite_plan.save()
+
+        print('Plans... Ok')
 
         plan = ContentType.objects.get_for_model(Plan)
         Permission.objects.get_or_create(codename='free',
@@ -65,7 +103,7 @@ class Command(BaseCommand):
             username='guest1',
             email='guest1@guest1.com',
             first_name='guest1',
-            avatar='/images/user1.ico',
+            avatar='/images/user1.ico'
         )
         guest1.set_password('guest1')
         guest1.save()
@@ -74,7 +112,7 @@ class Command(BaseCommand):
         guest2 = Guest(
             username='guest2',
             email='guest2@guest2.com',
-            first_name='guest2',
+            first_name='guest2'
         )
         guest2.set_password('guest2')
         guest2.save()
@@ -88,6 +126,7 @@ class Command(BaseCommand):
             username='chef1',
             email='chef1@chef1.com',
             first_name='chef1',
+            plan_id = free_plan.id
         )
         chef1.set_password('chef1')
         chef1.save()
@@ -98,6 +137,7 @@ class Command(BaseCommand):
             username='chef2',
             email='chef2@chef2.com',
             first_name='chef2',
+            plan_id = premium_plan.id
         )
         chef2.set_password('chef2')
         chef2.save()
@@ -113,6 +153,7 @@ class Command(BaseCommand):
             username='monitor1',
             email='monitor1@monitor1.com',
             first_name='monitor1',
+            plan_id = lite_plan.id
         )
         monitor1.set_password('monitor1')
         monitor1.save()
@@ -123,6 +164,7 @@ class Command(BaseCommand):
             username='monitor2',
             email='monitor2@monitor2.com',
             first_name='monitor2',
+            plan_id = premium_plan.id
         )
         monitor2.set_password('monitor2')
         monitor2.save()
@@ -138,6 +180,7 @@ class Command(BaseCommand):
             username='manager1',
             email='manager1@manager1.com',
             first_name='manager1',
+            plan_id = lite_plan.id
         )
         manager1.set_password('manager1')
         manager1.save()
@@ -148,6 +191,7 @@ class Command(BaseCommand):
             username='manager2',
             email='manager1@manager2.com',
             first_name='manager2',
+            plan_id = premium_plan.id
         )
         manager2.set_password('manager2')
         manager2.save()

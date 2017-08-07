@@ -25,9 +25,10 @@ def create_incoming_payment(amount, event_id, event_type, user, paypal_payment_i
 
         return incoming_payment
 
-def update_executed_payment(paypal_payment_id):
+def update_executed_payment(paypal_payment_id, sale_id):
     incoming_payment = IncomingPayment.objects.filter(paypal_payment_id=paypal_payment_id).first()
     incoming_payment.executed_incoming = True
+    incoming_payment.paypal_sale_id = sale_id
     incoming_payment.save()
 
     return incoming_payment

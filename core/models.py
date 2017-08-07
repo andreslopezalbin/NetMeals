@@ -28,10 +28,10 @@ class Advertising(models.Model):
     def __str__(self):
         return self.actor.get_username() + ':' + self.comment
 
-
 from activities.models import Activity, Dish
 class IncomingPayment(models.Model):
     paypal_payment_id = models.CharField(max_length=140)
+    paypal_sale_id = models.CharField(max_length=140)
     user = models.ForeignKey(User)
     dish = models.ForeignKey(Dish, null=True, blank=True, default = None)
     activity = models.ForeignKey(Activity, null=True, blank=True, default = None)

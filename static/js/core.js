@@ -49,30 +49,6 @@ $(document).ready(function(){
         }
     });
 
-    $(".signup-plan").click(function(){
-        console.log($(this).data("plan") + " pressed");
-        if(!$(this).hasClass("signup-plan-selected")) {
-            $(this).addClass("signup-plan-selected");
-        }else{
-            $(this).removeClass("signup-plan-selected");
-        }
-
-        var roles = [];
-        $(".signup-role.signup-role-selected").each(function(){
-            roles.push($(this).data("role"));
-        });
-        $.ajax({
-            method: "POST",
-            url: "/add_role",
-            data : {"selected_plan" : $(this).data("plan"), "selected_roles":roles},
-            success: function(res){
-                document.location.href="/";
-            },
-            error: function(xhr){
-                alert("An error occured: " + xhr.status + " " + xhr.statusText);
-        }});
-    });
-
     $(".week-day").click(function(){
         console.log($(this).data("weeks-day") + " pressed");
         if(!$(this).hasClass("week-day-selected")) {
@@ -122,8 +98,10 @@ function csrfSafeMethod(method) {
 }
 
 function paypalButton(elementId, amount, description, eventId, eventType, functionAfterExecutePayment){
-    var CREATE_PAYMENT_URL  = 'http://192.168.1.99:8000/paypal/create-payment';
-    var EXECUTE_PAYMENT_URL = 'http://192.168.1.99:8000/paypal/execute-payment';
+    var host = window.location.href.split('/').slice(0, 3).join('/');
+
+    var CREATE_PAYMENT_URL  = host + '/paypal/create-payment';
+    var EXECUTE_PAYMENT_URL = host + '/paypal/execute-payment';
 
     paypal.Button.render({
 

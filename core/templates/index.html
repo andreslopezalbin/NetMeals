@@ -182,6 +182,12 @@
 
     <div id="fullpage">
 
+    {% if signup_success %}
+        <script>
+            swal("{% trans "Congratulations!!" %}", "{% trans " You have been successfully signed up!!" %}", "success");
+        </script>
+    {% endif %}
+
         <div class="section" id="section0">
             <div class="divs">
                 <img style="display: inline; box-shadow: none" alt="NetMeals" src="{% static 'images/logo.png' %}"

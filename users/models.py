@@ -43,3 +43,14 @@ class Manager(Host):
 class Monitor(Host):
     def __str__(self):
         return self.get_username()
+
+class Plan(models.Model):
+    paypal_plan_id = models.CharField(max_length=140)
+    amount = models.DecimalField(max_digits=9 , decimal_places=2)
+    name = models.CharField(max_length=20)
+    description = models.CharField(max_length=140)
+
+class User_Plan(models.Model):
+    user = models.ForeignKey(User)
+    plan = models.ForeignKey(Plan)
+    paypal_agreement_id = models.CharField(max_length=140)
