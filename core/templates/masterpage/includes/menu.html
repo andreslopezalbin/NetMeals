@@ -37,6 +37,24 @@
             margin-top: 0;
         }
 
+        .light-blue.darken-3 {
+            background-color: #ff5c5c !important
+        }
+
+        .btn-info:focus, .btn-info:hover {
+            background-color: #ff5c5c !important;
+        }
+
+        .btn-outline-info:active, .btn-outline-info:active:focus, .btn-outline-info:focus, .btn-outline-info:hover {
+            color: #ff5c5c;
+            border-color: #ff8b8c;
+            background-color: transparent;
+        }
+
+        .md-form .prefix.active {
+            color: #ff8b8c;
+        }
+
         @media only screen and (max-width: 768px) {
             .navbar {
                 background-color: #ff5c5c;
@@ -89,7 +107,8 @@
                                         <span class="navbar-text username-menu">{% trans 'Hello ' %} {{ user.get_username }}!</span>
                                         <a class="dropdown-item" href="{% url "logout" %}">{% trans 'Signout' %}</a>
                                         <a class="dropdown-item" href="{% url "profile" %}">{% trans 'Profile' %}</a>
-                                        <a class="dropdown-item" href="{% url "profile_edit" %}">{% trans 'Edit Profile' %}</a>
+                                        <a class="dropdown-item"
+                                           href="{% url "profile_edit" %}">{% trans 'Edit Profile' %}</a>
 
                                     </li>
                                 </ul>
@@ -117,6 +136,10 @@
         </div>
     </nav>
     <!--/.Navbar-->
+
+   {% if user.is_superuser %}
+        <meta http-equiv="REFRESH" content="0;url={% url "dashboard" %}">
+   {% endif %}
 
     {% if user.is_anonymous %}
         <!--Modal: Login Form-->
@@ -149,7 +172,8 @@
                             </div>
 
                             <div class="text-center mt-2">
-                                <button type="submit" class="btn btn-info">{% trans "Enter" %} <i
+                                <button type="submit" class="btn btn-info"
+                                        style="background-color: #ff8b8c">{% trans "Enter" %} <i
                                         class="fa fa-sign-in ml-1"></i></button>
                             </div>
                         </form>
@@ -157,8 +181,9 @@
                     <!--Footer-->
                     <div class="modal-footer">
                         <div class="options text-center text-md-right mt-1">
-                            <p>{% trans "Not a member?" %} <a href="{% url "signup" %}"> {% trans "Signup" %}</a></p>
-                            <p>{% trans "Forgot" %} <a href="#"> {% trans "Password" %}?</a></p>
+                            <p>{% trans "Not a member?" %} <a href="{% url "signup" %}"
+                                                              style="color: #ff8b8c"> {% trans "Signup" %}</a></p>
+                            <p>{% trans "Forgot" %} <a href="#" style="color:#ff8b8c"> {% trans "Password" %}?</a></p>
                         </div>
                         <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">
                             {% trans "Close" %}
