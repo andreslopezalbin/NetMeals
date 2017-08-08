@@ -5,6 +5,7 @@ from django.views import View
 
 from users.forms.GuestForms import SignUpForm
 from users.forms.ProfileForm import GuestForm
+from users.models import User_Plan
 from users.services import UserService
 
 
@@ -52,8 +53,9 @@ def edit_profile(request):
             }
     else:
         guest_form = GuestForm(instance=guest, prefix='guest')
-        context = {'guest_form': guest_form
-
+        subscription = User_Plan.objects.filter(user_id=request.user.id).first()
+        context = {'guest_form': guest_form,
+                    'is_subscribed' : subscription is not None and subscription.is_active
                    }
     return render(request, 'profile/edit_profile.html', context)
 

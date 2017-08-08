@@ -7,16 +7,12 @@ from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
 from paypalrestsdk import BillingAgreement
 
-from activities.services import activity_service
-from activities.services import dish_service
-from core.models import IncomingPayment
 from core.services import incoming_payments_service
 from core.services import paypal_service
 from core.util.session_constants import SESSION_USER_ROLES, SESSION_USER_PLAN, SESSION_SIGNEDUP_SUCCESS
 from users.models import User_Plan
 from users.services import UserService
 from users.services.UserService import get_plan
-from users.util.users_util import *
 
 from django.http.response import HttpResponseRedirect, JsonResponse
 from django.utils import translation
@@ -25,8 +21,7 @@ from django.views.decorators.csrf import csrf_protect
 
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
-from datetime import date
-import json
+
 
 
 # Create your views here.
@@ -80,19 +75,9 @@ def paypal_create_payment(request):
     return JsonResponse(response)
 
 def paypal_billing_agreement_cancel(request):
-    if request.method == "GET":
-        amount = request.GET['amount']
-        description = request.GET['description']
-        event_id = request.POST['eventId']
-        event_type = request.POST['eventType']
-        paypal_payment_id = paypal_service.create_payment(amount, description)
-        if(paypal_payment_id is not None):
-            incoming_payment = incoming_payments_service.create_incoming_payment(amount, event_id, event_type, request.user, paypal_payment_id)
-            incoming_payment.save()
-
-            response = {"paypal_payment_id" : paypal_payment_id}
-
-    return JsonResponse(response)
+    if request.method == "POST":
+        response = dict(paypal_service.cancel_subscription(request.user))
+        return JsonResponse(response)
 
 @transaction.atomic
 def paypal_billing_agreement_execute(request):
@@ -123,9 +108,18 @@ def paypal_billing_agreement_execute(request):
             billing_agreement_response = BillingAgreement.execute(token)
             paypal_agreement_id = billing_agreement_response.id
             if (paypal_agreement_id is not None):
-                user_plan = User_Plan(user_id=current_user.id,
+                user_plan = User_Plan.objects.filter(user_id=current_user.id).first()
+                if(user_plan is not None):
+                    if(user_plan.is_active):
+                        paypal_service.cancel_subscription(request.user)
+
+                    user_plan.paypal_agreement_id=paypal_agreement_id
+                    user_plan.is_active=True
+                else:
+                    user_plan = User_Plan(user_id=current_user.id,
                                       plan_id=plan.id,
-                                      paypal_agreement_id=paypal_agreement_id)
+                                      paypal_agreement_id=paypal_agreement_id,
+                                      is_active=True)
                 user_plan.save()
                 request.session[SESSION_SIGNEDUP_SUCCESS] = True
 

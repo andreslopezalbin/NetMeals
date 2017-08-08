@@ -57,9 +57,10 @@ $(document).ready(function () {
 		if(!matchPasswords() || !isValidPassword()){
 			return;
 		}
-		var hash = CryptoJS.SHA1($('#signup-userPassword').val());
+		var pwd = $('#signup-userPassword').val();
+{#		var hash = CryptoJS.SHA1($('#signup-userPassword').val(pwd));#}
 
-		$('#signup-userPassword').val(hash);
+		$('#signup-userPassword').val(pwd);
 
 		this.submit();
 	});

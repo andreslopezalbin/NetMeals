@@ -76,7 +76,7 @@
                         });
                         $.ajax({
                             method: "POST",
-                            url: "/add_role",
+                            url: "{% url "addRole" %}",
                             data : {"selected_plan" : plan, "selected_roles":roles},
                             success: function(res){
                                 if(res.approval_href != null){
@@ -84,7 +84,6 @@
                                 }else{
                                     document.location.href="/";
                                 }
-
                             },
                             error: function(xhr){
                                 alert("An error occured: " + xhr.status + " " + xhr.statusText);

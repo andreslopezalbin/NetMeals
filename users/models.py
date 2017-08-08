@@ -58,3 +58,4 @@ class User_Plan(models.Model):
     user = models.ForeignKey(User)
     plan = models.ForeignKey(Plan)
     paypal_agreement_id = models.CharField(max_length=140)
+    is_active = models.BooleanField(default=False)

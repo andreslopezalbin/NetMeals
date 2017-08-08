@@ -4,7 +4,10 @@ import paypalrestsdk
 from paypalrestsdk import BillingAgreement
 from paypalrestsdk import BillingPlan
 from paypalrestsdk import Payment
+from paypalrestsdk import ResourceNotFound
 from paypalrestsdk import Sale
+
+from users.models import User_Plan
 
 HOST = "http://192.168.1.99:8000/"
 # netmeals
@@ -263,20 +266,26 @@ def execute_refound(sales_id):
     else:
         print(refund.error)
 
-# def execute_refound(sale_id):
-#     sale = Sale.find(sale_id)
-#     currency = str(sale['amount']['currency'])
-#
-#     amount = sale['amount']['total']
-#     # importe = (amount-amount*0.05)
-#
-#     refund = sale.refund({
-#         "amount": {
-#             "total": amount,
-#             "currency": currency
-#         }})
-#
-#     if refund.success():
-#         print("Refund[%s] Success" % refund.id)
-#     else:
-#         print(refund.error)
+
+def cancel_subscription(user):
+    response = {"subscription_canceled": False}
+    try:
+        user_plan = User_Plan.objects.filter(user_id=user.id).first()
+        billing_agreement = BillingAgreement.find(user_plan.paypal_agreement_id)
+
+        cancel_note = {"note": "Suscripción al plan cancelada por el usuario con id: " + str(user.id)}
+
+        if billing_agreement.cancel(cancel_note):
+            # Would expect status has changed to Cancelled
+            billing_agreement = BillingAgreement.find(user_plan.paypal_agreement_id)
+            if billing_agreement.state == "Cancelled":
+                response = {"subscription_canceled": True}
+                user_plan.is_active = False
+                user_plan.save()
+        else:
+            response["subscription_error"] = billing_agreement.error
+
+    except ResourceNotFound as error:
+        response["subscription_error"] = "Billing Agreement Not Found"
+
+    return response

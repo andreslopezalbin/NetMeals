@@ -1,5 +1,4 @@
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views import View
 from django.db import transaction
@@ -39,8 +38,6 @@ class SignupView(View):
             }
             return render(request, 'signup-host.html', context)
 
-    def delete(self):
-        pass
-
-    def put(self):
-        pass
+class SignupRolesView(View):
+    def get(self, request):
+        return render(request, 'signup-host.html')

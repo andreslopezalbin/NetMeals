@@ -49,30 +49,6 @@ $(document).ready(function(){
         }
     });
 
-    $(".signup-plan").click(function(){
-        console.log($(this).data("plan") + " pressed");
-        if(!$(this).hasClass("signup-plan-selected")) {
-            $(this).addClass("signup-plan-selected");
-        }else{
-            $(this).removeClass("signup-plan-selected");
-        }
-
-        var roles = [];
-        $(".signup-role.signup-role-selected").each(function(){
-            roles.push($(this).data("role"));
-        });
-        $.ajax({
-            method: "POST",
-            url: "/add_role",
-            data : {"selected_plan" : $(this).data("plan"), "selected_roles":roles},
-            success: function(res){
-                document.location.href="/";
-            },
-            error: function(xhr){
-                alert("An error occured: " + xhr.status + " " + xhr.statusText);
-        }});
-    });
-
     $(".week-day").click(function(){
         console.log($(this).data("weeks-day") + " pressed");
         if(!$(this).hasClass("week-day-selected")) {
