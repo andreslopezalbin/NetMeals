@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -23,7 +25,6 @@ from django.db.models import Count
 from django.db.models.functions import TruncMonth
 
 
-
 # Create your views here.
 
 
@@ -32,7 +33,7 @@ def index(request):
 
     if SESSION_SIGNEDUP_SUCCESS in request.session:
         context = {
-            "signup_success" : True
+            "signup_success": True
         }
         del request.session[SESSION_SIGNEDUP_SUCCESS]
 
@@ -58,6 +59,7 @@ def paypal_test(request):
         csrfContext = RequestContext(request)
         return render_to_response('paypal_form.html', csrfContext)
 
+
 def paypal_create_payment(request):
     response = {}
     if request.method == "POST":
@@ -66,18 +68,21 @@ def paypal_create_payment(request):
         event_id = request.POST['eventId']
         event_type = request.POST['eventType']
         paypal_payment_id = paypal_service.create_payment(amount, description)
-        if(paypal_payment_id is not None):
-            incoming_payment = incoming_payments_service.create_incoming_payment(amount, event_id, event_type, request.user, paypal_payment_id)
+        if (paypal_payment_id is not None):
+            incoming_payment = incoming_payments_service.create_incoming_payment(amount, event_id, event_type,
+                                                                                 request.user, paypal_payment_id)
             incoming_payment.save()
 
-            response = {"paypal_payment_id" : paypal_payment_id}
+            response = {"paypal_payment_id": paypal_payment_id}
 
     return JsonResponse(response)
+
 
 def paypal_billing_agreement_cancel(request):
     if request.method == "POST":
         response = dict(paypal_service.cancel_subscription(request.user))
         return JsonResponse(response)
+
 
 @transaction.atomic
 def paypal_billing_agreement_execute(request):
@@ -109,21 +114,22 @@ def paypal_billing_agreement_execute(request):
             paypal_agreement_id = billing_agreement_response.id
             if (paypal_agreement_id is not None):
                 user_plan = User_Plan.objects.filter(user_id=current_user.id).first()
-                if(user_plan is not None):
-                    if(user_plan.is_active):
+                if (user_plan is not None):
+                    if (user_plan.is_active):
                         paypal_service.cancel_subscription(request.user)
 
-                    user_plan.paypal_agreement_id=paypal_agreement_id
-                    user_plan.is_active=True
+                    user_plan.paypal_agreement_id = paypal_agreement_id
+                    user_plan.is_active = True
                 else:
                     user_plan = User_Plan(user_id=current_user.id,
-                                      plan_id=plan.id,
-                                      paypal_agreement_id=paypal_agreement_id,
-                                      is_active=True)
+                                          plan_id=plan.id,
+                                          paypal_agreement_id=paypal_agreement_id,
+                                          is_active=True)
                 user_plan.save()
                 request.session[SESSION_SIGNEDUP_SUCCESS] = True
 
     return HttpResponseRedirect("/")
+
 
 def paypal_execute_payment(request):
     response = {}
@@ -131,11 +137,11 @@ def paypal_execute_payment(request):
         paypal_payment_id = request.POST['paymentID']
         payer_id = request.POST['payerID']
         sale_id = paypal_service.execute_payment(paypal_payment_id, payer_id)
-        if(sale_id):
+        if (sale_id):
             incoming_payments_service.update_executed_payment(paypal_payment_id, sale_id)
 
-            response = {"payment_id" : paypal_payment_id,
-                        "executed" : True}
+            response = {"payment_id": paypal_payment_id,
+                        "executed": True}
     return JsonResponse(response)
 
 
@@ -155,7 +161,7 @@ def dashboard(request):
         users.append(m['c'])
 
     return render(request, 'dashboard/dashboard.html',
-                  {'users_register': users_register, 'meses': meses, 'users': users})
+                  {'users_register': users_register, 'meses': meses, 'users': users, 'dashboard': True})
 
 
 @staff_member_required
@@ -173,4 +179,30 @@ def dashboard_users(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         users = paginator.page(paginator.num_pages)
 
-    return render(request, 'dashboard/table.html', {'users': users})
+    return render(request, 'dashboard/table.html', {'users': users, 'users_dashboard': True})
+
+
+@staff_member_required
+def deactivate_user(request, user_id):
+    result = {'is_deactivated': False}
+    try:
+        user = User.objects.get(id=user_id)
+        user.is_active = False
+        user.save()
+        result['is_deactivated'] = True
+    except Exception:
+        pass
+    return JsonResponse(result)
+
+
+@staff_member_required
+def activate_user(request, user_id):
+    result = {'is_deactivated': True}
+    try:
+        user = User.objects.get(id=user_id)
+        user.is_active = True
+        user.save()
+        result['is_deactivated'] = False
+    except Exception:
+        pass
+    return JsonResponse(result)

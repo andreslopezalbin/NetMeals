@@ -14,7 +14,7 @@ from datetime import date
 from django.core.exceptions import ObjectDoesNotExist
 
 from activities.services import dish_service
-from core.util.session_constants import SESSION_UNSUBSCRIPTION_SUCCEEDED
+
 from users.models import Guest
 
 from activities.forms.DishFeedbackForm import DishFeedbackForm
