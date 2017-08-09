@@ -3,8 +3,10 @@ from django.db import transaction
 from django.shortcuts import render, redirect
 from django.views import View
 
+from activities.models import DishFeedback
 from users.forms.GuestForms import SignUpForm
 from users.forms.ProfileForm import GuestForm
+from users.models import Guest
 from users.services import UserService
 
 
@@ -45,7 +47,7 @@ def edit_profile(request):
         form = GuestForm(data=request.POST, instance=guest, prefix='guest')
         if form.is_valid():
             form.save()
-            return redirect("profile")
+            return redirect("profile", guest.username)
         else:
             context = {
                 'guest_form': form,
@@ -58,8 +60,10 @@ def edit_profile(request):
     return render(request, 'profile/edit_profile.html', context)
 
 
-def view_profile(request):
+def view_profile(request, username):
     if request.method == "GET":
-        context = {
-        }
+        user = Guest.objects.get(username=username)
+        feedback_list = DishFeedback.objects.filter(commented_id=user.id).all()
+        context = {'user': user, 'feedback_list': feedback_list,
+                   }
         return render(request, 'profile/profile.html', context)

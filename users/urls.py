@@ -14,5 +14,5 @@ urlpatterns = [
     url(r'^login$', login, {'template_name': '../templates/login.html'}, name="login"),
     url(r'^logout$', logout, {'next_page': '/'}, name="logout"),
     url(r'^profile/edit$', edit_profile, name='profile_edit'),
-    url(r'^profile$', view_profile, name='profile'),
+    url(r'^profile/(?P<username>\w+)', view_profile, name='profile'),
 ]
