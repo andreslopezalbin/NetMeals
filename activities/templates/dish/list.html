@@ -23,8 +23,8 @@
                 <!--Page heading-->
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="h1-responsive">Culinary blog
-                            <small class="text-muted">recipes for launches and desserts</small>
+                        <h1 class="h1-responsive">{% trans 'All Dishes near you' %}
+
                         </h1>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                                     <!--Title-->
                                     <h4 class="card-title">{{ dish.name }}</h4>
                                     <!--Text-->
-                                    <p class="card-text">{{ dish.description }}</p>
+                                    <p class="card-text">{{ dish.short_description }}</p>
                                     <div class="read-more">
                                         <a class="btn btn-elegant"
                                            href="{% url 'details_dish' dish_id=dish.id %}">{% trans 'Details' %}</a>

@@ -22,8 +22,9 @@ default_pic = 'http://i.huffpost.com/gen/1452575/images/o-BEAUTIFUL-FOOD-faceboo
 class Dish(models.Model):
     name = models.TextField(max_length=30)
     description = models.TextField(max_length=250)
+    short_description= models.TextField(max_length=140)
     owner = models.ForeignKey(Chef)
-    photo = models.URLField()
+    photo = models.ImageField(upload_to='/media/dish', null=True, blank=True)
     ingredients = models.ManyToManyField(Ingredients)
     max_assistants = models.PositiveIntegerField(default=1)
     assistants = models.ManyToManyField(Guest, related_name='dish_assisted')
@@ -38,7 +39,7 @@ class Dish(models.Model):
         # delete old file when replacing by updating the file
         try:
             if not self.photo:
-                self.photo = "/static/images/dish-food-1.jpg"
+                self.photo = "/media/dish/default_dish.jpg"
         except:
             # when new photo then we do nothing, normal case
             pass
@@ -52,17 +53,13 @@ class Activity(models.Model):
     place = models.TextField(max_length=250)
     latitude = models.DecimalField(max_digits=23, decimal_places=20)
     longitude = models.DecimalField(max_digits=23, decimal_places=20)
-    photo = models.ImageField(upload_to='media/', null=True, blank=True)
+    photo = models.ImageField(upload_to='/media/activity', null=True, blank=True)
     start_date = models.DateField()
     end_date = models.DateField()
     price_per_person = models.DecimalField(max_digits=5, decimal_places=2)
     # Relationships
     owner = models.ForeignKey(Monitor)
     assistants = models.ManyToManyField(Guest, related_name='activity_assisted')
-
-    @property
-    def estimated_duration(self):
-        pass
 
     def __str__(self):
         return self.name + ':' + self.owner.get_username()
@@ -84,11 +81,11 @@ class DishFeedback(core_models.Feedback):
     dish = models.ForeignKey(Dish)
 
     def __str__(self):
-        return self.actor.get_username() + ':' + self.comment + ':' + self.dish
+        return self.comment + ':' + self.dish.__str__()
 
 
 class ActivityFeedback(core_models.Feedback):
     activity = models.ForeignKey(Activity)
 
     def __str__(self):
-        return self.actor.get_username() + ':' + self.comment + ':' + self.activity
+        return self.comment + ':' + self.activity

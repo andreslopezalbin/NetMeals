@@ -106,7 +106,7 @@
                                     <li class="nav-item dropdown">
                                         <span class="navbar-text username-menu">{% trans 'Hello ' %} {{ user.get_username }}!</span>
                                         <a class="dropdown-item" href="{% url "logout" %}">{% trans 'Signout' %}</a>
-                                        <a class="dropdown-item" href="{% url "profile" %}">{% trans 'Profile' %}</a>
+                                        <a class="dropdown-item" href="{% url "profile" user.get_username  %}">{% trans 'Profile'  %}</a>
                                         <a class="dropdown-item"
                                            href="{% url "profile_edit" %}">{% trans 'Edit Profile' %}</a>
 

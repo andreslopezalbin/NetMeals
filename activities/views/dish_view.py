@@ -17,6 +17,8 @@ from activities.services import dish_service
 from core.util.session_constants import SESSION_UNSUBSCRIPTION_SUCCEEDED
 from users.models import Guest
 
+from activities.forms.DishFeedbackForm import DishFeedbackForm
+
 
 def findall(request):
     if request.method == "GET":
@@ -134,8 +136,8 @@ def edit(request, dish_id):
     else:
         return render(request, '../../core/templates/no_permission.html')
 
-class DishSubscriptionView(View):
 
+class DishSubscriptionView(View):
     def post(self, request, dish_id):
         dish_service.subscribe(dish_id, request)
         result_url = "/"
@@ -144,12 +146,28 @@ class DishSubscriptionView(View):
 
         return HttpResponseRedirect(result_url)
 
-class DishUnsubscriptionView(View):
 
+class DishUnsubscriptionView(View):
     def post(self, request, dish_id):
         dish_service.unsubscribe(dish_id, request)
         result_url = "/"
-        if(request.META.get('HTTP_REFERER') is not None):
+        if (request.META.get('HTTP_REFERER') is not None):
             result_url = urlparse(request.META.get('HTTP_REFERER')).path
 
         return HttpResponseRedirect(result_url)
+
+def feedback(request, dish_id):
+    dish = Dish.objects.get(id=dish_id)
+    if request.method == "POST":
+        form = DishFeedbackForm(request.POST)
+        if form.is_valid():
+            dishfeedback = form.save(commit=False)
+            dishfeedback.dish = dish
+            dishfeedback.commentator = request.user.guest
+            dishfeedback.commented_id = dish.owner.id
+            dishfeedback.save()
+            # update_avg_rating(local.pk)
+            return redirect('details_dish', dish_id=dish_id)
+    else:
+        form = DishFeedbackForm()
+    return render(request, 'dish/feedback.html', {'form': form})

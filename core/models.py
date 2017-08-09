@@ -10,13 +10,13 @@ from users.models import Guest
 class Feedback(models.Model):
     score = models.PositiveSmallIntegerField()
     comment = models.CharField(max_length=140)
-    actor = models.ForeignKey(Guest) #Comentador
+    commented = models.ForeignKey(Guest, related_name="%(class)s_commented")  # Persona comentada
+    commentator = models.ForeignKey(Guest, related_name="%(class)s_commentator")  # Persona que comenta
+    reported = models.BooleanField(default=False)
 
     class Meta:
         abstract = True
 
-    def __str__(self):
-        return self.actor.get_username() + ':' + self.comment
 
 from activities.models import Activity, Dish
 class IncomingPayment(models.Model):
