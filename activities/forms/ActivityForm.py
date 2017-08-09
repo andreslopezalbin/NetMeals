@@ -1,16 +1,12 @@
-from symbol import decorators
-
 import datetime
 from crispy_forms.bootstrap import AppendedText
 from django import forms
-from django.core.exceptions import ValidationError
 from django.core.files.storage import FileSystemStorage
 
 from activities.models import Activity
-from netmeals import settings
 from users.models import Monitor
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, HTML
+from crispy_forms.layout import Layout, Field
 
 
 class ActivityForm(forms.ModelForm):
@@ -71,9 +67,12 @@ class ActivityForm(forms.ModelForm):
 
         if is_periodically == "true":
             errors = self._errors
-            del errors['start_date']
-            del errors['start_hour']
-            del errors['end_hour']
+            if 'start_date' in errors:
+                del errors['start_date']
+            if 'start_hour' in errors:
+                del errors['start_hour']
+            if 'end_hour' in errors:
+                del errors['end_hour']
 
             form_data['start_date'] = datetime.datetime.now()
 

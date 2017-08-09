@@ -55,6 +55,17 @@
         </div>
         {%  crispy form %}
         <div id="map"></div>
+{#        {% if request.user|is_activity_owner:activity_id %}#}
+{#            {% if is_edit or is_new %}#}
+{#                <button type="submit" class="btn btn-primary activity-submit">Submit</button>#}
+{#                {% if not is_new %}#}
+{#                    <button type="button" class="btn btn-primary activity-remove" data-id="{{ activity_id }}">Remove</button>#}
+{#                {% endif %}#}
+{#            {% else %}#}
+{#                <button type="button" class="btn btn-primary activity-edit">Edit</button>#}
+{#                <button type="button" class="btn btn-primary activity-remove" data-id="{{ activity_id }}">Remove</button>#}
+{#            {% endif %}#}
+{#        {% endif %}#}
         {% if request.user|is_activity_owner:activity_id %}
             {% if is_edit or is_new %}
                 <button type="submit" class="btn btn-primary activity-submit">Submit</button>
@@ -65,6 +76,8 @@
                 <button type="button" class="btn btn-primary activity-edit">Edit</button>
                 <button type="button" class="btn btn-primary activity-remove" data-id="{{ activity_id }}">Remove</button>
             {% endif %}
+        {% elif is_new and activity_id is None %}
+            <button type="submit" class="btn btn-primary activity-submit">Submit</button>
         {% endif %}
 	</form>
     {% if user.is_authenticated and not request.user|is_activity_owner:activity_id and activity_id %}

@@ -1,11 +1,9 @@
 from django.conf.urls import url
-from users.views.GuestViews import RegistrationView
-
-# from users.views.signin import LoginView, logout
 from django.contrib.auth.views import login, logout
-from users.views.SignupViews import SignupView, SignupRolesView
+
 from users.views.AddRoleView import AddRoleView
 from users.views.GuestViews import edit_profile, view_profile
+from users.views.SignupViews import SignupView, SignupRolesView
 
 urlpatterns = [
     url(r'^signup$', SignupView.as_view(), name='signup'),

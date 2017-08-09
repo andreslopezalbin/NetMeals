@@ -3,6 +3,7 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User, Permission
 from django.contrib.auth.models import Group
+from core.services import paypal_service
 from activities.models import Activity, Dish, DishFeedback
 from users.models import Guest, Chef, Monitor, Manager, Plan
 from django.contrib.contenttypes.models import ContentType
@@ -114,8 +115,7 @@ class Command(BaseCommand):
             username='guest1',
             email='guest1@guest1.com',
             first_name='guest1',
-            date_joined='2016-10-5',
-            photo='/media/profiles/guest1.jpg',
+            date_joined='2016-10-5'
         )
         guest1.set_password('guest1')
         guest1.save()

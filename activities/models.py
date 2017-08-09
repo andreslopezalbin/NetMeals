@@ -1,9 +1,7 @@
-from django.core.exceptions import ValidationError
 from django.db import models as models
 from core import models as core_models
 from django.contrib.auth.models import User
 from users.models import Chef, Guest, Manager, Monitor
-from django.utils.translation import ugettext_lazy as _
 
 
 # Create your models here.

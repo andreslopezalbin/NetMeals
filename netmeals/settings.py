@@ -27,7 +27,7 @@ SECRET_KEY = 'aha2$_zsc4sfxf-s=y2=o+-)@6ikd97)@oeypt#pnd-*2)pda9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.99', '127.0.0.1', '192.168.1.46']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -86,8 +86,8 @@ DATABASES = {
         'NAME': 'netmeals',
         'USER': 'dev_admin',
         'PASSWORD': 'development_password',
-        'HOST': '',
-        'PORT': '',
+        'HOST': 'netmeals.chyi7lbixtbw.eu-west-1.rds.amazonaws.com',
+        'PORT': '3306',
         'ATOMIC_REQUESTS': 'True'
     }
 }

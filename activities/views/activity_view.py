@@ -12,7 +12,6 @@ from activities.models import Activity
 from activities.services import activity_service
 from core.util import session_utils
 from users.models import Guest
-from core.util.session_constants import *
 
 class ActivityDetailView(View):
 

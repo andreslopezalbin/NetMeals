@@ -9,16 +9,16 @@ from paypalrestsdk import Sale
 
 from users.models import User_Plan
 
-HOST = "http://192.168.1.99:8000/"
+HOST = "http://ec2-52-213-77-111.eu-west-1.compute.amazonaws.com/"
 # netmeals
-# token = 'access_token$sandbox$s4xv6j5c5hgh3jbw$b6e7603b2a57c2c6915ac51969d330b5'
-# CLIENT_ID = 'AcgW36TC9aM9kml9lrKX-_oze10ts4JGIYfsertYZ0DjfoyeqGBTYWVCWg5Cvc2vACl2FyQfASwY_ZPQ'
-# SECRET = 'EIoZfr6_3k7AxeeK0ysKaOA9SKLI4EeVo8JL6amppTnRQvj09mu_hvPZhJ2uufrX-74UyDo94nAkPvta'
+token = 'access_token$sandbox$s4xv6j5c5hgh3jbw$b6e7603b2a57c2c6915ac51969d330b5'
+CLIENT_ID = 'AcgW36TC9aM9kml9lrKX-_oze10ts4JGIYfsertYZ0DjfoyeqGBTYWVCWg5Cvc2vACl2FyQfASwY_ZPQ'
+SECRET = 'EIoZfr6_3k7AxeeK0ysKaOA9SKLI4EeVo8JL6amppTnRQvj09mu_hvPZhJ2uufrX-74UyDo94nAkPvta'
 
 # Antonio
-token = 'access_token$sandbox$s4xv6j5c5hgh3jbw$b6e7603b2a57c2c6915ac51969d330b5'
-CLIENT_ID = 'AS6PPPNw9w6jyG1ln2LLyy-aeJNk2yxuD7DEsBLbrUqhOv_fhTRT1hCVfDo67hJnQaVwYiM5mTAb4_hQ'
-SECRET = 'EEQF5Alt6vA9i09irdnDmMIFFMpITieZj3y_4VN6P5mMN_5hElDQkw54OptPqWjHJg-jCQ2r4kiy9nzW'
+# token = 'access_token$sandbox$s4xv6j5c5hgh3jbw$b6e7603b2a57c2c6915ac51969d330b5'
+# CLIENT_ID = 'AS6PPPNw9w6jyG1ln2LLyy-aeJNk2yxuD7DEsBLbrUqhOv_fhTRT1hCVfDo67hJnQaVwYiM5mTAb4_hQ'
+# SECRET = 'EEQF5Alt6vA9i09irdnDmMIFFMpITieZj3y_4VN6P5mMN_5hElDQkw54OptPqWjHJg-jCQ2r4kiy9nzW'
 
 
 paypalrestsdk.configure({

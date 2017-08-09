@@ -1,11 +1,8 @@
-from django.contrib.auth.models import Group
-from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.views import View
 
 from core.services import paypal_service
 from core.util.session_constants import SESSION_USER_ROLES, SESSION_USER_PLAN
-from users.services import UserService
 from users.services.UserService import get_plan
 
 

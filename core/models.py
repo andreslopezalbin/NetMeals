@@ -18,13 +18,12 @@ class Feedback(models.Model):
         abstract = True
 
 
-from activities.models import Activity, Dish
 class IncomingPayment(models.Model):
     paypal_payment_id = models.CharField(max_length=140)
     paypal_sale_id = models.CharField(max_length=140)
     user = models.ForeignKey(User)
-    dish = models.ForeignKey(Dish, null=True, blank=True, default = None)
-    activity = models.ForeignKey(Activity, null=True, blank=True, default = None)
+    dish = models.ForeignKey('activities.Dish', null=True, blank=True, default = None)
+    activity = models.ForeignKey('activities.Activity', null=True, blank=True, default = None)
     executed_incoming = models.BooleanField(default=False)
     executed_outcoming = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True, blank=False)

@@ -1,7 +1,6 @@
 from datetime import timedelta
 
 from django.shortcuts import get_object_or_404
-
 from activities.models import Activity
 from users.models import Guest
 

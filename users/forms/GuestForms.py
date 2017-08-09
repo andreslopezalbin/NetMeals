@@ -1,10 +1,9 @@
-from cProfile import label
-
-from django import forms
-from users.models import Guest
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field
+from django import forms
 from django.utils.translation import ugettext_lazy as _
+
+from users.models import Guest
 
 
 class GuestRegistrationForm(forms.ModelForm):

@@ -1,9 +1,6 @@
 from datetime import date
 
 from django import forms
-from django.core.exceptions import ValidationError
-from django.db.models.fields import IntegerField
-
 from activities.models import Dish
 from users.models import Chef
 from crispy_forms.helper import FormHelper

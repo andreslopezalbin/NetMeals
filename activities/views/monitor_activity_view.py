@@ -64,8 +64,8 @@ class CreateActivityView(View):
         if form.is_valid():
             activity = form.create(request)
             if(activity.id is None or activity.id == ''):
-                is_periodocally = form.cleaned_data['is_periodically']
-                if(is_periodocally):
+                is_periodically = form.cleaned_data['is_periodically']
+                if(is_periodically):
                     context = {
                         'form': form
                     }
@@ -79,9 +79,17 @@ class CreateActivityView(View):
                     request.session[SESSION_ACTIVITY_CREATED_SUCCEEDED] = True
             else:
                 is_edit = True
-                activity_service.update(activity)
-                success_msg = 'Activity updated successfully'
-                request.session[SESSION_ACTIVITY_MOD_SUCCEEDED] = True
+                is_periodically = form.cleaned_data['is_periodically']
+                if (is_periodically):
+                    context = {
+                        'form': form
+                    }
+                    request.session[SESSION_ACTIVITY_PENDING] = activity.id
+                    return render(request, 'activities/new_periodically.html', context)
+                else:
+                    activity_service.update(activity)
+                    success_msg = 'Activity updated successfully'
+                    request.session[SESSION_ACTIVITY_MOD_SUCCEEDED] = True
         else:
             error_msg = 'There was an error validating form'
             activity = Activity()
