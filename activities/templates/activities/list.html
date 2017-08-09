@@ -49,14 +49,13 @@
                                 </div>
                             </a>
                             <p>
-                                {% if user.is_authenticated %}
-                                    {% if activity.owner.id == user.id %}
-                                        <button class="btn btn-primary activity-edit"
-                                                onclick="openURL('{% url 'activity_edit' activity.id %}');">Edit
-                                        </button>
-                                        <button class="btn btn-primary activity-remove" data-id="{{ activity.id }}">
-                                            Remove
-                                        </button>
+                                {% if user.is_authenticated and activity.owner.id == user.id%}
+                                    <button class="btn btn-primary activity-edit"
+                                            onclick="openURL('{% url 'activity_edit' activity.id %}');">Edit
+                                    </button>
+                                    <button class="btn btn-primary activity-remove" data-id="{{ activity.id }}">
+                                        Remove
+                                    </button>
                                 {% endif %}
 
                             </p>
