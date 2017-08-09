@@ -1,5 +1,6 @@
 {% extends "dashboard/dashboard_master.html" %}
 {% load staticfiles %}
+{% load i18n %}
 
 {% block content %}
 
@@ -18,47 +19,6 @@
                         </button>
                         <p class="navbar-brand" href="#">Table List</p>
                     </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">dashboard</i>
-                                    <p class="hidden-lg hidden-md">Dashboard</p>
-                                </a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">notifications</i>
-                                    <span class="notification">5</span>
-                                    <p class="hidden-lg hidden-md">Notifications</p>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Mike John responded to your email</a></li>
-                                    <li><a href="#">You have 5 new tasks</a></li>
-                                    <li><a href="#">You're now friend with Andrew</a></li>
-                                    <li><a href="#">Another Notification</a></li>
-                                    <li><a href="#">Another One</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#pablo" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="material-icons">person</i>
-                                    <p class="hidden-lg hidden-md">Profile</p>
-                                </a>
-                            </li>
-                        </ul>
-
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="form-group  is-empty">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span class="material-input"></span>
-                            </div>
-                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                <i class="material-icons">search</i>
-                                <div class="ripple-container"></div>
-                            </button>
-                        </form>
-                    </div>
                 </div>
             </nav>
 
@@ -68,16 +28,17 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header" data-background-color="purple">
-                                    <h4 class="title">Simple Table</h4>
-                                    <p class="category">Here is a subtitle for this table</p>
+                                    <h4 class="title">{% trans 'Users Table' %}</h4>
+                                    <p class="category">{% trans 'Management of users' %}</p>
                                 </div>
                                 <div class="card-content table-responsive">
                                     <table class="table table-hover">
-                                        <thead class="text-primary">
-                                        <th>username</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Last login</th>
+                                        <thead class="text-primary ">
+                                        <th>{% trans 'Username' %}</th>
+                                        <th>{% trans 'Name' %}</th>
+                                        <th>{% trans 'Email' %}</th>
+                                        <th>{% trans 'Last login' %}</th>
+                                        <th>{% trans 'Deactivate' %}</th>
                                         </thead>
                                         <tbody>
                                         {% for user in users %}
@@ -87,7 +48,39 @@
                                                 <td>{{ user.first_name }}</td>
                                                 <td>{{ user.email }}</td>
                                                 <td>{{ user.last_login }}</td>
-
+                                                <td>
+                                                    {% if user.is_active %}
+                                                        <a id="user-deactivate"
+                                                           class=" btn btn-primary deactivated {{ user.id }}"
+                                                           href="#"
+                                                           data-url='{% url "users_deactivate" user.id %}'
+                                                           data-userid="{{ user.id }}">
+                                                            <span>{% trans 'Deactivate' %}</span>
+                                                        </a>
+                                                        <a id="user-activate"
+                                                           class=" btn btn-primary activated {{ user.id }}"
+                                                           href="#" style="display: none"
+                                                           data-url='{% url "users_activate" user.id %}'
+                                                           data-userid="{{ user.id }}">
+                                                            <span>{% trans 'Activate' %}</span>
+                                                        </a>
+                                                    {% else %}
+                                                        <a id="user-activate"
+                                                           class=" btn btn-primary activated {{ user.id }}"
+                                                           href="#"
+                                                           data-url='{% url "users_activate" user.id %}'
+                                                           data-userid="{{ user.id }}">
+                                                            <span>{% trans 'Activate' %}</span>
+                                                        </a>
+                                                        <a id="user-deactivate"
+                                                           class=" btn btn-primary deactivated {{ user.id }}"
+                                                           href="#" style="display: none"
+                                                           data-url='{% url "users_deactivate" user.id %}'
+                                                           data-userid="{{ user.id }}">
+                                                            <span>{% trans 'Deactivate' %}</span>
+                                                        </a>
+                                                    {% endif %}
+                                                </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
@@ -180,5 +173,103 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $('.btn.btn-primary.deactivated').click(function () {
+            var url = $(this).data('url');
+            var userid = $(this).data('userid');
+            var a = ".btn.btn-primary.activated." + userid;
+            var activateurl = $(a);
+            var element = $(this);
+            swal(
+                    {
+                        title: "{% trans "Are you sure?" %}",
+                        text: "{% trans "You are about to deactivate a user" %}",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "{% trans 'Yes, deactivate it!' %}",
+                        cancelButtonText: "Cancel",
+                        closeOnConfirm: false
+                    }, function () {
+                        $.ajax({
+                            method: "POST",
+                            url: url,
+                            data: {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
+                            success: function (res) {
+                                if (res.is_deactivated) {
+                                    swal({
+                                        title: "{% trans "Correct!" %}",
+                                        text: "{% trans 'Now the user is deactivated' %}",
+                                        type: "success",
+                                    }, function () {
+                                        element.hide();
+                                        $(activateurl).css('display', "");
+                                    });
+                                } else {
+                                    swal({
+                                        title: "{% trans 'Opps!' %}",
+                                        text: "{% trans 'try again later' %}",
+                                        type: "warning"
+                                    });
+                                }
+
+                            },
+                            error: function (xhr) {
+                                alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                            }
+                        });
+                    });
+        });
+
+        $('.btn.btn-primary.activated').click(function () {
+            var url = $(this).data('url');
+            var userid = $(this).data('userid');
+            var a = ".btn.btn-primary.deactivated." + userid;
+            var deactivateurl = $(a);
+            var element = $(this);
+            swal(
+                    {
+                        title: "{% trans 'Are you sure?' %}",
+                        text: "{% trans 'You are about to activate a user' %}",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "{% trans 'Yes, active it!' %}",
+                        cancelButtonText: "{% trans 'Cancel' %}",
+                        closeOnConfirm: false
+                    }, function () {
+                        $.ajax({
+                            method: "POST",
+                            url: url,
+                            data: {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
+                            success: function (res) {
+                                if (!res.is_activated) {
+                                    swal({
+                                        title: "{% trans 'Correct!' %}",
+                                        text: "{% trans 'Now the user is active again' %}",
+                                        type: "success",
+                                    }, function () {
+                                        element.hide();
+                                        $(deactivateurl).css('display', "");
+                                    });
+                                } else {
+                                    swal({
+                                        title: "{% trans 'Opps!' %}",
+                                        text: "{% trans 'try again later' %}",
+                                        type: "warning"
+                                    });
+                                }
+
+                            },
+                            error: function (xhr) {
+                                alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                            }
+                        });
+                    });
+        });
+
+
+    </script>
 
 {% endblock %}

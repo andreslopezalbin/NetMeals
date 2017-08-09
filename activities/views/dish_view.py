@@ -5,12 +5,12 @@ from urllib.parse import urlparse
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.views import View
 
 from activities.forms.DishForm import DishForm
-from activities.models import Dish
+from activities.models import Dish, Guest
 from activities.services import dish_service
 
 from activities.forms.DishFeedbackForm import DishFeedbackForm
@@ -42,8 +42,7 @@ def schedule(request):
             item = {'title': dish.name,
                     'url': 'details/' + str(dish.id),
                     'start': str(dish.date) + " " + str(dish.hour),
-                    'color': '#257e4a'
-                    }
+                    'color': '#257e4a'}
 
             items.append(item)
         data = json.dumps(items)

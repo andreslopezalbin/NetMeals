@@ -1,8 +1,14 @@
 {% load staticfiles %}
+{% load i18n %}
 
 <!doctype html>
 <html lang="en">
 <head>
+    <script src="{% static "js/sweetalert.min.js" %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static "css/sweetalert.css" %}">
+    <script type="text/javascript" src="{% static "materialize/js/jquery-3.1.1.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/core.js" %}"></script>
+
     <meta charset="utf-8"/>
     <link rel="apple-touch-icon" sizes="76x76" href="{% static "materialize/assets/img/apple-icon.png" %}"/>
     <link rel="icon" type="image/png" href="{% static "materialize/assets/img/favicon.png" %}"/>
@@ -26,11 +32,17 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet'
           type='text/css'>
-</head>
 
+</head>
+<style>
+    .main-panel > .content {
+        margin-top: 45px !important;
+
+    }
+</style>
 
 <body>
-<div class="sidebar" data-color="purple" data-image="{% static "materialize/assets/img/sidebar-1.jpg" %}">
+<div class="sidebar" data-color="purple" data-image="">
     <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
@@ -45,51 +57,41 @@
 
     <div class="sidebar-wrapper">
         <ul class="nav">
-            <li class="active">
+            <li {% if dashboard %}class="active" {% endif %}>
                 <a href="{% url "dashboard" %}">
                     <i class="material-icons">dashboard</i>
                     <p>Dashboard</p>
                 </a>
             </li>
-            <li>
-                <a href="user.html">
-                    <i class="material-icons">person</i>
-                    <p>User Profile</p>
-                </a>
-            </li>
-            <li>
+
+            <li {% if users_dashboard %} class="active" {% endif %}>
                 <a href="{% url "users_dashboard" %}">
                     <i class="material-icons">content_paste</i>
-                    <p>Table List</p>
+                    <p>{% trans 'Users' %}</p>
                 </a>
             </li>
+
             <li>
-                <a href="typography.html">
-                    <i class="material-icons">library_books</i>
-                    <p>Typography</p>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="material-icons">settings</i>
+                    <p>{% trans 'Settings' %}</p>
                 </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><a class="dropdown-item"
+                           href="/i18n/change_language?language=es">{% trans "Spanish" %}</a></li>
+                    <li><a class="dropdown-item"
+                           href="/i18n/change_language?language=en">{% trans "English" %}</a></li>
+                    <li><a class="dropdown-item" href="{% url "logout" %}">{% trans 'Signout' %}</a>
+                    </li>
+                </ul>
             </li>
-            <li>
-                <a href="icons.html">
-                    <i class="material-icons">bubble_chart</i>
-                    <p>Icons</p>
-                </a>
-            </li>
-            <li>
-                <a href="maps.html">
-                    <i class="material-icons">location_on</i>
-                    <p>Maps</p>
-                </a>
-            </li>
-            <li>
-                <a href="notifications.html">
-                    <i class="material-icons text-gray">notifications</i>
-                    <p>Notifications</p>
-                </a>
-            </li>
+
+
         </ul>
     </div>
 </div>
+
+
 <div>
     {% block content %}
         <!-- Custom body replaced in tile files -->

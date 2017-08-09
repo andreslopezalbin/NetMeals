@@ -13,7 +13,8 @@ urlpatterns = [
     url(r'^paypal/subscription/cancel$', views.paypal_billing_agreement_cancel, name='cancel_subscription'),
 
     url(r'dashboard$', views.dashboard, name='dashboard'),
-    url(r'dashboard/users$', views.dashboard_users, name='users_dashboard')
-
+    url(r'dashboard/users$', views.dashboard_users, name='users_dashboard'),
+    url(r'deactivate/user/(?P<user_id>\d+)$', views.deactivate_user, name='users_deactivate'),
+    url(r'activate/user/(?P<user_id>\d+)$', views.activate_user, name='users_activate'),
 
 ]
