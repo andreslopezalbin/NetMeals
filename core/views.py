@@ -9,10 +9,11 @@ from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
 from paypalrestsdk import BillingAgreement
 
+from activities.models import DishFeedback
 from core.services import incoming_payments_service
 from core.services import paypal_service
 from core.util.session_constants import SESSION_USER_ROLES, SESSION_USER_PLAN, SESSION_SIGNEDUP_SUCCESS
-from users.models import User_Plan
+from users.models import User_Plan, Guest
 from users.services import UserService
 from users.services.UserService import get_plan
 
@@ -21,7 +22,7 @@ from django.utils import translation
 
 from django.views.decorators.csrf import csrf_protect
 
-from django.db.models import Count
+from django.db.models import Count, Sum, Avg
 from django.db.models.functions import TruncMonth
 
 
@@ -147,6 +148,10 @@ def paypal_execute_payment(request):
 
 @staff_member_required
 def dashboard(request):
+    # rankings = DishFeedback.objects.values('commented_id').annotate(avg=Avg('score')).order_by('-avg')
+    chef_ranking = Guest.objects.annotate(avg=Avg('dishfeedback_commented__score')).exclude(avg__isnull=True).values(
+        'chef', 'avg').order_by('-avg')
+
     users_register = (User.objects
                       .annotate(month=TruncMonth('date_joined'))  # Truncate to month and add to select list
                       .values('month')  # Group By month
@@ -159,9 +164,13 @@ def dashboard(request):
     for m in users_register[len(users_register) - 12:]:
         meses.append(m['month'].strftime("%B")[:3])
         users.append(m['c'])
-
-    return render(request, 'dashboard/dashboard.html',
-                  {'users_register': users_register, 'meses': meses, 'users': users, 'dashboard': True})
+    context = {'users_register': users_register,
+               'meses': meses,
+               'users': users,
+               'dashboard': True,
+               'chef_ranking': chef_ranking}
+    return render(request, 'dashboard/dashboard.html', context
+                  )
 
 
 @staff_member_required
@@ -206,3 +215,13 @@ def activate_user(request, user_id):
     except Exception:
         pass
     return JsonResponse(result)
+
+
+def rankings(request):
+    chef_ranking = Guest.objects.annotate(avg=Avg('dishfeedback_commented__score')).exclude(avg__isnull=True).values(
+        'username', 'photo', 'avg').order_by('-avg')
+    monitor_ranking = Guest.objects.annotate(avg=Avg('activityfeedback_commented__score')).exclude(
+        avg__isnull=True).values('username', 'photo', 'avg').order_by('-avg')
+    context = {'chef_ranking': chef_ranking,
+               'monitor_ranking': monitor_ranking}
+    return render(request, 'ratings.html', context)

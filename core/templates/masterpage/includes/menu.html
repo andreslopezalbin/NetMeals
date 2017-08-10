@@ -77,10 +77,13 @@
             <div class="collapse navbar-collapse" id="navbarNav1">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link">About</a>
+                        <a class="nav-link">{% trans 'About' %}</a>
                     </li>
                     {% include 'includes/activities_menu.html' %}
                     {% include 'includes/dish_menu.html' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'rankings' %}">{% trans 'Rankings' %}</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ">
                     <li class="nav-item dropdown">
