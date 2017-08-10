@@ -1,61 +1,12 @@
 {% extends 'masterpage/masterpage.html' %}
 {% load staticfiles %}
 {% load i18n %}
-
+{% load core_tags %}
 
 {% block content %}
 
     <style>
-        fieldset, label {
-            margin: 0;
-            padding: 0;
-        }
 
-        /****** Style Star Rating Widget *****/
-
-        .rating {
-            border: none;
-            float: left;
-        }
-
-        .rating > input {
-            display: none;
-        }
-
-        .rating > label:before {
-            margin: 5px;
-            font-size: 1.25em;
-            font-family: FontAwesome;
-            display: inline-block;
-            content: "\f005";
-        }
-
-        .rating > .half:before {
-            content: "\f089";
-            position: absolute;
-        }
-
-        .rating > label {
-            color: #ddd;
-            float: right;
-        }
-
-        /***** CSS Magic to Highlight Stars on Hover *****/
-
-        .rating > input:checked ~ label, /* show gold star when clicked */
-        .rating:not(:checked) > label:hover, /* hover current star */
-        .rating:not(:checked) > label:hover ~ label {
-            color: #ff5c5c;
-        }
-
-        /* hover previous stars in list */
-
-        .rating > input:checked + label:hover, /* hover current star when changing rating */
-        .rating > input:checked ~ label:hover,
-        .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-        .rating > input:checked ~ label:hover ~ label {
-            color: #ff5c5c;
-        }
     </style>
 
     <!--Page heading-->
@@ -77,63 +28,26 @@
                 <!--First review-->
                 {% for chef in chef_ranking %}
 
-                    <div class="col-md-12">
+                    <div class="col-md-12" onclick="window.location='{% url 'profile' chef.username %}';">
                         <div class="media mb-1 wow fadeIn" data-wow-delay="0.{{ forloop.counter }}s">
                             <a class="media-left waves-light">
-                                <img height="100px" width="100px" class="rounded-circle"
+                                <img height="120px" width="120px" class="rounded-circle"
                                      src="{{ chef.photo }}">
                             </a>
                             <div class="media-body">
                                 <h4 class="media-heading">{{ chef.username }}</h4>
-                                <ul class="rating inline-ul">
-                                    <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
 
-                                <ul class="rating inline-ul">
-                                    <input type="radio" id="star5" name="rating" value="5"/><label class="full"
-                                                                                                   for="star5"
-                                                                                                   title="Awesome - 5 stars"></label>
-                                    <input type="radio" id="star4half" name="rating" value="4 and a half"/><label
-                                        class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-                                    <input type="radio" id="star4" name="rating" value="4"/><label class="full"
-                                                                                                   for="star4"
-                                                                                                   title="Pretty good - 4 stars"></label>
-                                    <input type="radio" id="star3half" name="rating" value="3 and a half"/><label
-                                        class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                    <input type="radio" id="star3" name="rating" value="3"/><label class="full"
-                                                                                                   for="star3"
-                                                                                                   title="Meh - 3 stars"></label>
-                                    <input type="radio" id="star2half" name="rating" value="2 and a half"/><label
-                                        class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                    <input type="radio" id="star2" name="rating" value="2"/><label class="full"
-                                                                                                   for="star2"
-                                                                                                   title="Kinda bad - 2 stars"></label>
-                                    <input type="radio" id="star1half" name="rating" value="1 and a half"/><label
-                                        class="half" for="star1half" title="Meh - 1.5 stars"></label>
-                                    <input type="radio" id="star1" name="rating" value="1"/><label class="full"
-                                                                                                   for="star1"
-                                                                                                   title="Sucks big time - 1 star"></label>
-                                    <input type="radio" id="starhalf" name="rating" value="half"/><label class="half"
-                                                                                                         for="starhalf"
-                                                                                                         title="Sucks big time - 0.5 stars"></label>
-                                </ul>
+                                {% for avg in chef.avg|floatToInt %}
+                                    <img style="display: inline-block" width="25em"
+                                         src="{% static "images/star.png" %}"/>
+                                {% endfor %}
+                                {% if chef.avg|redondeo %}
+                                    <img style="display: inline-block" width="25em"
+                                         src="{% static "images/half-star.png" %}"/>
 
+                                {% endif %}
 
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi cupiditate
-                                    temporibus iure
-                                    soluta.
-                                    Quasi
-                                    mollitia maxime nemo quam accusamus possimus, voluptatum expedita assumenda.
-                                    Earum sit
-                                    id
-                                    ullam
-                                    eum
-                                    vel
-                                    delectus!</p>
+                                <p>texto ajsbahisbahibsah</p>
                             </div>
                         </div>
                     </div>
@@ -148,35 +62,28 @@
         <div class="row wow">
             <div class="col-lg-12">
                 <!--First review-->
-                {% for monitor in 'xxxxxxxxx' %}
+                {% for monitor in monitor_ranking %}
 
-                    <div class="col-md-12">
+                    <div class="col-md-12"  onclick="window.location='{% url 'profile' monitor.username %}';">
                         <div class="media mb-1 wow fadeIn" data-wow-delay="0.{{ forloop.counter }}s">
-                            <a class="media-left waves-light">
-                                <img class="rounded-circle"
-                                     src="https://mdbootstrap.com/img/Photos/Avatars/avatar-13.jpg"
-                                     alt="Generic placeholder image">
+                            <a href="{% url 'profile' monitor.username %}" class="media-left waves-light">
+                                <img height="120px" width="120px" class="rounded-circle"
+                                     src="{{ monitor.photo }}">
                             </a>
                             <div class="media-body">
-                                <h4 class="media-heading">John Doe</h4>
-                                <ul class="rating inline-ul">
-                                    <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star amber-text"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi cupiditate
-                                    temporibus iure
-                                    soluta.
-                                    Quasi
-                                    mollitia maxime nemo quam accusamus possimus, voluptatum expedita assumenda.
-                                    Earum sit
-                                    id
-                                    ullam
-                                    eum
-                                    vel
-                                    delectus!</p>
+                                <h4 class="media-heading">{{ monitor.username }}</h4>
+
+                                {% for avg in chef.avg|floatToInt %}
+                                    <img style="display: inline-block" width="25em"
+                                         src="{% static "images/star.png" %}"/>
+                                {% endfor %}
+                                {% if chef.avg|redondeo %}
+                                    <img style="display: inline-block" width="25em"
+                                         src="{% static "images/half-star.png" %}"/>
+
+                                {% endif %}
+
+                                <p>texto ajsbahisbahibsah</p>
                             </div>
                         </div>
                     </div>
