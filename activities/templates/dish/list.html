@@ -100,31 +100,6 @@
         </main>
     </div>
 
-        {#                    {% for dish in dishes %}#}
-        {#                        <div class="col-md-4">#}
-        {#                            <div class="thumbnail">#}
-        {#                                <img alt="{{ dish.name }}"#}
-        {#                                     src="{{ dish.photo }}" style="height:220px; width:320px ; border-radius: 5% "/>#}
-        {#                                <div class="caption">#}
-        {#                                    <h3>#}
-        {#                                        {{ dish.name }}#}
-        {#                                    </h3>#}
-        {#                                    <p>#}
-        {#                                        {{ dish.description }}#}
-        {#                                    </p>#}
-        {#                                    <p>#}
-        {#                                        <a class="btn btn-primary"#}
-        {#                                           href="{% url 'dish_details' dish_id=dish.id %}">{% trans 'Details' %}</a>#}
-        {#                                        <a class="btn" href="{% url "dish_dish" %}">Edit</a>#}
-        {#                                    </p>#}
-        {#                                </div>#}
-        {#                            </div>#}
-        {#                        </div>#}
-        {#                    {% empty %}#}
-        {#                        <i class="fa fa-exclamation-triangle fa-5x" ></i> Nada que mostrar#}
-        {#                    {% endfor %}#}
-
-
         <script>
 
             $(document).ready(function () {
