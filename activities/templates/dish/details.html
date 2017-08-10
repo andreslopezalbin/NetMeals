@@ -170,7 +170,7 @@
             if ("{{delete_error}}") {
                 swal("{% trans "Well, this is embarrassing" %}", "{% trans "Something went wrong!" %}", "error");
             } else if ("{{deleted}}") {
-                swal("Deleted!", "Your imaginary file has been deleted!", "success");
+                swal("{% trans "Deleted!" %}", "{% trans "Your imaginary file has been deleted!" %}", "success");
             }
         });
 
@@ -209,8 +209,8 @@
             success: function(res){
                 swal(
                     {
-                        title: "Good job!",
-                        text: "Now you are subscribed!",
+                        title: "{% trans "Good job!" %}",
+                        text: "{% trans "Now you are subscribed!" %}",
                         type:"success"
                     }
                     , function(){
@@ -225,12 +225,12 @@
         function dishUnsubscribe(url){
             swal(
                 {
-                    title: "Are you sure?",
-                    text: "You will unsubscribe this dish!",
+                    title: "{% trans "Are you sure?" %}",
+                    text: "{% trans "You will unsubscribe this dish!" %}",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes, unsubscribe it!",
+                    confirmButtonText: "{% trans "Yes, unsubscribe it!" %}",
                     cancelButtonText: "Cancel",
                     closeOnConfirm: false
                 }, function() {
@@ -239,13 +239,21 @@
                         url: url,
                         data: {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
                         success: function (res) {
-                            swal({
-                                title: "Good Job!",
-                                text: "Now you are unsubscribed!",
-                                type: "success",
-                            }, function () {
-                                location.reload();
-                            });
+                            if(res.is_refunded) {
+                                swal({
+                                    title: "Good Job!",
+                                    text: "{% trans "Now you are unsubscribed!" %}",
+                                    type: "success",
+                                }, function () {
+                                    location.reload();
+                                });
+                            }else{
+                                swal({
+                                    title: "Oops!",
+                                    text: "{% trans "There was an error executing your unsubscription request. Please try later." %}",
+                                    type: "warning",
+                                });
+                            }
                         },
                         error: function (xhr) {
                             alert("An error occured: " + xhr.status + " " + xhr.statusText);

@@ -35,9 +35,10 @@ def subscribe(activity_id, request):
 
 def unsubscribe(activity_id, request):
     activity = get_object_or_404(Activity, id=activity_id)
-
     guest = Guest.objects.get(id=request.user.id)
-    activity.assistants.remove(guest)
+
+    if (activity.owner_id != request.user.id):
+        activity.assistants.remove(guest)
 
 def daterange(start_date, end_date):
     for n in range(int ((end_date - start_date).days)):

@@ -14,10 +14,10 @@ def subscribe(dish_id, request):
 
 def unsubscribe(dish_id, request):
     dish = get_object_or_404(Dish, id=dish_id)
-    execute_refound('84R42069FD595684E')
-
     guest = Guest.objects.get(id=request.user.id)
-    # dish.assistants.remove(guest)
+
+    if (dish.owner_id != request.user.id):
+        dish.assistants.remove(guest)
 
 
 

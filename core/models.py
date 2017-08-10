@@ -27,7 +27,7 @@ class IncomingPayment(models.Model):
     executed_incoming = models.BooleanField(default=False)
     executed_outcoming = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True, blank=False)
-    refound_id = models.CharField(max_length=140, null=True, blank=True, default = None)
+    refund_id = models.CharField(max_length=140, null=True, blank=True, default = None)
     amount = models.DecimalField(max_digits=9 , decimal_places=2)
 
 

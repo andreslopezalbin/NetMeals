@@ -5,6 +5,7 @@ from urllib.parse import urlparse
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.views import View
@@ -14,6 +15,7 @@ from activities.models import Dish, Guest
 from activities.services import dish_service
 
 from activities.forms.DishFeedbackForm import DishFeedbackForm
+from core.services import paypal_service
 
 
 def findall(request):
@@ -145,12 +147,13 @@ class DishSubscriptionView(View):
 
 class DishUnsubscriptionView(View):
     def post(self, request, dish_id):
-        dish_service.unsubscribe(dish_id, request)
-        result_url = "/"
-        if (request.META.get('HTTP_REFERER') is not None):
-            result_url = urlparse(request.META.get('HTTP_REFERER')).path
+        result = {"is_refunded": False}
+        is_refunded = paypal_service.execute_refound(request, dish_id, None)
+        if(is_refunded):
+            result["is_refunded"] = True
+            dish_service.unsubscribe(dish_id, request)
 
-        return HttpResponseRedirect(result_url)
+        return JsonResponse(result)
 
 def feedback(request, dish_id):
     dish = Dish.objects.get(id=dish_id)

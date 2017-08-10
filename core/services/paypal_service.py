@@ -7,6 +7,7 @@ from paypalrestsdk import Payment
 from paypalrestsdk import ResourceNotFound
 from paypalrestsdk import Sale
 
+from core.models import IncomingPayment
 from users.models import User_Plan
 
 HOST = "http://ec2-52-213-77-111.eu-west-1.compute.amazonaws.com/"
@@ -250,21 +251,33 @@ def execute_payment(paypal_payment_id, payer_id):
     return result
 
 
-def execute_refound(sales_id):
-    sale = Sale.find("8TP02835YE0436714")
-    amount = float(sale['amount']['total'])
-    currency = str(sale['amount']['currency'])
-    refund = sale.refund({
-      "amount": {
-        "total": str(amount),
-        "currency": currency
-      }
-    })
+def execute_refound(request, dish_id, activity_id):
+    result = False
+    incoming_payment = IncomingPayment.objects.filter(user_id=request.user.id, dish_id=dish_id, activity_id=activity_id).order_by('-date').first()
+    if(incoming_payment is not None and incoming_payment.refund_id is None):
+        sale = Sale.find(incoming_payment.paypal_sale_id)
+        amount = float(sale['amount']['total'])
+        currency = str(sale['amount']['currency'])
 
-    if refund.success():
-        print("Refund[%s] Success" % refund.id)
-    else:
-        print(refund.error)
+        if(amount > 2):
+            amount = round(0.8 * (amount - 2), 2)
+            amount_format = format(amount, '.2f')
+            request = {
+              "amount": {
+                "total": amount_format,
+                "currency": currency
+              }
+            }
+            refund = sale.refund(request)
+
+            if refund.success():
+                incoming_payment.refund_id = refund.id
+                incoming_payment.save()
+                result = True
+        else:
+            result = True
+
+    return result
 
 
 def cancel_subscription(user):

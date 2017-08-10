@@ -2,6 +2,7 @@ import datetime
 from urllib.parse import urlparse
 
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
 from  django.views.generic.list import ListView
@@ -10,6 +11,7 @@ from django.shortcuts import get_object_or_404
 from activities.forms.ActivityForm import ActivityForm
 from activities.models import Activity
 from activities.services import activity_service
+from core.services import paypal_service
 from core.util import session_utils
 from users.models import Guest
 
@@ -46,12 +48,13 @@ class ActivitySubscriptionView(View):
 class ActivityUnsubscriptionView(View):
 
     def post(self, request, activity_id):
-        activity_service.unsubscribe(activity_id, request)
-        result_url = "/"
-        if(request.META.get('HTTP_REFERER') is not None):
-            result_url = urlparse(request.META.get('HTTP_REFERER')).path
+        result = {"is_refunded": False}
+        is_refunded = paypal_service.execute_refound(request, None, activity_id)
+        if (is_refunded):
+            result["is_refunded"] = True
+            activity_service.unsubscribe(activity_id, request)
 
-        return HttpResponseRedirect(result_url)
+        return JsonResponse(result)
 
 class ListSubscribedActivitiesView(ListView):
     model = Activity
