@@ -27,20 +27,32 @@ function initAutocomplete() {
     ini_lat = 40.4167754;
     ini_lng = -3.7037901999999576;
   }
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: ini_lat, lng: ini_lng},
-    zoom: 17,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  });
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: ini_lat, lng: ini_lng},
+        zoom: 17,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+  var circle = new google.maps.Circle({
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.2,
+      map: map,
+      center: {lat: ini_lat, lng: ini_lng},
+      radius: 200
+    });
 
   map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true});
 
   var name = $('#id_name').val();
-  var places = {
-    type: 'Feature',
-    geometry: {type: 'Point', coordinates: [ini_lng, ini_lat]},
-    properties: {name: name}
-  };
+  // var places = {
+  //   type: 'Feature',
+  //   geometry: {type: 'Point', coordinates: [ini_lng, ini_lat]},
+  //   properties: {name: name}
+  // };
   // Add some markers to the map.
   map.data.setStyle(function(feature) {
     return {
@@ -48,7 +60,7 @@ function initAutocomplete() {
       optimized: false
     };
   });
-  map.data.addGeoJson(places);
+  // map.data.addGeoJson(places);
 
   // Create the search box and link it to the UI element.
   var input = document.getElementById('id_place');
@@ -80,26 +92,38 @@ function initAutocomplete() {
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
     places.forEach(function(place) {
-      var icon = {
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
-      };
-
+      // var icon = {
+      //   url: place.icon,
+      //   size: new google.maps.Size(71, 71),
+      //   origin: new google.maps.Point(0, 0),
+      //   anchor: new google.maps.Point(17, 34),
+      //   scaledSize: new google.maps.Size(25, 25)
+      // };
+      //
       // Create a marker for each place.
-      markers.push(new google.maps.Marker({
-        map: map,
-        icon: icon,
-        title: place.name,
-        position: place.geometry.location
-      }));
+      // markers.push(new google.maps.Marker({
+      //   map: map,
+      //   icon: icon,
+      //   title: place.name,
+      //   position: place.geometry.location
+      // }));
 
       var lat = place.geometry.location.lat();
       var lng = place.geometry.location.lng();
       $('#id_latitude').val(lat);
       $('#id_longitude').val(lng);
+
+      circle.setMap(null);
+      circle = new google.maps.Circle({
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.2,
+          map: map,
+          center: {lat: lat, lng: lng},
+          radius: 200
+        });
 
       console.log("latitud: " + lat + ", longitud: " + lng);
 
@@ -111,6 +135,15 @@ function initAutocomplete() {
       }
     });
     map.fitBounds(bounds);
+
+    zoomChangeBoundsListener =
+    google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
+        if (this.getZoom()){
+            this.setZoom(17);
+        }
+    });
+    setTimeout(function(){google.maps.event.removeListener(zoomChangeBoundsListener)}, 2000);
+
   });
   // [END region_getplaces]
 }
