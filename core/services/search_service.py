@@ -15,15 +15,17 @@ def search_by_proximity_with_distance(latitude, longitude, miles_distance):
             if(meters < 1):
                 meters = 0
 
+            meters_str = format(meters, '.2f')
+
             if(row[0] == "activity"):
                 activity = Activity.objects.get(id=row[1])
                 if(activity is not None):
-                    tupla = (activity, meters,)
+                    tupla = (activity, meters_str,)
                     activities.append(tupla)
             elif(row[0] == "dish"):
                 dish = Dish.objects.get(id=row[1])
                 if(dish is not None):
-                    tupla = (dish, meters,)
+                    tupla = (dish, meters_str,)
                     dishes.append(tupla)
 
     return activities, dishes

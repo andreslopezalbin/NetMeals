@@ -132,8 +132,13 @@
                         </div>
                     </li>
                 </ul>
-                <form class="form-inline waves-effect waves-light">
+                <form id="search-form" class="form-inline waves-effect waves-light">
+                    <input id="search-lat" type="hidden" />
+                    <input id="search-lng" type="hidden" />
                     <input id="menu-searcher" data-url="{% url "search" %}" class="form-control" type="text" placeholder="{% trans "Search CP" %}">
+                    <button id="menu-searcher-user-location" data-url="{% url "search" %}" class="btn btn-success btn-circle btn-lg search-current-location">
+                         <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    </button>
                 </form>
             </div>
         </div>
@@ -199,6 +204,73 @@
         </div>
         <!--Modal: Login Form-->
     {% endif %}
+    <script>
+        $(document).ready(function(){
+
+            $("#menu-searcher-user-location").click(function(event){
+                $(this).addClass("search-loader-hidden");
+                var url = $(this).data("url");
+                var apiGeolocationSuccess = function(position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+                    $("#search-lat").val(lat);
+                    $("#search-lng").val(lng);
+                    window.location.href = url + "?latitude=" + lat + "&longitude=" + lng
+                };
+
+                var tryAPIGeolocation = function() {
+                    jQuery.post( "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDfD-gZKxc_qrC1clMF9U3OPfm5U3iUwE0", function(success) {
+                        apiGeolocationSuccess({coords: {latitude: success.location.lat, longitude: success.location.lng}});
+                  })
+                  .fail(function(err) {
+                    alert("API Geolocation error! \n\n"+err);
+                  });
+                };
+
+                var browserGeolocationSuccess = function(position) {
+                    alert("Browser geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+                };
+
+                var browserGeolocationFail = function(error) {
+                    switch (error.code) {
+                        case error.TIMEOUT:
+                            alert("Browser geolocation error !\n\nTimeout.");
+                            break;
+                        case error.PERMISSION_DENIED:
+                            if(error.message.indexOf("Only secure origins are allowed") == 0) {
+                                tryAPIGeolocation();
+                            }
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            alert("Browser geolocation error !\n\nPosition unavailable.");
+                            break;
+                  }
+                };
+
+                swal(
+                    {
+                        title: "{% trans "Use your current location?" %}",
+                        text: "{% trans "We'll use your location to show you dishes and activities near to you!!" %}",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "{% trans "Yes" %}",
+                        cancelButtonText: "Cancel",
+                        closeOnConfirm: false
+                    }, function() {
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(
+                                browserGeolocationSuccess,
+                                browserGeolocationFail,
+                                {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true}
+                            );
+                        }
+                    }
+                );
+            });
+
+        });
+        </script>
 
 {% endblock body %}
 

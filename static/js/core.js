@@ -66,6 +66,15 @@ $(document).ready(function(){
         }
         var days = $("#week-days").val(weekDays)
     });
+
+    $("#search-form").submit(function(event){
+        var lat = $("#search-lat").val();
+        var lng = $("#search-lng").val();
+
+        if(lat == "" || lng == ""){
+            event.preventDefault();
+        }
+    });
 });
 
 function changeLanguage(cookieLanguageCode, language) {
@@ -162,6 +171,8 @@ function initSearchBox() {
         places.forEach(function (place) {
             var lat = place.geometry.location.lat();
             var lng = place.geometry.location.lng();
+            $("#search-lat").val(lat);
+            $("#search-lng").val(lng);
             // $.post( url, {
             //     "latitude": lat,
             //     "longitude": lng

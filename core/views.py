@@ -234,9 +234,42 @@ def search(request):
         context = {}
         latitude = request.GET['latitude']
         longitude = request.GET['longitude']
+        activity_page = request.GET.get('activity_page')
+        dish_page = request.GET.get('dish_page')
+
         if(latitude is not None and longitude is not None):
             activities, dishes = search_service.search_by_proximity(latitude, longitude)
+
+            activity_paginator = Paginator(activities, 9)
+            dish_paginator = Paginator(dishes, 9)
+
+            activities = get_searched_activities_page(activity_page, activity_paginator)
+            dishes = get_searched_dishes_page(dish_page, dish_paginator)
+
             context["activities"] = activities
             context["dishes"] = dishes
 
     return render(request, 'search.html', context)
+
+def get_searched_activities_page(activity_page, activity_paginator):
+    result = []
+    try:
+        result = activity_paginator.page(activity_page)
+    except PageNotAnInteger:
+        result = activity_paginator.page(1)
+    except EmptyPage:
+        result = activity_paginator.page(activity_paginator.num_pages)
+
+    return result
+
+
+def get_searched_dishes_page(dish_page, dish_paginator):
+    result = []
+    try:
+        result = dish_paginator.page(dish_page)
+    except PageNotAnInteger:
+        result = dish_paginator.page(1)
+    except EmptyPage:
+        result = dish_paginator.page(dish_paginator.num_pages)
+
+    return result
