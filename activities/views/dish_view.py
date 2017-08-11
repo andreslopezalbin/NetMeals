@@ -96,7 +96,7 @@ def create(request):
                     'form': form, 'create': True
                 }
         else:
-            form = DishForm()
+            form = DishForm(place=request.user.guest.place)
             context = {
                 'form': form, 'create': True
             }

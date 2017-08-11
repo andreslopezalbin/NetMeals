@@ -2,7 +2,7 @@
 <head>
     <title>{% block title %}NetMeals{% endblock %}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta name="viewport" content="width=320, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <meta name="viewport" content="width=320, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
 
     {% load staticfiles %}
     <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}"/>
@@ -16,10 +16,12 @@
 
     <link rel="stylesheet" media="screen" href="{% static "css/font-awesome.min.css" %}"/>
     <link rel="stylesheet" media="screen" href="{% static "css/google-maps.css" %}"/>
-    <link rel="stylesheet" type="text/css" href="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css">
 
     <script type="text/javascript" src="{% static "materialize/js/jquery-3.1.1.min.js" %}"></script>
-    <script type="text/javascript" src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.js"></script>
+    <script type="text/javascript"
+            src="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.js"></script>
 
     <script type="text/javascript" src="{% static "materialize/js/tether.min.js" %}"></script>
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
@@ -39,7 +41,7 @@
     <script src="{% static "js/sweetalert.min.js" %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static "css/sweetalert.css" %}">
 </head>
-<body>
+<body style="min-height: 100%;">
 {% include 'masterpage/includes/menu.html' %}
 
 </div>

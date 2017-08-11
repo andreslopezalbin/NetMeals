@@ -5,7 +5,7 @@ from django.views import View
 
 from activities.models import DishFeedback
 from users.forms.GuestForms import SignUpForm
-from users.forms.ProfileForm import GuestForm
+from users.forms.ProfileForm import GuestForm, AboutMeForm
 from users.models import Guest, User_Plan
 from users.services import UserService
 
@@ -59,6 +59,27 @@ def edit_profile(request):
                     'is_subscribed' : subscription is not None and subscription.is_active
                    }
     return render(request, 'profile/edit_profile.html', context)
+
+@login_required
+@transaction.atomic
+def edit_about_me(request):
+    guest = request.user.guest
+    if request.method == "POST":
+        form = AboutMeForm(data=request.POST, instance=guest, prefix='guest')
+        if form.is_valid():
+            form.save()
+            return redirect("profile", guest.username)
+        else:
+            context = {
+                'guest_form': form,
+            }
+    else:
+        guest_form = AboutMeForm(instance=guest, prefix='guest')
+        subscription = User_Plan.objects.filter(user_id=request.user.id).first()
+        context = {'guest_form': guest_form,
+                    'is_subscribed' : subscription is not None and subscription.is_active
+                   }
+    return render(request, 'profile/edit_about_me.html', context)
 
 
 def view_profile(request, username):

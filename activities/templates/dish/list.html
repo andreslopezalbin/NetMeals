@@ -35,12 +35,14 @@
                 <div class="row wow">
                     <!--First column-->
                     {% for dish in dishes %}
-                        <div class="col-lg-4 wow fadeIn" data-wow-delay= "0.{{ forloop.counter }}s">
+                        <div class="col-lg-4 wow fadeIn" data-wow-delay="0.{{ forloop.counter }}s"
+                             style=" margin-bottom: 15px;">
                             <!--Card-->
                             <div class="card">
                                 <!--Card image-->
                                 <div class="view overlay hm-white-slight">
-                                    <img src="{{ dish.photo }}"
+                                    <img style="  min-height:250px; max-height:250px; margin: auto;"
+                                         src="{{ dish.photo }}"
                                          class="img-fluid" alt="">
                                     <a href="#!">
                                         <div class="mask"></div>
@@ -53,7 +55,8 @@
                                     <!--Title-->
                                     <h4 class="card-title">{{ dish.name }}</h4>
                                     <!--Text-->
-                                    <p class="card-text">{{ dish.short_description }}</p>
+                                    <p class="card-text"
+                                       style="min-height: 100px; max-height: 100px">{{ dish.short_description }}</p>
                                     <div class="read-more">
                                         <a class="btn btn-elegant"
                                            href="{% url 'details_dish' dish_id=dish.id %}">{% trans 'Details' %}</a>
@@ -63,6 +66,9 @@
 
                             </div>
                             <!--/.Card-->
+                        </div>
+                    {% empty %}
+                        <div style="min-height: 400px">
                         </div>
                     {% endfor %}
                 </div>
@@ -100,16 +106,16 @@
         </main>
     </div>
 
-        <script>
+    <script>
 
-            $(document).ready(function () {
-                if ("{{deleted}}") {
-                    swal("Deleted!", "Your imaginary file has been deleted!", "success");
-                }
-                 else if ("{{error}}") {
-                    swal("Error!", "Sorry!", "error");
-                }
-            });
-        </script>
+        $(document).ready(function () {
+            if ("{{deleted}}") {
+                swal("Deleted!", "Your imaginary file has been deleted!", "success");
+            }
+            else if ("{{error}}") {
+                swal("Error!", "Sorry!", "error");
+            }
+        });
+    </script>
 
 {% endblock %}
