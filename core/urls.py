@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'deactivate/user/(?P<user_id>\d+)$', views.deactivate_user, name='users_deactivate'),
     url(r'activate/user/(?P<user_id>\d+)$', views.activate_user, name='users_activate'),
     url(r'rankings$', views.rankings, name='rankings'),
+    url(r'search$', views.search, name='search'),
 
 ]

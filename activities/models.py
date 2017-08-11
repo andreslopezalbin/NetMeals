@@ -27,6 +27,8 @@ class Dish(models.Model):
     max_assistants = models.PositiveIntegerField(default=1)
     assistants = models.ManyToManyField(Guest, related_name='dish_assisted')
     contribution = models.DecimalField(default=1.0, max_digits=4, decimal_places=2)
+    latitude = models.DecimalField(max_digits=23, decimal_places=20)
+    longitude = models.DecimalField(max_digits=23, decimal_places=20)
     date = models.DateField()
     hour = models.TimeField()
 

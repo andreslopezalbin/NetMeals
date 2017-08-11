@@ -7,17 +7,19 @@ from django.contrib.auth.models import Group
 from django.db import transaction
 from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
+from django.template import loader
 from paypalrestsdk import BillingAgreement
 
 from activities.models import DishFeedback
 from core.services import incoming_payments_service
 from core.services import paypal_service
+from core.services import search_service
 from core.util.session_constants import SESSION_USER_ROLES, SESSION_USER_PLAN, SESSION_SIGNEDUP_SUCCESS
 from users.models import User_Plan, Guest
 from users.services import UserService
 from users.services.UserService import get_plan
 
-from django.http.response import HttpResponseRedirect, JsonResponse
+from django.http.response import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.utils import translation
 
 from django.views.decorators.csrf import csrf_protect
@@ -225,3 +227,16 @@ def rankings(request):
     context = {'chef_ranking': chef_ranking,
                'monitor_ranking': monitor_ranking}
     return render(request, 'ratings.html', context)
+
+
+def search(request):
+    if request.method == "GET":
+        context = {}
+        latitude = request.GET['latitude']
+        longitude = request.GET['longitude']
+        if(latitude is not None and longitude is not None):
+            activities, dishes = search_service.search_by_proximity(latitude, longitude)
+            context["activities"] = activities
+            context["dishes"] = dishes
+
+    return render(request, 'search.html', context)

@@ -40,3 +40,8 @@
   font-size: 13px;
   font-weight: 300;
 }
+
+.pac-container.pac-logo{
+  z-index: 1500;
+  min-width: 350px;
+}
