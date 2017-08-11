@@ -1,0 +1,93 @@
+{% extends 'masterpage/masterpage.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% load core_tags %}
+
+{% block content %}
+
+    <style>
+
+    </style>
+
+    <!--Page heading-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="h1-responsive">{% trans 'Result' %}</h1>
+            </div>
+        </div>
+        <!--/.Page heading-->
+        <hr>
+        <h1 class="h1-responsive">
+            <small class="text-muted">{% trans 'Activities near you' %}</small>
+        </h1>
+
+        <!--First row-->
+        <div class="row wow">
+            <div class="col-lg-12">
+                <!--First review-->
+                {% for activity, activity_distance in activities %}
+                        {{ activity.id }}, {{ activity_distance }}<br>
+{#                    <div class="col-md-12" onclick="window.location='{% url 'profile' chef.username %}';">#}
+{#                        <div class="media mb-1 wow fadeIn" data-wow-delay="0.{{ forloop.counter }}s">#}
+{#                            <a class="media-left waves-light">#}
+{#                                <img height="120px" width="120px" class="rounded-circle"#}
+{#                                     src="{{ chef.photo }}">#}
+{#                            </a>#}
+{#                            <div class="media-body">#}
+{#                                <h4 class="media-heading">{{ chef.username }}</h4>#}
+{##}
+{#                                {% for avg in chef.avg|floatToInt %}#}
+{#                                    <img style="display: inline-block" width="25em"#}
+{#                                         src="{% static "images/star.png" %}"/>#}
+{#                                {% endfor %}#}
+{#                                {% if chef.avg|redondeo %}#}
+{#                                    <img style="display: inline-block" width="25em"#}
+{#                                         src="{% static "images/half-star.png" %}"/>#}
+{##}
+{#                                {% endif %}#}
+{##}
+{#                                <p>texto ajsbahisbahibsah</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+                {% endfor %}
+            </div>
+        </div>
+        <hr>
+        <h1 class="h1-responsive">
+            <small class="text-muted">{% trans 'Dishes near you' %}</small>
+        </h1>
+        <!--First row-->
+        <div class="row wow">
+            <div class="col-lg-12">
+                <!--First review-->
+                {% for dish, dish_distance in dishes %}
+                        {{ dish.id }}, {{ dish_distance }}<br>
+{#                    <div class="col-md-12"  onclick="window.location='{% url 'profile' monitor.username %}';">#}
+{#                        <div class="media mb-1 wow fadeIn" data-wow-delay="0.{{ forloop.counter }}s">#}
+{#                            <a href="{% url 'profile' monitor.username %}" class="media-left waves-light">#}
+{#                                <img height="120px" width="120px" class="rounded-circle"#}
+{#                                     src="{{ monitor.photo }}">#}
+{#                            </a>#}
+{#                            <div class="media-body">#}
+{#                                <h4 class="media-heading">{{ monitor.username }}</h4>#}
+{##}
+{#                                {% for avg in chef.avg|floatToInt %}#}
+{#                                    <img style="display: inline-block" width="25em"#}
+{#                                         src="{% static "images/star.png" %}"/>#}
+{#                                {% endfor %}#}
+{#                                {% if chef.avg|redondeo %}#}
+{#                                    <img style="display: inline-block" width="25em"#}
+{#                                         src="{% static "images/half-star.png" %}"/>#}
+{##}
+{#                                {% endif %}#}
+{##}
+{#                                <p>texto ajsbahisbahibsah</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+                {% endfor %}
+            </div>
+        </div>
+{% endblock %}
