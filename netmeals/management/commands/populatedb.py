@@ -42,7 +42,7 @@ class Command(BaseCommand):
         free_plan = Plan(
             paypal_plan_id='',
             amount=0.00,
-            name = PLAN_FREE,
+            name=PLAN_FREE,
             description='NetMeals Free Plan'
         )
         free_plan.save()
@@ -53,7 +53,7 @@ class Command(BaseCommand):
             premium_plan = Plan(
                 paypal_plan_id=premium_plan_id,
                 amount=14.99,
-                name = PLAN_PREMIUM,
+                name=PLAN_PREMIUM,
                 description='NetMeals Premium Plan'
             )
             premium_plan.save()
@@ -64,7 +64,7 @@ class Command(BaseCommand):
             lite_plan = Plan(
                 paypal_plan_id=lite_plan_id,
                 amount=9.99,
-                name = PLAN_LITE,
+                name=PLAN_LITE,
                 description='NetMeals Lite Plan'
             )
             lite_plan.save()
@@ -301,6 +301,8 @@ class Command(BaseCommand):
         # ==================================================================================================
 
         dish1 = Dish(name='dish1', description='dish1Description', date='2017-02-5', hour='12:00', owner=chef1,
+                     latitude=10.0,
+                     longitude=10.0, place='calle 1',
                      max_assistants=3, contribution=5.6,
                      photo='/media/dish/dish1.jpg',
                      short_description="esto es una descripción de 140 caracteres, esto es una descripción de 140 caracteres, esto es una descripción de 140 caracteres, y así......")
@@ -308,22 +310,30 @@ class Command(BaseCommand):
         dish1.assistants.add(guest1)
         dish1.assistants.add(guest2)
         dish2 = Dish(name='dish2', description='dish2Description', date='2017-03-15', hour='13:00', owner=chef1,
+                     latitude=10.0,
+                     longitude=10.0, place='calle 1',
                      max_assistants=3, contribution=4.0,
                      photo='/media/dish/dish2.jpg',
                      short_description="esto es una descripción de 140 caracteres, esto es una descripción de 140 caracteres, esto es una descripción de 140 caracteres, y así......")
         dish2.save()
         dish2.assistants.add(chef2)
         dish3 = Dish(name='dish3', description='dish3Description', date='2017-03-25', hour='14:00', owner=chef2,
+                     latitude=10.0,
+                     longitude=10.0, place='calle 1',
                      max_assistants=1, contribution=2.0,
                      photo='/media/dish/dish3.jpg',
                      short_description="esto es una descripción de 140 caracteres, esto es una descripción de 140 caracteres, esto es una descripción de 140 caracteres, y así......")
         dish3.save()
         dish4 = Dish(name='dish4', description='dish4Description', date='2017-08-29', hour='14:00', owner=chef2,
+                     latitude=10.0,
+                     longitude=10.0, place='calle 1',
                      max_assistants=5, contribution=5.0,
                      photo='/media/dish/dish4.jpg',
                      short_description="esto es una descripción de 140 caracteres, esto es una descripción de 140 caracteres, esto es una descripción de 140 caracteres, y así......")
         dish4.save()
         dish5 = Dish(name='dish5', description='dish5Description', date='2017-8-25', hour='15:00', owner=chef2,
+                     latitude=10.0,
+                     longitude=10.0, place='calle 1',
                      max_assistants=10, contribution=3.6,
                      short_description="esto es una descripción de 140 caracteres, esto es una descripción de 140 caracteres, esto es una descripción de 140 caracteres, y así......")
         dish5.save()

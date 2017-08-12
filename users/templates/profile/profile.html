@@ -61,11 +61,7 @@
                     <p><strong>{{ user.first_name }} {{ user.last_name }}</strong></p>
 
                     {% if user.birthday %}<p>{% trans "Age: " %}{{ user.birthday | years }}</p> {% endif %}
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint esse nulla
-                        quia
-                        quam veniam commodi dicta, iusto inventore. Voluptatum pariatur eveniet ea, officiis vitae
-                        praesentium beatae quas libero, esse facere.
-                    </p>
+                    <p>{{ user.abstract }}</p>
                 </div>
             </div>
         </div>
@@ -151,7 +147,7 @@
                 </div> <!-- end col sm 3 -->
             {% endfor %}
         </div> <!-- end row -->
-        <div class="space-50"></div>
+        <div class="space-200"></div>
     </div>
 
     <script type="text/javascript">

@@ -11,7 +11,7 @@
         <div class="container alerts">
             <div class="alert alert-success alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>{{success_msg}}</strong>
+                <strong>{{ success_msg }}</strong>
             </div>
         </div>
     {% endif %}
@@ -21,9 +21,9 @@
         <form id="activity-delete-form" action="" method="post">{% csrf_token %}
             <p>Are you sure you want to delete the activity?</p>
             <div class="row container-fluid">
-                <input type="submit" class="col-4 btn btn-primary" value="Confirm" />
+                <input type="submit" class="col-4 btn btn-primary" value="Confirm"/>
                 <div class="col-4"></div>
-                <input type="button" class="col-4 cancel btn btn-primary" value="Cancel" />
+                <input type="button" class="col-4 cancel btn btn-primary" value="Cancel"/>
             </div>
         </form>
     </div>
@@ -49,7 +49,7 @@
                                 </div>
                             </a>
                             <p>
-                                {% if user.is_authenticated and activity.owner.id == user.id%}
+                                {% if user.is_authenticated and activity.owner.id == user.id %}
                                     <button class="btn btn-primary activity-edit"
                                             onclick="openURL('{% url 'activity_edit' activity.id %}');">Edit
                                     </button>
@@ -61,35 +61,37 @@
                             </p>
                         </div>
 
-                        {% empty %}
-                                <i class="fa fa-exclamation-triangle fa-5x"></i> Nada que mostrar
+                    {% empty %}
+                        <i class="fa fa-exclamation-triangle fa-5x"></i> Nada que mostrar
+                        <div style="min-height: 400px">
+                        </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-<script type="text/javascript">
-   $(".alert").fadeTo(3000, 500).slideUp(500, function(){
-        $(".alert").slideUp(500);
-    });
+    <script type="text/javascript">
+        $(".alert").fadeTo(3000, 500).slideUp(500, function () {
+            $(".alert").slideUp(500);
+        });
 
-   $(".activity-remove").click(function(){
-       var form = $("#activity-delete-form");
-       var id = $(this).data("id");
-       var url = "{% url "activity_delete" 0 %}".replace("0", id);
-       form.attr('action', url);
-       $(".delete-popup").addClass("visible")
-       $(".delete-popup-background").addClass("visible")
-   });
+        $(".activity-remove").click(function () {
+            var form = $("#activity-delete-form");
+            var id = $(this).data("id");
+            var url = "{% url "activity_delete" 0 %}".replace("0", id);
+            form.attr('action', url);
+            $(".delete-popup").addClass("visible")
+            $(".delete-popup-background").addClass("visible")
+        });
 
-    $(".delete-popup.centered .cancel").click(function(){
-       $(".delete-popup").removeClass("visible")
-       $(".delete-popup-background").removeClass("visible")
-   });
+        $(".delete-popup.centered .cancel").click(function () {
+            $(".delete-popup").removeClass("visible")
+            $(".delete-popup-background").removeClass("visible")
+        });
 
-    function openURL(url){
-        window.open(url, "_self");
-    }
+        function openURL(url) {
+            window.open(url, "_self");
+        }
 
-</script>
+    </script>
 {% endblock %}

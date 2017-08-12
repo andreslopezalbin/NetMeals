@@ -2,6 +2,15 @@ body {
     padding-top: 5rem;
 }
 
+.cookiebanner {
+    background: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    z-index: 999999;
+    width: 100%;
+    bottom: 0px;
+
+}
+
 .vertical-align {
     position: absolute;
     top: 50%;
@@ -71,7 +80,7 @@ body {
     opacity: 0.6;
 }
 
-.week-day-selected{
+.week-day-selected {
     background-color: #ffffff;
     opacity: 0.6;
 }
@@ -116,23 +125,23 @@ body {
 }
 
 /* Activities */
-.activity-list-element:hover{
+.activity-list-element:hover {
     text-decoration: none;
 }
 
-.activity-list-img{
-    width:100%;
-    max-height:200px;
+.activity-list-img {
+    width: 100%;
+    max-height: 200px;
     min-height: 200px;
     border-radius: 5%
 }
 
-.activity-list-name{
+.activity-list-name {
     height: 10vh;
     word-wrap: break-word;
 }
 
-.activity-list-short-desc{
+.activity-list-short-desc {
     word-wrap: break-word;
     height: 9vh;
 }
@@ -147,7 +156,7 @@ body {
     max-height: inherit;
 }
 
-.activity-date{
+.activity-date {
     cursor: pointer;
 }
 
@@ -155,23 +164,23 @@ body {
     background-color: #ffffff;
 }
 
-.activity-short-description{
+.activity-short-description {
     max-height: 100px;
 }
 
-.activity-price{
+.activity-price {
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     appearance: none;
     margin: 0;
 }
 
-.delete-popup{
+.delete-popup {
     display: none;
     overflow: hidden;
 }
 
-.delete-popup.visible{
+.delete-popup.visible {
     display: block;
     width: 500px;
     height: 115px;
@@ -182,13 +191,13 @@ body {
     opacity: 1;
 }
 
-.delete-popup-background{
+.delete-popup-background {
     display: none;
     width: 100%;
     height: 100%;
 }
 
-.delete-popup-background.visible{
+.delete-popup-background.visible {
     display: block;
     position: fixed;
     top: 0%;
@@ -201,14 +210,14 @@ body {
 }
 
 .centered {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
 }
 
-.cancel{
+.cancel {
     background-color: #ff6169;
     border-color: #ff6169;
 }
@@ -219,16 +228,16 @@ body {
     border-color: #d5555d;
 }
 
-.week-day{
+.week-day {
     margin-bottom: 5px;
 }
 
-.activity-periodically .input-group{
+.activity-periodically .input-group {
     margin-bottom: 2vh;
 }
 
 .activity-periodically .row .week-day {
-    background-color:#c9d439;
+    background-color: #c9d439;
     cursor: pointer;
     height: 50px;
     /*max-width: 40vw;*/
@@ -239,21 +248,21 @@ body {
     align-items: center;
 }
 
-.activity-periodically-submit{
+.activity-periodically-submit {
     width: 100%;
     margin-bottom: 5px;
     height: 50px;
 }
+
 /* Footer */
 .footer {
-   background-color: #292c2f;
+    background-color: #292c2f;
     bottom: 0;
     height: 60px;
     line-height: 60px;
     /*position: absolute;*/
     width: 100%;
 }
-
 
 .Span {
     float: left;
@@ -286,10 +295,12 @@ body {
     border: 2px dashed #333;
     border-radius: 50%;
 }
+
 .Booking-occupant {
     display: inline-block;
     margin-top: 10px;
 }
+
 ul.u-reset {
     padding-left: 0;
     margin: 0;

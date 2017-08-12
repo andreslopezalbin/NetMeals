@@ -11,26 +11,25 @@
             color: red;
         }
 
+        .abstract, .speciality {
+            border: none !important;
+            border-bottom: 1px solid #ccc !important;
+        }
+
         .list-group-item.active {
             background-color: #ff5c5c !important;
             border-color: #ff5c5c !important;
         }
 
-        a {
+        a.list-group-item {
             color: #ff5c5c;
         }
 
-        a:focus, a:hover {
+        a.list-group-item:focus, a.list-group-item:hover {
             color: grey !important;
         }
 
-        img.rounded-circle {
-            text-align: center !important;
-        }
     </style>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfD-gZKxc_qrC1clMF9U3OPfm5U3iUwE0&libraries=places&callback=initAutocomplete"
-            async defer></script>
 
     <div class="container">
         <h1>{% trans 'Edit Profile' %}</h1>
@@ -39,11 +38,10 @@
         <div class="row">
             <!-- left column -->
             <div class="col-lg-3">
-                <div class="widget-wrapper wow fadeIn" data-wow-delay="0.1s">
+                <div class="widget-wrapper  fadeIn" data-wow-delay="0.1s">
                     <div class="list-group">
-                        <a href="{% url 'profile_edit' %}"
-                           class="list-group-item active">{% trans 'Personal info' %}</a>
-                        <a href="{% url 'about_me_edit' %}" class="list-group-item ">{% trans 'About me' %}</a>
+                        <a href="{% url 'profile_edit' %}" class="list-group-item ">{% trans 'Personal info' %}</a>
+                        <a href="{% url 'about_me_edit' %}" class="list-group-item active">{% trans 'About me' %}</a>
                         {% if is_subscribed %}
                             <a href="#" class="list-group-item"
                                onclick="unsubscribePlan();">{% trans "Unsubscribe plan" %}</a>
@@ -53,19 +51,12 @@
                         {% endif %}
                     </div>
                 </div>
-                <br><br>
-                <div class="file-upload wow fadeIn text-center" data-wow-delay="0.2s">
-                    <img src="//placehold.it/100" class="rounded-circle" alt="avatar">
-                    <h6>Upload a different photo...</h6>
-                    <input type="file" class="form-control">
-                </div>
-                <div id="map" style="display: none"></div>
             </div>
 
             <!-- edit form column -->
-            <div class="col-lg-9 col-md-12 personal-info wow fadeIn" data-wow-delay="0.3s">
+            <div class="col-md-9 personal-info wow fadeIn" data-wow-delay="0.2s">
 
-                <h3>{% trans 'Personal info' %}</h3>
+                <h3>{% trans 'About me' %}</h3>
 
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -74,7 +65,6 @@
                     <button type="submit" class="btn btn-primary activity-edit">{% trans 'Edit' %}</button>
                 </form>
 
-
             </div>
         </div>
 
@@ -82,6 +72,48 @@
     </div>
 
     <script>
+        $('.dateinput').datepicker({
+            format: "dd/mm/yyyy",
+            startView: 2,
+            autoclose: true,
+            orientation: 'bottom'
+        });
+        function checkHiddenFields() {
+            var result = false;
+
+            var latitude = $("#id_latitude").val();
+            var longitude = $("#id_longitude").val();
+
+            result = latitude != ""
+                    && longitude != "";
+
+            return result;
+        }
+        function countCharAbstract(val) {
+            if ($("#abstract").length == 0) {
+                $("<div id=abstract></div>").insertAfter(".abstract");
+            }
+            var len = val.value.length;
+            if (len > 498) {
+                val.value = val.value.substring(0, 498);
+                $('#abstract').text(0);
+
+            } else {
+                $('#abstract').text(500 - len);
+            }
+        }
+        function countCharSpeciality(val) {
+            if ($("#speciality").length == 0) {
+                $("<div id=speciality></div>").insertAfter(".speciality");
+            }
+            var len = val.value.length;
+            if (len >= 138) {
+                val.value = val.value.substring(0, 139);
+                $('#speciality').text(0);
+            } else {
+                $('#speciality').text(140 - len);
+            }
+        }
 
 
         function unsubscribePlan() {

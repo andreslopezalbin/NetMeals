@@ -8,7 +8,12 @@ from django.contrib.auth.models import User
 class Guest(User):
     photo = models.ImageField(upload_to='media/', null=True, blank=True)
     birthday = models.DateField(null=True, blank=True)
+    abstract = models.TextField(max_length=500, null=True, blank=True)
+    speciality = models.TextField(max_length=140, null=True, blank=True)
     phone = models.IntegerField(null=True, blank=True)
+    place = models.TextField(max_length=250, null=True, blank=True)
+    latitude = models.DecimalField(max_digits=23, decimal_places=20, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=23, decimal_places=20, null=True, blank=True)
 
     def __str__(self):
         return self.get_username()
@@ -46,11 +51,13 @@ class Monitor(Host):
     def __str__(self):
         return self.get_username()
 
+
 class Plan(models.Model):
     paypal_plan_id = models.CharField(max_length=140)
-    amount = models.DecimalField(max_digits=9 , decimal_places=2)
+    amount = models.DecimalField(max_digits=9, decimal_places=2)
     name = models.CharField(max_length=20)
     description = models.CharField(max_length=140)
+
 
 class User_Plan(models.Model):
     user = models.ForeignKey(User)
