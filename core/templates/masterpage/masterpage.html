@@ -1,4 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
+{% load i18n %}
 <head>
     <title>{% block title %}NetMeals{% endblock %}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -37,7 +38,8 @@
     <script type="text/javascript" src="{% static "js/CryptoJS/sha1-min.js" %}"></script>
 
     <script type="text/javascript" src="{% static "js/google-maps.js" %}"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfD-gZKxc_qrC1clMF9U3OPfm5U3iUwE0&libraries=places&callback=initSearchBox"></script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfD-gZKxc_qrC1clMF9U3OPfm5U3iUwE0&libraries=places&callback=initSearchBox"></script>
 
     <script src="{% static "js/sweetalert.min.js" %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static "css/sweetalert.css" %}">
@@ -54,5 +56,31 @@
     </div>
 </div>
 </body>
+
+
+<div id="avisoCookies" class="cookiebanner text-center hide">
+
+    <p class="text-center"> <span
+            style="color:white"> {% trans "This page uses own and third party cookies in order to improve the service. If you continue browsing, you accept its use." %}
+        <br> <a href="#" id="aceptarCookies">{% trans "Accept" %}</a> | <a
+                href="http://politicadecookies.com/" rel="nofollow">{% trans "More information" %} </a>.</span>
+    </p>
+
+    <script>
+        function checkCookieLaw() {
+            if (window.localStorage.getItem('cookieLawKeyMiWeb')) {
+                $('#avisoCookies').hide();
+            } else {
+                $('#avisoCookies').removeClass('hide');
+            }
+        }
+        checkCookieLaw();
+        $('#aceptarCookies').on("click", function () {
+            window.localStorage.setItem('cookieLawKeyMiWeb', true);
+            $('#avisoCookies').hide();
+        });
+    </script>
+</div>
+
 {% include 'masterpage/includes/footer.html' %}
 </html>

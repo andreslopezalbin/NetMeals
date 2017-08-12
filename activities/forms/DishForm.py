@@ -19,6 +19,8 @@ class DishForm(forms.ModelForm):
     max_assistants = forms.IntegerField()
     place = forms.CharField(max_length=250)
     contribution = forms.DecimalField()
+    latitude = forms.DecimalField(max_digits=23, decimal_places=20)
+    longitude = forms.DecimalField(max_digits=23, decimal_places=20)
 
     def __init__(self, *args, **kwargs):
         place = kwargs.pop('place', None)
@@ -31,12 +33,18 @@ class DishForm(forms.ModelForm):
         self.fields['max_assistants'].label = _("Max assistants")
         self.fields['contribution'].label = _('contribution')
         self.fields['place'].label = _('Place')
+        self.fields['place'].widget.attrs['id'] = 'id_place'
+        self.fields['longitude'].widget = forms.HiddenInput()
+        self.fields['longitude'].widget.attrs['id'] = 'id_longitude'
+        self.fields['latitude'].widget = forms.HiddenInput()
+        self.fields['latitude'].widget.attrs['id'] = 'id_latitude'
         if place:
-            self.fields['place'].value = place
+            self.fields['place'].initial = place
 
     class Meta:
         model = Dish
-        fields = ['name', 'description', 'photo', 'date', 'hour', 'max_assistants', 'place','contribution']
+        fields = ['name', 'description', 'photo', 'date', 'hour', 'max_assistants', 'place', 'longitude', 'latitude',
+                  'contribution']
 
     def clean(self):
         if self.cleaned_data['max_assistants'] <= 0:
