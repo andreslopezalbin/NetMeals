@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="center">
+    <img src="cid:logo-gris.png" style=" min-height:300px; max-height:300px;">
+
+
+    <h2>Su menú</h2></br>
+    <p>Enhorabuena se ha registrado para el plato <b>{{ dish.name }}</b></p></br>
+
+    <h2>¿Cuándo?</h2> </br>
+    <p>Va a tener lugar en <b>{{ dish.place }}</b> el día <b>{{ dish.date }}</b> a las <b>{{ dish.hour }}</b>.
+    </p></br>
+
+    <h2>¿Comentarios?</h2> </br>
+    <p>Esperamos que disfrutes del menú y que nos dejes tus comentarios de que te ha parecido :D</b>.
+    </p></br>
+
+
+</div>
+</body>
+</html>

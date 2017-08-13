@@ -1,0 +1,148 @@
+{% extends 'masterpage/masterpage.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+{% load i18n %}
+
+{% block content %}
+    <head>
+        <title>Bootstrap Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+            body {
+                position: relative;
+            }
+
+            ul.nav-pills {
+                top: 20em;
+                position: fixed;
+            }
+
+            div.col-sm-9 div {
+                height: 250px;
+                font-size: 28px;
+            }
+
+        </style>
+    </head>
+
+
+    <div class="container">
+        <h1>{% trans 'About us' %}</h1>
+        <hr>
+
+        <div class="row">
+            <!-- left column -->
+            <div class="col-lg-3">
+                <div class="widget-wrapper wow fadeIn" data-wow-delay="0.1s">
+                    <div class="list-group">
+                        <a href="{% url 'about_us' %}"
+                           class="list-group-item active">{% trans '¿Who are we?' %}</a>
+                        <a href="{% url 'faq' %}" class="list-group-item ">{% trans 'FAQ' %}</a>
+                        <a href="#" class="list-group-item">{% trans "Cancellation policy" %}</a>
+                        <a href="#" class="list-group-item">{% trans "Cookies policy" %}</a>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- edit form column -->
+            <div class="col-lg-9 col-md-12 personal-info wow fadeIn" data-wow-delay="0.3s">
+
+                <div class="divider-new">
+                    <h2 class="h2-responsive wow fadeIn" data-wow-delay="0.2s">About us</h2>
+                </div>
+
+                <!--Section: About-->
+                <section id="about" class="text-center wow fadeIn" data-wow-delay="0.2s">
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit explicabo assumenda eligendi ex
+                        exercitationem harum deleniti quaerat beatae ducimus dolor voluptates magnam, reiciendis
+                        pariatur culpa tempore quibusdam quidem, saepe eius.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit explicabo assumenda eligendi ex
+                        exercitationem harum deleniti quaerat beatae ducimus dolor voluptates magnam, reiciendis
+                        pariatur culpa tempore quibusdam quidem, saepe eius.</p>
+
+                </section>
+                <!--Section: About-->
+
+                <div class="divider-new">
+                    <h2 class="h2-responsive wow fadeIn">Best features</h2>
+                </div>
+
+                <h5> {% trans 'Al ser estudiantes, apasionados de los viajes y estamos locos por la comida hemos pensado en como podiamos unir viajes, con comida local y además hacer que esta sea barata, ¿crees que es una locura? ' %}</h5>
+                <br> <h5>{% trans 'Así nace netmeals, ' %}</h5>
+                <div class="team">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card card-member">
+                                        <div class="content">
+                                            <div class="avatar avatar-danger">
+                                                <img alt="..." class="img-circle" src="assets/img/faces/face_1.jpg"/>
+                                            </div>
+                                            <div class="description">
+                                                <h3 class="title">Tina</h3>
+                                                <p class="small-text">CEO / Co-Founder</p>
+                                                <p class="description">I miss the old Kanye I gotta say at that time I’d
+                                                    like to meet Kanye And I promise the power is in the people and I
+                                                    will use the power given by the people to bring everything I have
+                                                    back to the people.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card card-member">
+                                        <div class="content">
+                                            <div class="avatar avatar-danger">
+                                                <img alt="..." class="img-circle" src="assets/img/faces/face_4.jpg"/>
+                                            </div>
+                                            <div class="description">
+                                                <h3 class="title">Andrew</h3>
+                                                <p class="small-text">Product Designer</p>
+                                                <p class="description">I miss the old Kanye I gotta say at that time I’d
+                                                    like to meet Kanye And I promise the power is in the people and I
+                                                    will use the power given by the people to bring everything I have
+                                                    back to the people.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card card-member">
+                                        <div class="content">
+                                            <div class="avatar avatar-danger">
+                                                <img alt="..." class="img-circle" src="assets/img/faces/face_3.jpg"/>
+                                            </div>
+                                            <div class="description">
+                                                <h3 class="title">Michelle</h3>
+                                                <p class="small-text">Marketing Hacker</p>
+                                                <p class="description">I miss the old Kanye I gotta say at that time I’d
+                                                    like to meet Kanye And I promise the power is in the people and I
+                                                    will use the power given by the people to bring everything I have
+                                                    back to the people.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+    </script>
+
+
+{% endblock %}

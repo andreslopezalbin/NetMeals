@@ -90,7 +90,7 @@
             <div class="collapse navbar-collapse" id="navbarNav1">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link">{% trans 'About' %}</a>
+                        <a href="{% url 'about_us' %}" class="nav-link">{% trans 'About' %}</a>
                     </li>
                     {% include 'includes/activities_menu.html' %}
                     {% include 'includes/dish_menu.html' %}
