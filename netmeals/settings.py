@@ -160,3 +160,13 @@ LOGIN_URL = "/login"
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 DATE_INPUT_FORMATS = '%d/%m/%Y'
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'netmealsdev@gmail.com'
+EMAIL_HOST_PASSWORD = 'Desarrollo@2017'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'NetMeals <info@netmeals.com>'
+
