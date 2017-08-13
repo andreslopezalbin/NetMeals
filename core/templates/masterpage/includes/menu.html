@@ -231,7 +231,7 @@
                     var lng = position.coords.longitude;
                     $("#search-lat").val(lat);
                     $("#search-lng").val(lng);
-                    window.location.href = url + "?latitude=" + lat + "&longitude=" + lng
+                    window.location.href = url + "?latitude=" + lat + "&longitude=" + lng;
                 };
 
                 var tryAPIGeolocation = function () {
@@ -249,7 +249,11 @@
                 };
 
                 var browserGeolocationSuccess = function (position) {
-                    alert("Browser geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+                    $("#search-lat").val(lat);
+                    $("#search-lng").val(lng);
+                    window.location.href = url + "?latitude=" + lat + "&longitude=" + lng;
                 };
 
                 var browserGeolocationFail = function (error) {
@@ -277,7 +281,8 @@
                             confirmButtonColor: "#DD6B55",
                             confirmButtonText: "{% trans "Yes" %}",
                             cancelButtonText: "Cancel",
-                            closeOnConfirm: false
+                            closeOnConfirm: false,
+                            showLoaderOnConfirm: true
                         }, function () {
                             if (navigator.geolocation) {
                                 navigator.geolocation.getCurrentPosition(

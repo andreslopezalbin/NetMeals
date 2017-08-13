@@ -155,7 +155,8 @@
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "{% trans "Yes, unsubscribe it!" %}",
                     cancelButtonText: "{% trans "Cancel" %}",
-                    closeOnConfirm: false
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
                 }, function() {
                     $.ajax({
                         method: "POST",
