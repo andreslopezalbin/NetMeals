@@ -4,6 +4,7 @@ from email.mime.image import MIMEImage
 import os
 from netmeals import settings
 
+
 def send_mail(request, dish):
     subject, to = 'Lugar de reunión', 'netmeals.dev@gmail.com'
     html_content = render_to_string('dish/suscription_ok.html', {'dish': dish})  # ...
@@ -14,7 +15,7 @@ def send_mail(request, dish):
     msg.attach_alternative(html_content, "text/html")
     msg.mixed_subtype = 'related'
 
-    file_path = os.path.join(settings.STATICFILES_DIRS, 'images/logo-gris.png')
+    file_path = os.path.join(settings.STATIC_ROOT, 'images/logo-gris.png')
 
     fp = open(file_path, 'rb')
 
