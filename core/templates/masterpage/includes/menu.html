@@ -207,7 +207,8 @@
                         <div class="options text-center text-md-right mt-1">
                             <p>{% trans "Not a member?" %} <a href="{% url "signup" %}"
                                                               style="color: #ff8b8c"> {% trans "Signup" %}</a></p>
-                            <p>{% trans "Forgot" %} <a href="#" style="color:#ff8b8c"> {% trans "Password" %}?</a></p>
+                            <p>{% trans "Forgot" %} <a href="{% url 'password_reset' %}"
+                                                       style="color:#ff8b8c"> {% trans "Password" %}?</a></p>
                         </div>
                         <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">
                             {% trans "Close" %}

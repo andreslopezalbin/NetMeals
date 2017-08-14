@@ -8,9 +8,9 @@ from users.services import UserService
 from users.decorators.user_decorators import anonymous_required
 from django.utils.decorators import method_decorator
 
+
 @method_decorator(anonymous_required("/no_permission"), name='dispatch')
 class SignupView(View):
-
     def get(self, request):
         form = SignUpForm()
         context = {
@@ -36,7 +36,8 @@ class SignupView(View):
             context = {
                 'form': form, 'message': message
             }
-            return render(request, 'signup-host.html', context)
+            return render(request, 'signup.html', context)
+
 
 class SignupRolesView(View):
     def get(self, request):

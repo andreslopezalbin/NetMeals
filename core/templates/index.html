@@ -97,6 +97,12 @@
             width: 100%;
         }
 
+        #slide2 {
+            background-image: url(../../static/images/bg3.jpg);
+            padding: 6% 0 0 0;
+            width: 100%;
+        }
+
         video::-webkit-media-controls {
             display: none !important;
         }
@@ -118,6 +124,65 @@
             z-index: 3;
         }
 
+        .panel-pricing {
+            -moz-transition: all .3s ease;
+            -o-transition: all .3s ease;
+            -webkit-transition: all .3s ease;
+        }
+
+        .panel-pricing:hover {
+            box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .panel-pricing .panel-heading {
+            padding: 20px 10px;
+        }
+
+        .panel-pricing .panel-heading .fa {
+            margin-top: 10px;
+            font-size: 58px;
+        }
+
+        .panel-pricing .list-group-item {
+            color: #777777;
+            border-bottom: 1px solid rgba(250, 250, 250, 0.5);
+        }
+
+        .panel-pricing .list-group-item:last-child {
+            border-bottom-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+        }
+
+        .panel-pricing .list-group-item:first-child {
+            border-top-right-radius: 0px;
+            border-top-left-radius: 0px;
+        }
+
+        .panel-pricing .panel-body {
+            background-color: #f0f0f0;
+            font-size: 40px;
+            color: #777777;
+            padding: 20px;
+            margin: 0px;
+        }
+
+        .panel-free > .panel-heading {
+            color: #5e5e5e;
+            background-color: #C1C1C1;
+            border-color: #ebccd1;
+        }
+
+        .panel-lite > .panel-heading {
+            color: #ff5c5c;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        .panel-premium > .panel-heading {
+            color: #c9d439;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
     </style>
 
 </head>
@@ -150,10 +215,85 @@
                     <h1>Section 2</h1>
                 </div>
             </div>
-            <div class="slide" id="slide1">
-                <h1>Section 2.2</h1>
-            </div>
             <div class="slide" id="slide2">
+                <section id="plans">
+                    <div class="container">
+                        <div class="row">
+
+                            <!-- item -->
+                            <div class="col-md-4 text-center">
+                                <div class="panel panel-free panel-pricing">
+                                    <div class="panel-heading">
+                                        <i class="fa fa-desktop"></i>
+                                        <h3>Free</h3>
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <p><strong>Free</strong></p>
+                                    </div>
+                                    <ul class="list-group text-center">
+                                        <li class="list-group-item"><i class="fa fa-check"></i> Personal use</li>
+                                        <li class="list-group-item"><i class="fa fa-check"></i> Unlimited projects</li>
+                                        <li class="list-group-item"><i class="fa fa-check"></i> 27/7 support</li>
+                                    </ul>
+                                    <div class="panel-footer">
+                                        <a class="btn btn-lg btn-block" style="background-color:#5e5e5e; color: #FFFFFF"
+                                           href="#">BUY NOW!</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /item -->
+
+                            <!-- item -->
+                            <div class="col-md-4 text-center">
+                                <div class="panel panel-lite panel-pricing">
+                                    <div class="panel-heading">
+                                        <i class="fa fa-desktop"></i>
+                                        <h3>Lite</h3>
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <p><strong>10€ / Month</strong></p>
+                                    </div>
+                                    <ul class="list-group text-center">
+                                        <li class="list-group-item"><i class="fa fa-check"></i> Personal use</li>
+                                        <li class="list-group-item"><i class="fa fa-check"></i> Unlimited projects</li>
+                                        <li class="list-group-item"><i class="fa fa-check"></i> 27/7 support</li>
+                                    </ul>
+                                    <div class="panel-footer">
+                                        <a class="btn btn-lg btn-block" style="background-color:#ff5c5c; color: #FFFFFF"
+                                           href="#">BUY NOW!</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /item -->
+
+                            <!-- item -->
+                            <div class="col-md-4 text-center">
+                                <div class="panel panel-premium panel-pricing">
+                                    <div class="panel-heading">
+                                        <i class="fa fa-desktop"></i>
+                                        <h3>Premium</h3>
+                                    </div>
+                                    <div class="panel-body text-center">
+                                        <p><strong>30€ / Month</strong></p>
+                                    </div>
+                                    <ul class="list-group text-center">
+                                        <li class="list-group-item"><i class="fa fa-check"></i> Personal use</li>
+                                        <li class="list-group-item"><i class="fa fa-check"></i> Unlimited projects</li>
+                                        <li class="list-group-item"><i class="fa fa-check"></i> 27/7 support</li>
+                                    </ul>
+                                    <div class="panel-footer">
+                                        <a class="btn btn-lg btn-block" style="background-color:#c9d439; color: #FFFFFF"
+                                           href="#">BUY NOW!</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /item -->
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="slide" id="slide3">
                 <h1>Section 2.2</h1>
             </div>
         </div>
