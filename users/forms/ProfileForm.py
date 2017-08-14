@@ -13,9 +13,9 @@ class GuestForm(forms.ModelForm):
     email = forms.EmailField()
     phone = forms.RegexField(regex=r'^\d{9}$',
                              error_message=_("Must be in 999999999 format"))
-    place = forms.CharField(max_length=250)
-    latitude = forms.DecimalField(max_digits=23, decimal_places=20)
-    longitude = forms.DecimalField(max_digits=23, decimal_places=20)
+    place = forms.CharField(max_length=250, required=False)
+    latitude = forms.DecimalField(max_digits=23, decimal_places=20, required=False)
+    longitude = forms.DecimalField(max_digits=23, decimal_places=20, required=False)
 
     def __init__(self, *args, **kwargs):
         super(GuestForm, self).__init__(*args, **kwargs)
@@ -42,6 +42,8 @@ class GuestForm(forms.ModelForm):
 
         if User.objects.exclude(pk=self.instance.pk).filter(email=email).exists():
             self.add_error('email', _('Email is already in use'))
+        if cleaned_data.get('place') and (cleaned_data.get('longitude') is None or cleaned_data.get('latitude') is None):
+            self.add_error('place', _('Something went wrong, please try later'))
 
 
 class AboutMeForm(forms.ModelForm):
