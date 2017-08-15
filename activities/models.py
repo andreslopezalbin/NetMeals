@@ -69,7 +69,7 @@ class Activity(models.Model):
 
 
 class ActivityTime(models.Model):
-    date = models.DateTimeField()
+    date = models.DateField()
     start_hour = models.TextField(max_length=5)
     end_hour = models.TextField(max_length=5)
 

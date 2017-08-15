@@ -34,11 +34,31 @@ def times(birthday):
         return today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
 
 
-@register.filter(name='media')
-def times(dish):
+@register.filter(name='dish_media')
+def dish_media(dish):
     if dish is not None:
         feedbacks = dish.dishfeedback_set.all()
         media = 0
         for feedback in feedbacks:
             media += feedback.score
         return media / len(feedbacks)
+
+
+@register.filter(name='activity_media')
+def dish_media(activity):
+    if activity is not None:
+        feedbacks = activity.activityfeedback_set.all()
+        media = 0
+        for feedback in feedbacks:
+            media += feedback.score
+        return media / len(feedbacks)
+
+
+@register.filter(name='activity_assisted')
+def activity_assisted(activity):
+    if activity is not None:
+        activitytime_set = activity.activitytime_set.all()
+        assistants = 0
+        for activitytime in activitytime_set:
+            assistants += len(activitytime.assistants.all())
+        return assistants

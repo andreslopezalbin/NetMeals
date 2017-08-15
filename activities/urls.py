@@ -2,25 +2,29 @@ from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 
 from activities.views.activity_view import ListAllActivityView, ActivityDetailView, ActivitySubscriptionView, \
-    ListSubscribedActivitiesView, ActivityUnsubscriptionView, activity_feedback
+    ListSubscribedActivitiesView, ActivityUnsubscriptionView, activity_feedback, activity_schedule
 from activities.views.monitor_activity_view import CreateActivityView, ListActivityView, DeleteActivityView, \
     CreateActivityPeriodicallyView
-from activities.views.dish_view import findall, findmine, create, edit, details, schedule, delete, DishUnsubscriptionView, DishSubscriptionView, dish_feedback
+from activities.views.dish_view import findall, findmine, create, edit, details, schedule, delete, \
+    DishUnsubscriptionView, DishSubscriptionView, dish_feedback
 
 urlpatterns = [
     # Users URLs ----------------------------------------------------------------------
     url(r'^activities/(?P<activity_id>\d+)/detail$', ActivityDetailView.as_view(), name='activity_detail'),
     url(r'^activities/(?P<activity_id>\d+)/edit$', CreateActivityView.as_view(), name='activity_edit'),
     url(r'^activities/(?P<pk>\d+)/delete$', DeleteActivityView.as_view(), name='activity_delete'),
-    url(r'^activities/(?P<activity_id>\d+)/subscribe', login_required(ActivitySubscriptionView.as_view()), name='activity_subscribe'),
-    url(r'^activities/(?P<activity_id>\d+)/unsubscribe', login_required(ActivityUnsubscriptionView.as_view()), name='activity_unsubscribe'),
+    url(r'^activities/(?P<activity_id>\d+)/subscribe', login_required(ActivitySubscriptionView.as_view()),
+        name='activity_subscribe'),
+    url(r'^activities/(?P<activity_id>\d+)/unsubscribe', login_required(ActivityUnsubscriptionView.as_view()),
+        name='activity_unsubscribe'),
     url(r'^activities/new$', CreateActivityView.as_view(), name='new_activity'),
     url(r'^activities/new_periodically$', CreateActivityPeriodicallyView.as_view(), name='new_activity_periodically'),
     url(r'^activities/list$', ListActivityView.as_view(), name='my_activities'),
     url(r'^activities/subscribed$', ListSubscribedActivitiesView.as_view(), name='my_subscriptions'),
     url(r'^activities/findall$', ListAllActivityView.as_view(), name='all_activities'),
     # url(r'^activities/(?P<userid>\d+)/list$', ListActivityView.as_view(), name='my_activities')
-    url(r'^activities/(?P<activities_id>\d+)/feedback', login_required(activity_feedback), name='activities_feedback'),
+    url(r'^activities/(?P<activity_id>\d+)/feedback', login_required(activity_feedback), name='activity_feedback'),
+    url(r'^activities/schedule$', activity_schedule, name='activities_schedule'),
 
     # Dish --------------------------------------------------------------------------
     url(r'^dish/findall$', findall, name='all_dishes'),
@@ -31,7 +35,8 @@ urlpatterns = [
     url(r'^dish/delete/(?P<dish_id>[0-9]+)$', delete, name='delete_dish'),
     url(r'^dish/schedule$', schedule, name='schedule'),
     url(r'^dish/(?P<dish_id>\d+)/subscribe', login_required(DishSubscriptionView.as_view()), name='dish_subscribe'),
-    url(r'^dish/(?P<dish_id>\d+)/unsubscribe', login_required(DishUnsubscriptionView.as_view()), name='dish_unsubscribe'),
+    url(r'^dish/(?P<dish_id>\d+)/unsubscribe', login_required(DishUnsubscriptionView.as_view()),
+        name='dish_unsubscribe'),
     url(r'^dish/(?P<dish_id>\d+)/feedback', login_required(dish_feedback), name='dish_feedback'),
 
 ]

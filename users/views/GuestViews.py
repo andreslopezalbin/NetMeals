@@ -3,11 +3,13 @@ from django.db import transaction
 from django.shortcuts import render, redirect
 from django.views import View
 
-from activities.models import DishFeedback
+from activities.models import DishFeedback, ActivityFeedback
+from core.models import Feedback
 from users.forms.GuestForms import SignUpForm
 from users.forms.ProfileForm import GuestForm, AboutMeForm
 from users.models import Guest, User_Plan
 from users.services import UserService
+from random import shuffle, random
 
 
 class RegistrationView(View):  # Vista de la Registracion basada en vistas de Django ( View )
@@ -56,9 +58,10 @@ def edit_profile(request):
         guest_form = GuestForm(instance=guest, prefix='guest')
         subscription = User_Plan.objects.filter(user_id=request.user.id).first()
         context = {'guest_form': guest_form,
-                    'is_subscribed' : subscription is not None and subscription.is_active
+                   'is_subscribed': subscription is not None and subscription.is_active
                    }
     return render(request, 'profile/edit_profile.html', context)
+
 
 @login_required
 @transaction.atomic
@@ -77,7 +80,7 @@ def edit_about_me(request):
         guest_form = AboutMeForm(instance=guest, prefix='guest')
         subscription = User_Plan.objects.filter(user_id=request.user.id).first()
         context = {'guest_form': guest_form,
-                    'is_subscribed' : subscription is not None and subscription.is_active
+                   'is_subscribed': subscription is not None and subscription.is_active
                    }
     return render(request, 'profile/edit_about_me.html', context)
 
@@ -85,7 +88,9 @@ def edit_about_me(request):
 def view_profile(request, username):
     if request.method == "GET":
         user = Guest.objects.get(username=username)
-        feedback_list = DishFeedback.objects.filter(commented_id=user.id).all()
+
+        feedback_list = Feedback.objects.filter(commented_id=user.id).order_by('?')[:3]
+
         context = {'user': user, 'feedback_list': feedback_list,
                    }
         return render(request, 'profile/profile.html', context)

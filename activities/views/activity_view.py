@@ -1,4 +1,6 @@
 import datetime
+import random
+import json
 from urllib.parse import urlparse
 
 from django.http import HttpResponseRedirect
@@ -114,7 +116,32 @@ def activity_feedback(request, activity_id):
             activityfeedback.commentator = request.user.guest
             activityfeedback.commented_id = activity.owner.id
             activityfeedback.save()
-            return redirect('details_activity', activity_id=activity_id)
+            return redirect('activity_detail', activity_id=activity_id)
     else:
         form = ActivityFeedbackForm()
     return render(request, 'activities/feedback.html', {'form': form})
+
+
+def activity_schedule(request):
+    if request.method == "GET" and request.user.groups.filter(name='Monitor').exists():
+        activities = request.user.guest.monitor.activity_set.all()
+        activitytimes = []
+        for activity in activities:
+            for activitytime in activity.activitytime_set.all():
+                activitytimes.append(activitytime)
+
+        user_language = request.LANGUAGE_CODE
+        today = datetime.date.today()
+        items = []
+        colors = ['blue', 'champagne', 'grey', 'red', 'pink', 'green', 'salmon']
+        for i, activitytime in enumerate(activitytimes):
+            item = {'title': activitytime.activity.name,
+                    'url': str(activitytime.activity.id) + '/detail',
+                    'start': str(activitytime.date) + " " + str(activitytime.start_hour),
+                    'end': str(activitytime.date) + " " + str(activitytime.end_hour),
+                    'color': colors[random.randrange(0, len(colors))]}
+
+            items.append(item)
+            data = json.dumps(items)
+            context = {'items': data, 'language': user_language, 'today': today}
+        return render(request, '../templates/activities/scheduler.html', context)

@@ -14,20 +14,18 @@ class Feedback(models.Model):
     commentator = models.ForeignKey(Guest, related_name="%(class)s_commentator")  # Persona que comenta
     reported = models.BooleanField(default=False)
 
-    class Meta:
-        abstract = True
+    def __str__(self):
+        return 'score: ' + str(self.score) + '; commented: ' + self.commented
 
 
 class IncomingPayment(models.Model):
     paypal_payment_id = models.CharField(max_length=140)
     paypal_sale_id = models.CharField(max_length=140)
     user = models.ForeignKey(User)
-    dish = models.ForeignKey('activities.Dish', null=True, blank=True, default = None)
-    activity = models.ForeignKey('activities.ActivityTime', null=True, blank=True, default = None)
+    dish = models.ForeignKey('activities.Dish', null=True, blank=True, default=None)
+    activity = models.ForeignKey('activities.ActivityTime', null=True, blank=True, default=None)
     executed_incoming = models.BooleanField(default=False)
     executed_outcoming = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True, blank=False)
-    refund_id = models.CharField(max_length=140, null=True, blank=True, default = None)
-    amount = models.DecimalField(max_digits=9 , decimal_places=2)
-
-
+    refund_id = models.CharField(max_length=140, null=True, blank=True, default=None)
+    amount = models.DecimalField(max_digits=9, decimal_places=2)
