@@ -124,7 +124,11 @@ class ActivityForm(forms.ModelForm):
         if id == '':
             id = None
 
-        activity_time = ActivityTime(
+        is_periodically = self.cleaned_data['is_periodically']
+
+        activity_time = None
+        if not is_periodically:
+            activity_time = ActivityTime(
                     date=self.cleaned_data['start_date'],
                     start_hour=self.cleaned_data['start_hour'],
                     end_hour=self.cleaned_data['end_hour'],
@@ -132,8 +136,9 @@ class ActivityForm(forms.ModelForm):
                     )
 
         activity_id = None
-        activity_time_search = ActivityTime.objects.get(id=id)
-        if( activity_time_search is not None):
+
+        if(id is not None):
+            activity_time_search = ActivityTime.objects.get(id=id)
             activity_id = activity_time_search.activity.id
 
         activity = Activity(name=self.cleaned_data['name'],

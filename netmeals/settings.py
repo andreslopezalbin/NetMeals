@@ -161,6 +161,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 DATE_INPUT_FORMATS = '%d/%m/%Y'
 
+HOST = "https://www.netmeals.tk/"
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
