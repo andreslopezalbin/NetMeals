@@ -8,9 +8,10 @@ from paypalrestsdk import ResourceNotFound
 from paypalrestsdk import Sale
 
 from core.models import IncomingPayment
+from netmeals.settings import HOST
 from users.models import User_Plan
 
-HOST = "http://ec2-52-213-77-111.eu-west-1.compute.amazonaws.com/"
+
 # netmeals
 token = 'access_token$sandbox$s4xv6j5c5hgh3jbw$b6e7603b2a57c2c6915ac51969d330b5'
 CLIENT_ID = 'AcgW36TC9aM9kml9lrKX-_oze10ts4JGIYfsertYZ0DjfoyeqGBTYWVCWg5Cvc2vACl2FyQfASwY_ZPQ'
