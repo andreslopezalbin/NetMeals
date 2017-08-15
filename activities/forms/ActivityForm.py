@@ -3,7 +3,7 @@ from crispy_forms.bootstrap import AppendedText
 from django import forms
 from django.core.files.storage import FileSystemStorage
 
-from activities.models import Activity
+from activities.models import Activity, ActivityTime
 from users.models import Monitor
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field
@@ -57,6 +57,20 @@ class ActivityForm(forms.ModelForm):
         Field('latitude', type="hidden"),
         Field('longitude', type="hidden"),
     )
+
+    def __init__(self, *args, **kwargs):
+        super(ActivityForm, self).__init__(*args, **kwargs)
+        try:
+            activity = kwargs["instance"]
+            start_date = activity.start_date
+            start_hour = activity.start_hour
+            end_hour = activity.end_hour
+            self.initial.update({'start_date': start_date,
+                                 'start_hour': start_hour,
+                                 'end_hour': end_hour})
+        except:
+            pass
+
     class Meta:
         model = Activity
         fields = ['id', 'is_periodically', 'photo', 'name', 'short_description', 'description', 'price_per_person', 'start_date', 'start_hour', 'end_hour', 'place', 'latitude', 'longitude']
@@ -110,25 +124,31 @@ class ActivityForm(forms.ModelForm):
         if id == '':
             id = None
 
-        end_date = datetime.datetime.now()
-        if 'end_date' in self.cleaned_data:
-            end_date = self.cleaned_data['end_date']
+        activity_time = ActivityTime(
+                    date=self.cleaned_data['start_date'],
+                    start_hour=self.cleaned_data['start_hour'],
+                    end_hour=self.cleaned_data['end_hour'],
+                    id = id
+                    )
 
-        result = Activity(name=self.cleaned_data['name'],
+        activity_id = None
+        activity_time_search = ActivityTime.objects.get(id=id)
+        if( activity_time_search is not None):
+            activity_id = activity_time_search.activity.id
+
+        activity = Activity(name=self.cleaned_data['name'],
                     short_description=self.cleaned_data['short_description'],
                     description=self.cleaned_data['description'],
                     place=self.cleaned_data['place'],
-                    start_date=self.cleaned_data['start_date'],
-                    end_date=end_date,
                     price_per_person=self.cleaned_data['price_per_person'],
                     latitude=self.cleaned_data['latitude'],
                     longitude=self.cleaned_data['longitude'],
                     owner=owner,
                     owner_id = owner_id,
-                    id = id
+                    id = activity_id
                     )
 
         if uploaded_photo_url != '':
-            result.photo = uploaded_photo_url
+            activity.photo = uploaded_photo_url
 
-        return result
+        return activity_time, activity

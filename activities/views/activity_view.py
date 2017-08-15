@@ -9,7 +9,7 @@ from  django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
 
 from activities.forms.ActivityForm import ActivityForm
-from activities.models import Activity
+from activities.models import Activity, ActivityTime
 from activities.services import activity_service
 from core.services import paypal_service
 from core.util import session_utils
@@ -18,17 +18,24 @@ from users.models import Guest
 class ActivityDetailView(View):
 
     def get(self, request, activity_id):
-        activity = get_object_or_404(Activity, id=activity_id)
+        activity_time = get_object_or_404(ActivityTime, id=activity_id)
+        activity = get_object_or_404(Activity, id=activity_time.activity.id)
+
+        activity.start_date = activity_time.date
+        activity.start_hour = activity_time.start_hour
+        activity.end_hour = activity_time.end_hour
+
         form = ActivityForm(instance=activity)
+
         form.setFieldsDisabledProperty(True)
-        activity_photo = activity.photo
+        activity_photo = activity_time.activity.photo
         context = {
             'title': "Detail of an Activity",
             'form': form,
             'is_edit': False,
-            'activity_id': activity.id,
+            'activity_id': activity_time.id,
             'activity_photo': activity_photo,
-            'activity': activity
+            'activity': activity_time
         }
 
         session_utils.set_context_with_activity_session(self.request.session, context)
@@ -57,7 +64,7 @@ class ActivityUnsubscriptionView(View):
         return JsonResponse(result)
 
 class ListSubscribedActivitiesView(ListView):
-    model = Activity
+    model = ActivityTime
     template_name = 'activities/list.html'
     context_object_name = 'activities'
 
@@ -70,10 +77,11 @@ class ListSubscribedActivitiesView(ListView):
 
     def get_queryset(self):
         today = datetime.datetime.today().date()
-        return Guest.objects.get(id=self.request.user.id).activity_assisted.filter(end_date__gte=today, start_date__lte=today)
+        week_forward = today + datetime.timedelta(days=7)
+        return Guest.objects.get(id=self.request.user.id).activity_assisted.filter(date__range=(today, week_forward))
 
 class ListAllActivityView(ListView):
-    model = Activity
+    model = ActivityTime
     template_name = 'activities/list.html'
     context_object_name = 'activities'
 
@@ -89,4 +97,5 @@ class ListAllActivityView(ListView):
 
     def get_queryset(self):
         today = datetime.datetime.today().date()
-        return Activity.objects.filter(end_date__gte=today, start_date__lte=today)
+        week_forward = today + datetime.timedelta(days=7)
+        return ActivityTime.objects.filter(date__range=(today, week_forward))

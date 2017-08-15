@@ -264,35 +264,28 @@ class Command(BaseCommand):
 
         # ==================================================================================================
         # ==================================================================================================
-
-        activity1 = Activity(
-            name='activity1',
-            description='activity1Description',
-            place='activity1Place',
-            latitude=10.0,
-            longitude=10.0,
-            start_date='2017-3-5',
-            price_per_person=6,
-            end_date='2017-7-29',
-            owner=monitor1
-        )
-        activity1.save()
-        activity1.assistants.add(guest1)
-        activity1.assistants.add(guest2)
-
-        activity2 = Activity(
-            name='activity2',
-            description='activity2Description',
-            place='activity2Place',
-            latitude=10.0,
-            longitude=10.0,
-            start_date='2010-3-15',
-            end_date='2017-7-29',
-            price_per_person=6,
-            owner=monitor2,
-        )
-        activity2.save()
-        activity2.assistants.add(guest1)
+        #
+        # activity1 = Activity(
+        #     name='activity1',
+        #     description='activity1Description',
+        #     place='activity1Place',
+        #     latitude=10.0,
+        #     longitude=10.0,
+        #     price_per_person=6,
+        #     owner=monitor1
+        # )
+        # activity1.save()
+        #
+        # activity2 = Activity(
+        #     name='activity2',
+        #     description='activity2Description',
+        #     place='activity2Place',
+        #     latitude=10.0,
+        #     longitude=10.0,
+        #     price_per_person=6,
+        #     owner=monitor2,
+        # )
+        # activity2.save()
 
         print('Activities... ok')
 

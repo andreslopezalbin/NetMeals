@@ -19,7 +19,7 @@ from django.shortcuts import get_object_or_404
 
 from core.util import session_utils
 from users.decorators.user_decorators import group_required
-from datetime import datetime
+import datetime
 from core.util.session_constants import *
 
 from users.models import Monitor
@@ -35,7 +35,13 @@ class CreateActivityView(View):
         if request.session.get(SESSION_ACTIVITY_CREATED_SUCCEEDED):
             del request.session[SESSION_ACTIVITY_CREATED_SUCCEEDED]
         if activity_id:
-            activity = get_object_or_404(Activity, id=activity_id)
+            activity_time = get_object_or_404(ActivityTime, id=activity_id)
+            activity = activity_time.activity
+
+            activity.start_date = activity_time.date
+            activity.start_hour = activity_time.start_hour
+            activity.end_hour = activity_time.end_hour
+
             if(activity.owner_id != request.user.id):
                 return HttpResponseForbidden()
             is_edit = True
@@ -62,7 +68,13 @@ class CreateActivityView(View):
         is_edit = False
         is_new = False
         if form.is_valid():
-            activity = form.create(request)
+            activity_time, activity = form.create(request)
+            # Set end date to the current start date in case its not a periodically activity
+            end_date = form.cleaned_data['start_date']
+            if 'end_date' in form.cleaned_data:
+                end_date = form.cleaned_data['end_date']
+            start_date = form.cleaned_data['start_date']
+
             if(activity.id is None or activity.id == ''):
                 is_periodically = form.cleaned_data['is_periodically']
                 if(is_periodically):
@@ -75,6 +87,13 @@ class CreateActivityView(View):
                 else:
                     is_new = True
                     activity_service.save(activity)
+                    activity_time = ActivityTime(
+                        date= start_date,
+                        start_hour = form.cleaned_data['start_hour'],
+                        end_hour = form.cleaned_data['end_hour'],
+                        activity_id = activity.id
+                    )
+                    activity_time.save()
                     success_msg = 'Activity saved successfully'
                     request.session[SESSION_ACTIVITY_CREATED_SUCCEEDED] = True
             else:
@@ -88,6 +107,7 @@ class CreateActivityView(View):
                     return render(request, 'activities/new_periodically.html', context)
                 else:
                     activity_service.update(activity)
+                    activity_service.update_activity_time(activity_time)
                     success_msg = 'Activity updated successfully'
                     request.session[SESSION_ACTIVITY_MOD_SUCCEEDED] = True
         else:
@@ -125,9 +145,9 @@ class CreateActivityPeriodicallyView(View):
             week_days = request.POST.get('weekDays')
             week_days = week_days.split(",")
             start_date = request.POST.get('start_date')
-            start_date = datetime.strptime(start_date, '%d/%m/%Y')
+            start_date = datetime.datetime.strptime(start_date, '%d/%m/%Y')
             end_date = request.POST.get('end_date')
-            end_date = datetime.strptime(end_date, '%d/%m/%Y')
+            end_date = datetime.datetime.strptime(end_date, '%d/%m/%Y')
             start_hour = request.POST.get('start_hour')
             end_hour = request.POST.get('end_hour')
 
@@ -148,7 +168,7 @@ class CreateActivityPeriodicallyView(View):
 
 @method_decorator(group_required('Monitor'), name='dispatch')
 class ListActivityView(ListView):
-    model = Activity
+    model = ActivityTime
     template_name = 'activities/list.html'
     context_object_name = 'activities'
 
@@ -161,7 +181,7 @@ class ListActivityView(ListView):
 
     def get_queryset(self):
         self.owner = User.objects.get(id=self.request.user.id)
-        return Activity.objects.filter(owner=self.owner)
+        return ActivityTime.objects.filter(activity__owner=self.owner)
 
 @method_decorator(group_required('Monitor'), name='dispatch')
 class DeleteActivityView(DeleteView):

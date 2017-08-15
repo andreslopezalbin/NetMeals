@@ -55,12 +55,14 @@ class Activity(models.Model):
     latitude = models.DecimalField(max_digits=23, decimal_places=20)
     longitude = models.DecimalField(max_digits=23, decimal_places=20)
     photo = models.ImageField(upload_to='/media/activity', null=True, blank=True)
-    start_date = models.DateField()
-    end_date = models.DateField()
     price_per_person = models.DecimalField(max_digits=5, decimal_places=2)
     # Relationships
     owner = models.ForeignKey(Monitor)
-    assistants = models.ManyToManyField(Guest, related_name='activity_assisted')
+
+    # Derivated attributes
+    start_date = None
+    start_hour = None
+    end_hour = None
 
     def __str__(self):
         return self.name + ':' + self.owner.get_username()
@@ -73,9 +75,10 @@ class ActivityTime(models.Model):
 
     # Relationships
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
+    assistants = models.ManyToManyField(Guest, related_name='activity_assisted')
 
     def __str__(self):
-        return self.activity.name + ':' + self.date
+        return self.activity.name + ':' + str(self.date)
 
 
 class DishFeedback(core_models.Feedback):

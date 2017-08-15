@@ -33,10 +33,11 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-
-                    {% for activity in activities %}
+                {% if activities %}
+                    {% for activity_time in activities %}
+                        {% with activity_time.activity as activity %}
                         <div class="col-md-4">
-                            <a href="{% url "activity_detail" activity.id %}" class="activity-list-element">
+                            <a href="{% url "activity_detail" activity_time.id %}" class="activity-list-element">
                                 <img alt="{{ activity.name }}" src="{{ activity.photo }}" class="activity-list-img"
                                      onerror="this.src='/static/images/activity-default.svg'"/>
                                 <div class="caption">
@@ -60,12 +61,14 @@
 
                             </p>
                         </div>
-
-                    {% empty %}
-                        <i class="fa fa-exclamation-triangle fa-5x"></i> Nada que mostrar
-                        <div style="min-height: 400px">
-                        </div>
+                        {% endwith %}
                     {% endfor %}
+
+                {% else %}
+                    <i class="fa fa-exclamation-triangle fa-5x"></i> Nada que mostrar
+                    <div style="min-height: 400px">
+                    </div>
+                {% endif %}
                 </div>
             </div>
         </div>

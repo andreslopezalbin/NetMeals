@@ -155,29 +155,3 @@ function paypalButton(elementId, amount, description, eventId, eventType, functi
 
     }, elementId);
 }
-
-function initSearchBox() {
-    var input = document.getElementById('menu-searcher');
-    var menuSearchBox = new google.maps.places.SearchBox(input);
-    menuSearchBox.addListener('places_changed', function () {
-        var places = menuSearchBox.getPlaces();
-        var url = $("#menu-searcher").data("url");
-
-        if (places.length == 0) {
-            return;
-        }
-        // For each place, get the icon, name and location.
-        var bounds = new google.maps.LatLngBounds();
-        places.forEach(function (place) {
-            var lat = place.geometry.location.lat();
-            var lng = place.geometry.location.lng();
-            $("#search-lat").val(lat);
-            $("#search-lng").val(lng);
-            // $.post( url, {
-            //     "latitude": lat,
-            //     "longitude": lng
-            // });
-            window.location.href = url + "?latitude=" + lat + "&longitude=" + lng
-        });
-    });
-}

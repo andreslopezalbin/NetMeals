@@ -37,8 +37,6 @@
     </div>
     <div class="delete-popup-background"></div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfD-gZKxc_qrC1clMF9U3OPfm5U3iUwE0&libraries=places&callback=initAutocomplete"
-         async defer></script>
 <div class="container">
 
     {% if is_edit %}
@@ -120,7 +118,7 @@
         activityUnsubscribe("{% url "activity_unsubscribe" activity_id %}");
     });
 
-    paypalButton("#activity-subscribe", {{ activity.price_per_person|unlocalize }}, "{{ activity.name }}", {{ activity_id }}, "activity", function(){
+    paypalButton("#activity-subscribe", {{ activity.activity.price_per_person|unlocalize }}, "{{ activity.name }}", {{ activity_id }}, "activity", function(){
         activitySubscribe("{% url "activity_subscribe" activity_id %}");
     });
 

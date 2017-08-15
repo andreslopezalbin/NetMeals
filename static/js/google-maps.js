@@ -2,7 +2,42 @@
 // feature. People can enter geographical searches. The search box will return a
 // pick list containing a mix of places and predicted search terms.
 
-function initAutocomplete() {
+$(document).ready(function() {
+    google.maps.event.addDomListener(window, "load", initGoogleMaps);
+});
+
+function initGoogleMaps() {
+    initSearchBox();
+    initActivityMap();
+}
+
+function initSearchBox() {
+    var input = document.getElementById('menu-searcher');
+    var menuSearchBox = new google.maps.places.SearchBox(input);
+    menuSearchBox.addListener('places_changed', function () {
+        var places = menuSearchBox.getPlaces();
+        var url = $("#menu-searcher").data("url");
+
+        if (places.length == 0) {
+            return;
+        }
+        // For each place, get the icon, name and location.
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function (place) {
+            var lat = place.geometry.location.lat();
+            var lng = place.geometry.location.lng();
+            $("#search-lat").val(lat);
+            $("#search-lng").val(lng);
+            // $.post( url, {
+            //     "latitude": lat,
+            //     "longitude": lng
+            // });
+            window.location.href = url + "?latitude=" + lat + "&longitude=" + lng
+        });
+    });
+}
+
+function initActivityMap() {
   // if (navigator.geolocation) {
   //   navigator.geolocation.getCurrentPosition(function(position) {
   //     var pos = {
@@ -92,21 +127,6 @@ function initAutocomplete() {
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
     places.forEach(function(place) {
-      // var icon = {
-      //   url: place.icon,
-      //   size: new google.maps.Size(71, 71),
-      //   origin: new google.maps.Point(0, 0),
-      //   anchor: new google.maps.Point(17, 34),
-      //   scaledSize: new google.maps.Size(25, 25)
-      // };
-      //
-      // Create a marker for each place.
-      // markers.push(new google.maps.Marker({
-      //   map: map,
-      //   icon: icon,
-      //   title: place.name,
-      //   position: place.geometry.location
-      // }));
 
       var lat = place.geometry.location.lat();
       var lng = place.geometry.location.lng();
