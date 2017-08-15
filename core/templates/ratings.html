@@ -73,11 +73,11 @@
                             <div class="media-body">
                                 <h4 class="media-heading">{{ monitor.username }}</h4>
 
-                                {% for avg in chef.avg|floatToInt %}
+                                {% for avg in monitor.avg|floatToInt %}
                                     <img style="display: inline-block" width="25em"
                                          src="{% static "images/star.png" %}"/>
                                 {% endfor %}
-                                {% if chef.avg|redondeo %}
+                                {% if monitor.avg|redondeo %}
                                     <img style="display: inline-block" width="25em"
                                          src="{% static "images/half-star.png" %}"/>
 

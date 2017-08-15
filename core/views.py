@@ -15,7 +15,7 @@ from core.services import incoming_payments_service
 from core.services import paypal_service
 from core.services import search_service
 from core.util.session_constants import SESSION_USER_ROLES, SESSION_USER_PLAN, SESSION_SIGNEDUP_SUCCESS
-from users.models import User_Plan, Guest
+from users.models import User_Plan, Guest,Chef, Monitor
 from users.services import UserService
 from users.services.UserService import get_plan
 
@@ -220,9 +220,9 @@ def activate_user(request, user_id):
 
 
 def rankings(request):
-    chef_ranking = Guest.objects.annotate(avg=Avg('dishfeedback_commented__score')).exclude(avg__isnull=True).values(
+    chef_ranking = Chef.objects.annotate(avg=Avg('feedback_commented__score')).exclude(avg__isnull=True).values(
         'username', 'photo', 'avg').order_by('-avg')
-    monitor_ranking = Guest.objects.annotate(avg=Avg('activityfeedback_commented__score')).exclude(
+    monitor_ranking = Monitor.objects.annotate(avg=Avg('feedback_commented__score')).exclude(
         avg__isnull=True).values('username', 'photo', 'avg').order_by('-avg')
     context = {'chef_ranking': chef_ranking,
                'monitor_ranking': monitor_ranking}
