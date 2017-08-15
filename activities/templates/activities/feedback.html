@@ -1,0 +1,28 @@
+{% extends 'masterpage/masterpage.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block content %}
+    <div class="container">
+        <h1>{% trans 'Create comment' %}</h1>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+              <div id="charNum"></div>
+            <button type="submit" class="btn btn-primary activity-edit">{% trans 'Save' %}</button>
+        </form>
+
+    </div>
+    <script>
+        function countChar(val) {
+            var len = val.value.length;
+            if (len >= 140) {
+                val.value = val.value.substring(0, 140);
+            } else {
+                $('#charNum').text(139 - len);
+            }
+        };
+    </script>
+
+{% endblock %}

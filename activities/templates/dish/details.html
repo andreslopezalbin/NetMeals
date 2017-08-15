@@ -18,7 +18,8 @@
                             {{ dish.name }}
                             {% if dish.owner == request.user.guest.chef %}
                                 <a class="btn btn-primary delete" href="#">{% trans "Delete" %}</a>
-                                <a class="btn btn-primary edit" href="{% url 'edit_dish' dish_id=dish.id %}">{% trans "Edit" %}</a>
+                                <a class="btn btn-primary edit"
+                                   href="{% url 'edit_dish' dish_id=dish.id %}">{% trans "Edit" %}</a>
                             {% endif %}
                         </h2>
 
@@ -84,9 +85,14 @@
                                 <div class="text-center">
                                     <br>
                                     {% if user.is_authenticated and not request.user|is_dish_owner:dish.id %}
-                                        {% if request.user|is_subscribed:dish.id  %}
+                                        {% if request.user|is_subscribed:dish.id %}
                                             <a id="dish-unsubscribe" class="btn btn-primary unsubscribe" href="#">
                                                 <span>Unsubscribe</span>
+                                            </a>
+
+                                            <a class="btn btn-primary"
+                                               href="{% url 'dish_feedback' dish.id %}">
+                                                <span>{% trans 'Create comment' %}</span>
                                             </a>
                                         {% else %}
                                             <a id="dish-subscribe" class="btn btn-primary subscribe" href="#">
@@ -119,15 +125,12 @@
                             <img alt="{{ dish.owner.username }}" src="{% static dish.owner.avatar %}"
                                  height="180px" width="180px" class="rounded-circle mx-auto d-block"/>
                         </div>
-                        <h3>
-                            h3. Lorem ipsum dolor sit amet.
+                        <h3 class="text-center">
+                            {{ dish.owner.username }}
                         </h3>
                         <dl>
-                            <dt>
-                                Description lists
-                            </dt>
                             <dd>
-                                A description list is perfect for defining terms.
+                                {% if  dish.owner.speciality %} {{ dish.owner.speciality }} {% endif %}
                             </dd>
 
                         </dl>
@@ -174,11 +177,11 @@
             }
         });
 
-        $("#dish-unsubscribe").click(function(){
+        $("#dish-unsubscribe").click(function () {
             dishUnsubscribe("{% url "dish_unsubscribe" dish.id %}");
         });
 
-        paypalButton("#subscribe", {{ dish.contribution|unlocalize }}, "{{ dish.name }}", {{ dish.id }}, "dish", function(){
+        paypalButton("#subscribe", {{ dish.contribution|unlocalize }}, "{{ dish.name }}", {{ dish.id }}, "dish", function () {
             dishSubscribe("{% url "dish_subscribe" dish.id %}");
         });
 
@@ -201,66 +204,67 @@
                     });
         };
 
-        function dishSubscribe(url){
+        function dishSubscribe(url) {
             $.ajax({
-            method: "POST",
-            url: url,
-            data : {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
-            success: function(res){
-                swal(
-                    {
-                        title: "{% trans "Good job!" %}",
-                        text: "{% trans "Now you are subscribed!" %}",
-                        type:"success"
-                    }
-                    , function(){
-                    location.reload();
-                });
-            },
-            error: function(xhr){
-                alert("An error occured: " + xhr.status + " " + xhr.statusText);
-            }});
+                method: "POST",
+                url: url,
+                data: {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
+                success: function (res) {
+                    swal(
+                            {
+                                title: "{% trans "Good job!" %}",
+                                text: "{% trans "Now you are subscribed!" %}",
+                                type: "success"
+                            }
+                            , function () {
+                                location.reload();
+                            });
+                },
+                error: function (xhr) {
+                    alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                }
+            });
         }
 
-        function dishUnsubscribe(url){
+        function dishUnsubscribe(url) {
             swal(
-                {
-                    title: "{% trans "Are you sure?" %}",
-                    text: "{% trans "You will unsubscribe this dish!" %}",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "{% trans "Yes, unsubscribe it!" %}",
-                    cancelButtonText: "Cancel",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
-                }, function() {
-                    $.ajax({
-                        method: "POST",
-                        url: url,
-                        data: {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
-                        success: function (res) {
-                            if(res.is_refunded) {
-                                swal({
-                                    title: "Good Job!",
-                                    text: "{% trans "Now you are unsubscribed!" %}",
-                                    type: "success",
-                                }, function () {
-                                    location.reload();
-                                });
-                            }else{
-                                swal({
-                                    title: "Oops!",
-                                    text: "{% trans "There was an error executing your unsubscription request. Please try later." %}",
-                                    type: "warning",
-                                });
+                    {
+                        title: "{% trans "Are you sure?" %}",
+                        text: "{% trans "You will unsubscribe this dish!" %}",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "{% trans "Yes, unsubscribe it!" %}",
+                        cancelButtonText: "Cancel",
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    }, function () {
+                        $.ajax({
+                            method: "POST",
+                            url: url,
+                            data: {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
+                            success: function (res) {
+                                if (res.is_refunded) {
+                                    swal({
+                                        title: "Good Job!",
+                                        text: "{% trans "Now you are unsubscribed!" %}",
+                                        type: "success",
+                                    }, function () {
+                                        location.reload();
+                                    });
+                                } else {
+                                    swal({
+                                        title: "Oops!",
+                                        text: "{% trans "There was an error executing your unsubscription request. Please try later." %}",
+                                        type: "warning",
+                                    });
+                                }
+                            },
+                            error: function (xhr) {
+                                alert("An error occured: " + xhr.status + " " + xhr.statusText);
                             }
-                        },
-                        error: function (xhr) {
-                            alert("An error occured: " + xhr.status + " " + xhr.statusText);
-                        }
+                        });
                     });
-                });
         }
     </script>
 {% endblock %}

@@ -3,11 +3,12 @@ from urllib.parse import urlparse
 
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from  django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
 
+from activities.forms.ActivityFeedbackForm import ActivityFeedbackForm
 from activities.forms.ActivityForm import ActivityForm
 from activities.models import Activity, ActivityTime
 from activities.services import activity_service
@@ -15,8 +16,8 @@ from core.services import paypal_service
 from core.util import session_utils
 from users.models import Guest
 
-class ActivityDetailView(View):
 
+class ActivityDetailView(View):
     def get(self, request, activity_id):
         activity_time = get_object_or_404(ActivityTime, id=activity_id)
         activity = get_object_or_404(Activity, id=activity_time.activity.id)
@@ -42,8 +43,8 @@ class ActivityDetailView(View):
 
         return render(request, 'activities/view_edit.html', context)
 
-class ActivitySubscriptionView(View):
 
+class ActivitySubscriptionView(View):
     def post(self, request, activity_id):
         activity_service.subscribe(activity_id, request)
         result_url = "/"
@@ -52,8 +53,8 @@ class ActivitySubscriptionView(View):
 
         return HttpResponseRedirect(result_url)
 
-class ActivityUnsubscriptionView(View):
 
+class ActivityUnsubscriptionView(View):
     def post(self, request, activity_id):
         result = {"is_refunded": False}
         is_refunded = paypal_service.execute_refound(request, None, activity_id)
@@ -62,6 +63,7 @@ class ActivityUnsubscriptionView(View):
             activity_service.unsubscribe(activity_id, request)
 
         return JsonResponse(result)
+
 
 class ListSubscribedActivitiesView(ListView):
     model = ActivityTime
@@ -80,6 +82,7 @@ class ListSubscribedActivitiesView(ListView):
         week_forward = today + datetime.timedelta(days=7)
         return Guest.objects.get(id=self.request.user.id).activity_assisted.filter(date__range=(today, week_forward))
 
+
 class ListAllActivityView(ListView):
     model = ActivityTime
     template_name = 'activities/list.html'
@@ -88,7 +91,7 @@ class ListAllActivityView(ListView):
     def get_context_data(self, **kwargs):
         context = super(ListAllActivityView, self).get_context_data(**kwargs)
 
-        if(not context['activities']):
+        if (not context['activities']):
             context['activities'] = []
 
         session_utils.set_context_with_activity_session(self.request.session, context)
@@ -99,3 +102,19 @@ class ListAllActivityView(ListView):
         today = datetime.datetime.today().date()
         week_forward = today + datetime.timedelta(days=7)
         return ActivityTime.objects.filter(date__range=(today, week_forward))
+
+
+def activity_feedback(request, activity_id):
+    activity = Activity.objects.get(id=activity_id)
+    if request.method == "POST":
+        form = ActivityFeedbackForm(request.POST)
+        if form.is_valid():
+            activityfeedback = form.save(commit=False)
+            activityfeedback.activity = activity
+            activityfeedback.commentator = request.user.guest
+            activityfeedback.commented_id = activity.owner.id
+            activityfeedback.save()
+            return redirect('details_activity', activity_id=activity_id)
+    else:
+        form = ActivityFeedbackForm()
+    return render(request, 'activities/feedback.html', {'form': form})

@@ -83,6 +83,10 @@
             <a id="activity-unsubscribe" class="btn btn-primary unsubscribe" href="#">
                 <span>Unsubscribe</span>
             </a>
+
+            <a  class="btn btn-primary" href="{% url 'activity_feedback' activity.activity_id %}">
+                <span>{% trans 'Create comment' %}</span>
+            </a>
         {% else %}
             <a id="activity-subscribe" class="btn btn-primary subscribe" href="#">
                 <span>Subscribe!</span>

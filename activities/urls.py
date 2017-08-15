@@ -2,10 +2,10 @@ from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 
 from activities.views.activity_view import ListAllActivityView, ActivityDetailView, ActivitySubscriptionView, \
-    ListSubscribedActivitiesView, ActivityUnsubscriptionView
+    ListSubscribedActivitiesView, ActivityUnsubscriptionView, activity_feedback
 from activities.views.monitor_activity_view import CreateActivityView, ListActivityView, DeleteActivityView, \
     CreateActivityPeriodicallyView
-from activities.views.dish_view import findall, findmine, create, edit, details, schedule, delete, DishUnsubscriptionView, DishSubscriptionView, feedback
+from activities.views.dish_view import findall, findmine, create, edit, details, schedule, delete, DishUnsubscriptionView, DishSubscriptionView, dish_feedback
 
 urlpatterns = [
     # Users URLs ----------------------------------------------------------------------
@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^activities/subscribed$', ListSubscribedActivitiesView.as_view(), name='my_subscriptions'),
     url(r'^activities/findall$', ListAllActivityView.as_view(), name='all_activities'),
     # url(r'^activities/(?P<userid>\d+)/list$', ListActivityView.as_view(), name='my_activities')
+    url(r'^activities/(?P<activities_id>\d+)/feedback', login_required(activity_feedback), name='activities_feedback'),
 
     # Dish --------------------------------------------------------------------------
     url(r'^dish/findall$', findall, name='all_dishes'),
@@ -31,6 +32,6 @@ urlpatterns = [
     url(r'^dish/schedule$', schedule, name='schedule'),
     url(r'^dish/(?P<dish_id>\d+)/subscribe', login_required(DishSubscriptionView.as_view()), name='dish_subscribe'),
     url(r'^dish/(?P<dish_id>\d+)/unsubscribe', login_required(DishUnsubscriptionView.as_view()), name='dish_unsubscribe'),
-    url(r'^dish/(?P<dish_id>\d+)/feedback', login_required(feedback), name='dish_feedback'),
+    url(r'^dish/(?P<dish_id>\d+)/feedback', login_required(dish_feedback), name='dish_feedback'),
 
 ]

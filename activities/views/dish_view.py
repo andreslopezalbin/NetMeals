@@ -158,7 +158,7 @@ class DishUnsubscriptionView(View):
         return JsonResponse(result)
 
 
-def feedback(request, dish_id):
+def dish_feedback(request, dish_id):
     dish = Dish.objects.get(id=dish_id)
     if request.method == "POST":
         form = DishFeedbackForm(request.POST)
@@ -168,7 +168,6 @@ def feedback(request, dish_id):
             dishfeedback.commentator = request.user.guest
             dishfeedback.commented_id = dish.owner.id
             dishfeedback.save()
-            # update_avg_rating(local.pk)
             return redirect('details_dish', dish_id=dish_id)
     else:
         form = DishFeedbackForm()
