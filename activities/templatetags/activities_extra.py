@@ -17,6 +17,6 @@ def is_subscribed(user, activity_id):
 def is_activity_owner(user, activity_id):
     result = False
     if(activity_id is not None):
-        result = ActivityTime.objects.get(id=activity_id).activity.owner.id == user.id
+        result = Activity.objects.get(id=activity_id).owner.id == user.id
 
     return result

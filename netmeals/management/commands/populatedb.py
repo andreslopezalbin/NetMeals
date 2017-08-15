@@ -3,8 +3,10 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User, Permission
 from django.contrib.auth.models import Group
+
+from core.models import Feedback
 from core.services import paypal_service
-from activities.models import Activity, Dish, DishFeedback
+from activities.models import Activity, Dish, DishFeedback, ActivityTime
 from users.models import Guest, Chef, Monitor, Manager, Plan
 from django.contrib.contenttypes.models import ContentType
 
@@ -20,9 +22,11 @@ class Command(BaseCommand):
         print('Dropping tables...')
 
         User.objects.all().delete()
-        Activity.objects.all().delete()
         Dish.objects.all().delete()
-        DishFeedback.objects.all().delete()
+        Activity.objects.all().delete()
+        ActivityTime.objects.all().delete()
+        Feedback.objects.all().delete()
+        Plan.objects.all().delete()
 
         print('Dropping tables...OK')
         print('Populating database...')
@@ -222,16 +226,18 @@ class Command(BaseCommand):
         monitor1.user_permissions.add(Permission.objects.get(name='Free'))
 
         monitor2 = Monitor(
-            username='monitor2',
-            email='monitor2@monitor2.com',
-            first_name='monitor2',
+            username='sormaria',
+            email='sormaria@monitor.com',
+            first_name='Sor',
+            last_name='Maria',
             date_joined='2017-6-5',
-            photo='/media/profiles/monitor2.png'
+            photo='/media/profiles/sormaria.png'
         )
-        monitor2.set_password('monitor2')
+        monitor2.set_password('sormaria')
         monitor2.save()
         monitor2.groups.add(Group.objects.get(name='Monitor'))
-        monitor2.user_permissions.add(Permission.objects.get(name='Free'))
+        monitor2.groups.add(Group.objects.get(name='Chef'))
+        monitor2.user_permissions.add(Permission.objects.get(name='Lite'))
 
         print('Monitors created...Ok')
 
@@ -253,7 +259,7 @@ class Command(BaseCommand):
             username='manager2',
             email='manager1@manager2.com',
             first_name='manager2',
-            date_joined='2017-8-5'
+            date_joined='2017-8-29'
         )
         manager2.set_password('manager2')
         manager2.save()
@@ -265,27 +271,79 @@ class Command(BaseCommand):
         # ==================================================================================================
         # ==================================================================================================
         #
-        # activity1 = Activity(
-        #     name='activity1',
-        #     description='activity1Description',
-        #     place='activity1Place',
-        #     latitude=10.0,
-        #     longitude=10.0,
-        #     price_per_person=6,
-        #     owner=monitor1
-        # )
-        # activity1.save()
-        #
-        # activity2 = Activity(
-        #     name='activity2',
-        #     description='activity2Description',
-        #     place='activity2Place',
-        #     latitude=10.0,
-        #     longitude=10.0,
-        #     price_per_person=6,
-        #     owner=monitor2,
-        # )
-        # activity2.save()
+
+        activity1 = Activity(
+            name='Shushi',
+            short_description='El mejor itamae para enseñarte el mejor Sushi de la ciudad',
+            description='Os enseñaré a preparar shushi, son su alga nori, salmón, aguacate y todo lo que le quieras poner! ',
+            place='Carlos Marx, 10, 6b, Sevilla',
+            photo='/media/activities/sushi.jpg',
+            latitude=37.383143499999996,
+            longitude=-5.9492486,
+            price_per_person=6,
+            owner=monitor1
+        )
+        activity1.save()
+
+        activitytime1 = ActivityTime(activity=activity1, date='2017-8-22', start_hour="17:00:00", end_hour='18:00:00')
+        activitytime1.save()
+        activitytime1.assistants.add(andres)
+
+        activity2 = Activity(
+            name='Tacos mexicanos',
+            short_description='Tacos para todos!',
+            description='Vamos a preparar los mejores tacos picantes de tijuana! ',
+            place='Carlos Marx, 10, 6b, Sevilla',
+            photo='/media/activities/tacos.png',
+            latitude=37.383143499999996,
+            longitude=-5.9492486,
+            price_per_person=6,
+            owner=monitor1
+        )
+        activity2.save()
+
+        activitytime2 = ActivityTime(activity=activity2, date='2017-8-29', start_hour="17:00:00", end_hour='19:00:00')
+        activitytime2.save()
+        activitytime2.assistants.add(guest1)
+        activitytime2.assistants.add(guest2)
+        activitytime2.save()
+
+        activitytime3 = ActivityTime(activity=activity2, date='2017-8-29', start_hour="12:00:00", end_hour='13:00:00')
+        activitytime3.save()
+        activitytime3.assistants.add(andres)
+        activitytime3.assistants.add(guest3)
+        activitytime3.save()
+
+        activity3 = Activity(
+            name='Pestiños',
+            short_description='El pestiño es un dulce navideño o de Semana Santa, típico de Andalucía y otras zonas de España, elaborado con masa de harina, frito en aceite de oliva y pasado por miel.',
+            description='Esta receta tradicional de dulces es ideal tanto para desayunar como para merendar o tomar de postre en las ocasiones especiales. Al preparar esta receta de pestiños siempre debemos tener cuidado con la miel y no pasarnos con ciertos ingredientes. Para que salgan perfectos, no dudes en consultar las recetas de pestiños que encontrarás en ensota página y verás qué ricos.',
+            place='Calle San José, 4, 41004 Sevilla',
+            photo='/media/activities/pestiños.jpg',
+            latitude=37.3878483,
+            longitude=-5.9896655,
+            price_per_person=4,
+            owner=monitor2
+        )
+        activity3.save()
+
+        activitytime3 = ActivityTime(activity=activity3, date='2017-8-20', start_hour="12:00:00", end_hour='13:00:00')
+        activitytime3.save()
+        activitytime3.assistants.add(guest1)
+        activitytime3.assistants.add(guest2)
+        activitytime3.save()
+
+        activitytime4 = ActivityTime(activity=activity3, date='2017-8-21', start_hour="12:00:00", end_hour='13:00:00')
+        activitytime4.save()
+        activitytime4.assistants.add(andres)
+        activitytime4.assistants.add(guest3)
+        activitytime4.save()
+
+        activitytime5 = ActivityTime(activity=activity3, date='2017-8-22', start_hour="12:00:00", end_hour='13:00:00')
+        activitytime5.save()
+        activitytime5.assistants.add(andres)
+        activitytime5.assistants.add(guest3)
+        activitytime5.save()
 
         print('Activities... ok')
 
