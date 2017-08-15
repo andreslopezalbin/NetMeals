@@ -79,29 +79,29 @@ WSGI_APPLICATION = 'netmeals.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'netmeals',
-        'USER': 'dev_admin',
-        'PASSWORD': 'development_password',
-        'HOST': '',
-        'PORT': '',
-        'ATOMIC_REQUESTS': 'True'
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'netmeals',
 #         'USER': 'dev_admin',
 #         'PASSWORD': 'development_password',
-#         'HOST': 'netmeals.chyi7lbixtbw.eu-west-1.rds.amazonaws.com',
-#         'PORT': '3306',
+#         'HOST': '',
+#         'PORT': '',
 #         'ATOMIC_REQUESTS': 'True'
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'netmeals',
+        'USER': 'dev_admin',
+        'PASSWORD': 'development_password',
+        'HOST': 'netmeals.chyi7lbixtbw.eu-west-1.rds.amazonaws.com',
+        'PORT': '3306',
+        'ATOMIC_REQUESTS': 'True'
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -161,19 +161,12 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 DATE_INPUT_FORMATS = '%d/%m/%Y'
 
-#
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'netmeals.dev@gmail.com'
-# EMAIL_HOST_PASSWORD = 'Desarrollo@2017'
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# DEFAULT_FROM_EMAIL = 'NetMeals <info@netmeals.com>'
 
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = '127.0.0.1'
-EMAIL_PORT = 465
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
 EMAIL_HOST_USER = 'netmeals.dev@gmail.com'
 EMAIL_HOST_PASSWORD = 'Desarrollo@2017'
-EMAIL_USE_SSL = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'NetMeals <info@netmeals.com>'
+
