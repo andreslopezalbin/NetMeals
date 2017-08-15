@@ -12,7 +12,7 @@ from django.views import View
 
 from activities.forms.DishForm import DishForm
 from activities.models import Dish, Guest
-from activities.services import dish_service
+from activities.services import dish_service, mail_service
 
 from activities.forms.DishFeedbackForm import DishFeedbackForm
 from core.services import paypal_service
@@ -138,6 +138,8 @@ def edit(request, dish_id):
 class DishSubscriptionView(View):
     def post(self, request, dish_id):
         dish_service.subscribe(dish_id, request)
+        dish = Dish.objects.get(id=dish_id)
+        mail_service.send_mail(request, dish)
         result_url = "/"
         if (request.META.get('HTTP_REFERER') is not None):
             result_url = urlparse(request.META.get('HTTP_REFERER')).path
@@ -149,11 +151,12 @@ class DishUnsubscriptionView(View):
     def post(self, request, dish_id):
         result = {"is_refunded": False}
         is_refunded = paypal_service.execute_refound(request, dish_id, None)
-        if(is_refunded):
+        if (is_refunded):
             result["is_refunded"] = True
             dish_service.unsubscribe(dish_id, request)
 
         return JsonResponse(result)
+
 
 def feedback(request, dish_id):
     dish = Dish.objects.get(id=dish_id)

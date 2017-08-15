@@ -1,6 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Field
 from django import forms
+from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 from users.models import Guest
@@ -41,3 +42,10 @@ class SignUpForm(forms.ModelForm):
     class Meta:
         model = Guest
         fields = ['first_name', 'last_name', 'email', 'username', 'password']
+
+    def clean(self):
+        cleaned_data = super(SignUpForm, self).clean()
+        email = cleaned_data.get('email')
+
+        if Guest.objects.filter(email=email).exists():
+            self.add_error('email', _('Email is already in use'))

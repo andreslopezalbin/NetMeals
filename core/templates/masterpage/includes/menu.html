@@ -76,7 +76,7 @@
 
     </style>
     <!--Navbar-->
-    <nav class="navbar navbar-toggleable-md navbar-dark fixed-top scrolling-navbar">
+    <nav id="menu" class="navbar navbar-toggleable-md navbar-dark fixed-top scrolling-navbar">
         <div class="container">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                     data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false"
@@ -90,7 +90,7 @@
             <div class="collapse navbar-collapse" id="navbarNav1">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link">{% trans 'About' %}</a>
+                        <a href="{% url 'about_us' %}" class="nav-link">{% trans 'About' %}</a>
                     </li>
                     {% include 'includes/activities_menu.html' %}
                     {% include 'includes/dish_menu.html' %}
@@ -207,7 +207,8 @@
                         <div class="options text-center text-md-right mt-1">
                             <p>{% trans "Not a member?" %} <a href="{% url "signup" %}"
                                                               style="color: #ff8b8c"> {% trans "Signup" %}</a></p>
-                            <p>{% trans "Forgot" %} <a href="#" style="color:#ff8b8c"> {% trans "Password" %}?</a></p>
+                            <p>{% trans "Forgot" %} <a href="{% url 'password_reset' %}"
+                                                       style="color:#ff8b8c"> {% trans "Password" %}?</a></p>
                         </div>
                         <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">
                             {% trans "Close" %}

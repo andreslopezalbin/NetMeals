@@ -18,5 +18,9 @@ urlpatterns = [
     url(r'activate/user/(?P<user_id>\d+)$', views.activate_user, name='users_activate'),
     url(r'rankings$', views.rankings, name='rankings'),
     url(r'search$', views.search, name='search'),
+    url(r'about_us$', views.about_us, name='about_us'),
+    url(r'faq$', views.faq, name='faq'),
+    url(r'cookies$', views.cookies, name='cookies'),
+    url(r'cancellation$', views.cancellation, name='cancellation')
 
 ]

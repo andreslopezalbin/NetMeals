@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-10 20:40+0200\n"
+"POT-Creation-Date: 2017-08-12 19:00+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,70 +31,75 @@ msgstr "Comentario"
 msgid "Enter a comment with 140 or less characters"
 msgstr "Inserta un comentario con 140 caracteres como máximo"
 
-#: .\activities\forms\DishForm.py:12 .\activities\forms\DishForm.py:25
-#: .\core\templates\dashboard\table.html:38 .\users\forms\ProfileForm.py:21
+#: .\activities\forms\DishForm.py:12 .\activities\forms\DishForm.py:28
+#: .\core\templates\dashboard\table.html:38 .\users\forms\ProfileForm.py:23
 msgid "Name"
 msgstr "Nombre"
 
-#: .\activities\forms\DishForm.py:13 .\activities\forms\DishForm.py:26
+#: .\activities\forms\DishForm.py:13 .\activities\forms\DishForm.py:29
 msgid "Description"
 msgstr "Descripción"
 
-#: .\activities\forms\DishForm.py:14 .\activities\forms\DishForm.py:27
+#: .\activities\forms\DishForm.py:14 .\activities\forms\DishForm.py:30
 msgid "Photo"
 msgstr "Fotografía"
 
-#: .\activities\forms\DishForm.py:28
-msgid "date"
+#: .\activities\forms\DishForm.py:31
+msgid "Date"
 msgstr "Fecha"
 
-#: .\activities\forms\DishForm.py:29
-msgid "hour"
+#: .\activities\forms\DishForm.py:32
+msgid "Hour"
 msgstr "Hora"
 
-#: .\activities\forms\DishForm.py:30
-msgid "max_assistants"
-msgstr "asistentes"
+#: .\activities\forms\DishForm.py:33
+msgid "Max assistants"
+msgstr "Asistentes"
 
-#: .\activities\forms\DishForm.py:31
+#: .\activities\forms\DishForm.py:34
 msgid "contribution"
 msgstr "Aporte"
 
-#: .\activities\forms\DishForm.py:41
+#: .\activities\forms\DishForm.py:35 .\users\forms\ProfileForm.py:27
+msgid "Place"
+msgstr "Lugar"
+
+#: .\activities\forms\DishForm.py:51
 msgid "You must add more assistants"
 msgstr "Debes añadir mas asistentes"
 
-#: .\activities\forms\DishForm.py:43
+#: .\activities\forms\DishForm.py:53
 msgid "WOW! Its so cheap!"
 msgstr "Vaya! Es demasiado barato!"
 
-#: .\activities\forms\DishForm.py:45
+#: .\activities\forms\DishForm.py:55
 msgid "You cant share a old dish, sorry"
 msgstr "No puedes compartir platos del pasado, lo siento :("
 
 #: .\activities\templates\activities\view_edit.html:135
 #: .\activities\templates\dish\details.html:212
 msgid "Good job!"
-msgstr ""
+msgstr "Buen trabajo!"
 
 #: .\activities\templates\activities\view_edit.html:136
 #: .\activities\templates\dish\details.html:213
 msgid "Now you are subscribed!"
-msgstr ""
+msgstr "Ahora estás suscrito"
 
 #: .\activities\templates\activities\view_edit.html:151
 #: .\activities\templates\dish\details.html:187
 #: .\activities\templates\dish\details.html:228
 #: .\core\templates\dashboard\table.html:186
 #: .\core\templates\dashboard\table.html:233
-#: .\users\templates\profile\edit_profile.html:71
-#: .\users\templates\signup-host.html:53
+#: .\users\templates\profile\edit_about_me.html:121
+#: .\users\templates\profile\edit_profile.html:89
+#: .\users\templates\signup-host.html:54
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
 #: .\activities\templates\activities\view_edit.html:152
 msgid "You will unsubscribe this activity!"
-msgstr ""
+msgstr "Te vas a desuscribir de la actividadd!"
 
 #: .\activities\templates\activities\view_edit.html:156
 #: .\activities\templates\dish\details.html:233
@@ -106,27 +111,30 @@ msgstr "Si, activalo!"
 #: .\activities\templates\activities\view_edit.html:157
 #: .\activities\templates\dish\details.html:193
 #: .\core\templates\dashboard\table.html:239
-#: .\users\templates\profile\edit_profile.html:77
-#: .\users\templates\signup-host.html:59
+#: .\users\templates\profile\edit_about_me.html:127
+#: .\users\templates\profile\edit_profile.html:95
+#: .\users\templates\signup-host.html:60
 msgid "Cancel"
 msgstr "Cancelar"
 
 #: .\activities\templates\activities\view_edit.html:168
 #: .\activities\templates\dish\details.html:245
 msgid "Now you are unsubscribed!"
-msgstr ""
+msgstr "Has cancelado la inscripción!"
 
 #: .\activities\templates\activities\view_edit.html:176
 #: .\activities\templates\dish\details.html:253
 msgid ""
 "There was an error executing your unsubscription request. Please try later."
-msgstr ""
+msgstr "Ha habido un error cancelando la inscripción. Por favor prueba más tarde."
 
 #: .\activities\templates\dish\details.html:20
 msgid "Delete"
 msgstr "Eliminar"
 
 #: .\activities\templates\dish\details.html:21
+#: .\users\templates\profile\edit_about_me.html:65
+#: .\users\templates\profile\edit_profile.html:74
 msgid "Edit"
 msgstr "Editar"
 
@@ -146,7 +154,7 @@ msgstr "Eliminar"
 
 #: .\activities\templates\dish\details.html:173
 msgid "Your imaginary file has been deleted!"
-msgstr ""
+msgstr "Tu imagen ha sido eliminada!"
 
 #: .\activities\templates\dish\details.html:188
 msgid "This acction cant be undone"
@@ -158,18 +166,18 @@ msgstr "Si, borrarlo!"
 
 #: .\activities\templates\dish\details.html:229
 msgid "You will unsubscribe this dish!"
-msgstr ""
+msgstr "Vas a cancelar la inscripción a este plato!"
 
 #: .\activities\templates\dish\edit.html:7
 #: .\activities\templates\includes\dish_menu.html:12
 msgid "New Dish"
 msgstr "Nuevo plato"
 
-#: .\activities\templates\dish\edit.html:11
+#: .\activities\templates\dish\edit.html:13
 msgid "Create Dish"
 msgstr "Nuevo Plato"
 
-#: .\activities\templates\dish\edit.html:13
+#: .\activities\templates\dish\edit.html:15
 msgid "Edit Dish"
 msgstr "Editar Plato"
 
@@ -185,7 +193,7 @@ msgstr "Guardar"
 msgid "All Dishes near you"
 msgstr "Todos los platos cerca de tu zona"
 
-#: .\activities\templates\dish\list.html:59
+#: .\activities\templates\dish\list.html:62
 msgid "Details"
 msgstr "Detalles"
 
@@ -207,11 +215,11 @@ msgstr "Calendario"
 
 #: .\core\templates\dashboard\dashboard.html:406
 msgid "Ranking"
-msgstr ""
+msgstr "Ranking"
 
 #: .\core\templates\dashboard\dashboard.html:407
 msgid "Table of Users rankings"
-msgstr ""
+msgstr "Tabla de ranking de usuarios"
 
 #: .\core\templates\dashboard\dashboard.html:412
 #, fuzzy
@@ -220,7 +228,7 @@ msgid "Position"
 msgstr "Descripción"
 
 #: .\core\templates\dashboard\dashboard.html:413
-#: .\core\templates\dashboard\table.html:37 .\users\forms\ProfileForm.py:20
+#: .\core\templates\dashboard\table.html:37 .\users\forms\ProfileForm.py:22
 msgid "Username"
 msgstr "Usuario"
 
@@ -233,17 +241,17 @@ msgid "Settings"
 msgstr "Ajustes"
 
 #: .\core\templates\dashboard\dashboard_master.html:81
-#: .\core\templates\masterpage\includes\menu.html:130
+#: .\core\templates\masterpage\includes\menu.html:144
 msgid "Spanish"
 msgstr "Español"
 
 #: .\core\templates\dashboard\dashboard_master.html:83
-#: .\core\templates\masterpage\includes\menu.html:131
+#: .\core\templates\masterpage\includes\menu.html:145
 msgid "English"
 msgstr "Inglés"
 
 #: .\core\templates\dashboard\dashboard_master.html:84
-#: .\core\templates\masterpage\includes\menu.html:111
+#: .\core\templates\masterpage\includes\menu.html:124
 msgid "Signout"
 msgstr "Cerrar sesión"
 
@@ -255,7 +263,7 @@ msgstr "Tabla de Usuarios"
 msgid "Management of users"
 msgstr "Gestión de usuarios"
 
-#: .\core\templates\dashboard\table.html:39 .\users\forms\ProfileForm.py:23
+#: .\core\templates\dashboard\table.html:39 .\users\forms\ProfileForm.py:25
 msgid "Email"
 msgstr "Correo"
 
@@ -313,79 +321,102 @@ msgstr "Si, activalo!"
 msgid "Now the user is active again"
 msgstr "El usuario vuelve a estar activo"
 
-#: .\core\templates\index.html:187
-msgid "Congratulations!!"
-msgstr "Felicidades!!"
+#: .\core\templates\index.html:262
+#: .\core\templates\masterpage\masterpage.html:63
+msgid ""
+"This page uses own and third party cookies in order to improve the service. "
+"By continuing to browse the site you are agreeing to accept our use of "
+"cookie."
+msgstr "Esta página usa cookies propias y de terceros para un mejor servicio. Al continuar en esta página aceptas el uso de cookies"
 
-#: .\core\templates\index.html:187
-msgid " You have been successfully signed up!!"
-msgstr "Te has registrado correctamente!!"
+#: .\core\templates\index.html:263
+#: .\core\templates\masterpage\masterpage.html:64
+msgid "Accept"
+msgstr "Aceptar"
 
-#: .\core\templates\masterpage\includes\menu.html:80
+#: .\core\templates\index.html:264
+#: .\core\templates\masterpage\masterpage.html:65
+msgid "More information"
+msgstr "Más Información"
+
+#: .\core\templates\masterpage\includes\menu.html:93
 msgid "About"
-msgstr ""
+msgstr "Sobre nosotros"
 
-#: .\core\templates\masterpage\includes\menu.html:85
+#: .\core\templates\masterpage\includes\menu.html:98
 #: .\core\templates\ratings.html:16
 msgid "Rankings"
-msgstr ""
+msgstr "Rankings"
 
-#: .\core\templates\masterpage\includes\menu.html:99
-#: .\core\templates\masterpage\includes\menu.html:158
+#: .\core\templates\masterpage\includes\menu.html:112
+#: .\core\templates\masterpage\includes\menu.html:179
 msgid "Log in"
 msgstr "Iniciar sesión"
 
-#: .\core\templates\masterpage\includes\menu.html:101
-#: .\core\templates\masterpage\includes\menu.html:188
+#: .\core\templates\masterpage\includes\menu.html:114
+#: .\core\templates\masterpage\includes\menu.html:209
 msgid "Signup"
 msgstr "Registrate"
 
-#: .\core\templates\masterpage\includes\menu.html:110
+#: .\core\templates\masterpage\includes\menu.html:123
 msgid "Hello "
 msgstr "Hola "
 
-#: .\core\templates\masterpage\includes\menu.html:112
+#: .\core\templates\masterpage\includes\menu.html:126
 msgid "Profile"
 msgstr "Perfil"
 
-#: .\core\templates\masterpage\includes\menu.html:114
-#: .\users\templates\profile\edit_profile.html:17
+#: .\core\templates\masterpage\includes\menu.html:128
+#: .\users\templates\profile\edit_about_me.html:35
+#: .\users\templates\profile\edit_profile.html:36
 msgid "Edit Profile"
 msgstr "Editar Perfil"
 
-#: .\core\templates\masterpage\includes\menu.html:128
+#: .\core\templates\masterpage\includes\menu.html:142
 msgid "Language"
 msgstr "Idioma"
 
-#: .\core\templates\masterpage\includes\menu.html:136
+#: .\core\templates\masterpage\includes\menu.html:153
 msgid "Search CP"
 msgstr "Buscar CP"
 
-#: .\core\templates\masterpage\includes\menu.html:168
+#: .\core\templates\masterpage\includes\menu.html:189
 msgid "User"
 msgstr "Usuario"
 
-#: .\core\templates\masterpage\includes\menu.html:174
-#: .\core\templates\masterpage\includes\menu.html:189
+#: .\core\templates\masterpage\includes\menu.html:195
+#: .\core\templates\masterpage\includes\menu.html:210
 #: .\users\forms\GuestForms.py:12
 msgid "Password"
 msgstr "Contraseña"
 
-#: .\core\templates\masterpage\includes\menu.html:179
+#: .\core\templates\masterpage\includes\menu.html:200
 msgid "Enter"
 msgstr "Entrar"
 
-#: .\core\templates\masterpage\includes\menu.html:187
+#: .\core\templates\masterpage\includes\menu.html:208
 msgid "Not a member?"
 msgstr "¿No eres miembro aún?"
 
-#: .\core\templates\masterpage\includes\menu.html:189
+#: .\core\templates\masterpage\includes\menu.html:210
 msgid "Forgot"
 msgstr "Olvidó la "
 
-#: .\core\templates\masterpage\includes\menu.html:192
+#: .\core\templates\masterpage\includes\menu.html:213
 msgid "Close"
 msgstr "Cerrar"
+
+#: .\core\templates\masterpage\includes\menu.html:273
+msgid "Use your current location?"
+msgstr "¿Usar tu localización actual?"
+
+#: .\core\templates\masterpage\includes\menu.html:274
+msgid "We'll use your location to show you dishes and activities near to you!!"
+msgstr "Vamos a usar tu localización para mostrarte platos y actividades cercanos!!"
+
+#: .\core\templates\masterpage\includes\menu.html:278
+msgid "Yes"
+msgstr "Sí"
 
 #: .\core\templates\ratings.html:22
 msgid "Top Chefs"
@@ -394,6 +425,48 @@ msgstr "Top Cocineros"
 #: .\core\templates\ratings.html:59
 msgid "Top Monitors"
 msgstr "Top Monitores"
+
+#: .\core\templates\search.html:6
+#, fuzzy
+#| msgid "Search CP"
+msgid "Search Result"
+msgstr "Buscar CP"
+
+#: .\core\templates\search.html:17
+msgid "Result"
+msgstr "Resultado"
+
+#: .\core\templates\search.html:24
+#, fuzzy
+#| msgid "All Dishes near you"
+msgid "Activities near you"
+msgstr "Todos los platos cerca de tu zona"
+
+#: .\core\templates\search.html:48 .\core\templates\search.html:120
+msgid "meters aprox."
+msgstr "metros aprox."
+
+#: .\core\templates\search.html:58
+msgid "There is no activities near you."
+msgstr "No hay ninguna actividad cerca tuya."
+
+#: .\core\templates\search.html:70 .\core\templates\search.html:137
+msgid "Previous"
+msgstr "Anterior"
+
+#: .\core\templates\search.html:77 .\core\templates\search.html:144
+msgid "of"
+msgstr "de"
+
+#: .\core\templates\search.html:85 .\core\templates\search.html:152
+msgid "Next"
+msgstr "Siguiente"
+
+#: .\core\templates\search.html:97
+#, fuzzy
+#| msgid "All Dishes near you"
+msgid "Dishes near you"
+msgstr "Todos los platos cerca de tu zona"
 
 #: .\users\forms\GuestForms.py:10
 msgid "First name"
@@ -407,46 +480,71 @@ msgstr "Dirección de correo"
 msgid "Must be in 999999999 format"
 msgstr "Debe tener el formato 999999999"
 
-#: .\users\forms\ProfileForm.py:22
+#: .\users\forms\ProfileForm.py:24
 msgid "Surname"
 msgstr "Apellidos"
 
-#: .\users\forms\ProfileForm.py:24
+#: .\users\forms\ProfileForm.py:26
 msgid "Phone"
 msgstr "Teléfono"
 
-#: .\users\forms\ProfileForm.py:25
-msgid "Birthday"
-msgstr "Cumpleaños"
-
-#: .\users\forms\ProfileForm.py:39
-msgid "You must enter a valid date"
-msgstr "Debes introducir una fecha correcta"
-
-#: .\users\forms\ProfileForm.py:41
+#: .\users\forms\ProfileForm.py:44
 msgid "Email is already in use"
 msgstr "El email está ya en uso"
 
-#: .\users\templates\profile\edit_profile.html:33
+#: .\users\forms\ProfileForm.py:56
+msgid "Birthday"
+msgstr "Cumpleaños"
+
+#: .\users\forms\ProfileForm.py:59
+msgid "Abstract"
+msgstr "Extracto"
+
+#: .\users\forms\ProfileForm.py:61
+msgid "Speciality"
+msgstr "Especialidad"
+
+#: .\users\forms\ProfileForm.py:73
+msgid "You must enter a valid date"
+msgstr "Debes introducir una fecha correcta"
+
+#: .\users\templates\profile\edit_about_me.html:43
+#: .\users\templates\profile\edit_profile.html:45
+#: .\users\templates\profile\edit_profile.html:68
+msgid "Personal info"
+msgstr "Información personal"
+
+#: .\users\templates\profile\edit_about_me.html:44
+#: .\users\templates\profile\edit_about_me.html:59
+#: .\users\templates\profile\edit_profile.html:46
+msgid "About me"
+msgstr "Sobre mí"
+
+#: .\users\templates\profile\edit_about_me.html:47
+#: .\users\templates\profile\edit_profile.html:49
 msgid "Unsubscribe plan"
 msgstr "Desuscribirse del plan"
 
-#: .\users\templates\profile\edit_profile.html:34
+#: .\users\templates\profile\edit_about_me.html:48
+#: .\users\templates\profile\edit_profile.html:50
 msgid "Change plan"
 msgstr "Cambiar plan"
 
-#: .\users\templates\profile\edit_profile.html:36
+#: .\users\templates\profile\edit_about_me.html:50
+#: .\users\templates\profile\edit_profile.html:52
 msgid "Select a plan"
 msgstr "Seleccionar plan"
 
-#: .\users\templates\profile\edit_profile.html:72
+#: .\users\templates\profile\edit_about_me.html:122
+#: .\users\templates\profile\edit_profile.html:90
 msgid ""
 "You are going to unsubscribe your current plan and become to use the Free "
 "plan"
 msgstr "Vas a desuscribirte del plan actual y pasar a usuario Free"
 
-#: .\users\templates\profile\edit_profile.html:76
-#: .\users\templates\signup-host.html:58
+#: .\users\templates\profile\edit_about_me.html:126
+#: .\users\templates\profile\edit_profile.html:94
+#: .\users\templates\signup-host.html:59
 msgid "Yes, im sure!"
 msgstr "Sí, estoy seguro!"
 
@@ -454,19 +552,31 @@ msgstr "Sí, estoy seguro!"
 msgid "Age: "
 msgstr "Edad:"
 
-#: .\users\templates\profile\profile.html:106
-#: .\users\templates\profile\profile.html:143
+#: .\users\templates\profile\profile.html:102
+#: .\users\templates\profile\profile.html:139
 msgid "Rotate"
 msgstr "Girar"
 
-#: .\users\templates\profile\profile.html:127
+#: .\users\templates\profile\profile.html:123
 msgid "Assistants"
 msgstr "asistentes"
 
-#: .\users\templates\profile\profile.html:134
+#: .\users\templates\profile\profile.html:130
 msgid " Average score"
 msgstr "Puntuación media"
 
-#: .\users\templates\signup-host.html:54
+#: .\users\templates\signup-host.html:55
 msgid "You are going "
 msgstr ""
+
+#~ msgid "date"
+#~ msgstr "Fecha"
+
+#~ msgid "hour"
+#~ msgstr "Hora"
+
+#~ msgid "Congratulations!!"
+#~ msgstr "Felicidades!!"
+
+#~ msgid " You have been successfully signed up!!"
+#~ msgstr "Te has registrado correctamente!!"

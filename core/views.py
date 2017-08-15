@@ -237,7 +237,7 @@ def search(request):
         activity_page = request.GET.get('activity_page')
         dish_page = request.GET.get('dish_page')
 
-        if(latitude is not None and longitude is not None):
+        if (latitude is not None and longitude is not None):
             activities, dishes = search_service.search_by_proximity(latitude, longitude)
 
             activity_paginator = Paginator(activities, 9)
@@ -250,6 +250,7 @@ def search(request):
             context["dishes"] = dishes
 
     return render(request, 'search.html', context)
+
 
 def get_searched_activities_page(activity_page, activity_paginator):
     result = []
@@ -273,3 +274,19 @@ def get_searched_dishes_page(dish_page, dish_paginator):
         result = dish_paginator.page(dish_paginator.num_pages)
 
     return result
+
+
+def about_us(request):
+    return render(request, 'about_us/about _us.html')
+
+
+def faq(request):
+    return render(request, 'about_us/about _us.html')
+
+
+def cookies(request):
+    return render(request, 'about_us/about _us.html')
+
+
+def cancellation(request):
+    return render(request, 'about_us/about _us.html')
