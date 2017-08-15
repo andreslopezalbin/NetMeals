@@ -142,6 +142,6 @@ def activity_schedule(request):
                     'color': colors[random.randrange(0, len(colors))]}
 
             items.append(item)
-            data = json.dumps(items)
-            context = {'items': data, 'language': user_language, 'today': today}
+        data = json.dumps(items)
+        context = {'items': data, 'language': user_language, 'today': today}
         return render(request, '../templates/activities/scheduler.html', context)
