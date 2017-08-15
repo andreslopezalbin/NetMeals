@@ -168,5 +168,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'netmeals.dev@gmail.com'
 EMAIL_HOST_PASSWORD = 'Desarrollo@2017'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-DEFAULT_FROM_EMAIL = 'NetMeals <info@netmeals.com>'
-
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
