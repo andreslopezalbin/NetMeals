@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import resolve
 from django.urls import reverse
@@ -184,27 +185,19 @@ class ListActivityView(ListView):
         return ActivityTime.objects.filter(activity__owner=self.owner)
 
 @method_decorator(group_required('Monitor'), name='dispatch')
-class DeleteActivityView(DeleteView):
-    model = Activity
+class DeleteActivityView(View):
 
-    def get_success_url(self):
-        redirect_url = "/"
-        self.request.session[SESSION_ACTIVITY_DEL_SUCCEEDED] = True
-        if(self.request.META.get('HTTP_REFERER') is not None):
-            relative_path = urlparse(self.request.META.get('HTTP_REFERER')).path
-            kwargs = {}
-            if "detail" in relative_path or "edit" in relative_path:
-                redirect_url = 'my_activities'
-            else:
-                match = resolve(relative_path)
-                redirect_url = match.url_name
+    def post(self, request, pk):
+        context = {}
+        activity_time = get_object_or_404(ActivityTime, id=pk)
+        context["has_permissions"] = True
+        if not activity_time.activity.owner.id == self.request.user.id:
+            context["has_permissions"] = False
+            return JsonResponse(context)
 
-                if(match.kwargs):
-                    kwargs = match.kwargs
-        return reverse_lazy(redirect_url, kwargs=kwargs)
+        activity_time.delete()
 
-    def get_object(self, queryset=None):
-        activity = super(DeleteActivityView, self).get_object()
-        if not activity.owner.id == self.request.user.id:
-            return HttpResponseRedirect("/no-permission")
-        return activity
+        context["is_deleted"] = True
+
+        return JsonResponse(context)
+
