@@ -196,8 +196,18 @@ class DeleteActivityView(View):
             return JsonResponse(context)
 
         activity_time.delete()
-
         context["is_deleted"] = True
+
+        redirect_url = "/"
+        # context["redirect_url"] = None
+        if (self.request.META.get('HTTP_REFERER') is not None):
+            relative_path = urlparse(self.request.META.get('HTTP_REFERER')).path
+            if "detail" in relative_path or "edit" in relative_path:
+                redirect_url = 'my_activities'
+                redirect_url = reverse(redirect_url)
+            else:
+                redirect_url = relative_path
+            context["redirect_url"] = redirect_url
 
         return JsonResponse(context)
 
