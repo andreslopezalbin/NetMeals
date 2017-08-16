@@ -1,5 +1,7 @@
 {% extends 'masterpage/masterpage.html' %}
 {% load staticfiles %}
+{% load i18n %}
+{% load l10n %}
 {% load crispy_forms_tags %}
 {% crispy form form.helper %}
 {% load activities_extra %}
@@ -15,19 +17,6 @@
             </div>
         </div>
     {% endif %}
-
-
-    <div class="delete-popup centered">
-        <form id="activity-delete-form" action="" method="post">{% csrf_token %}
-            <p>Are you sure you want to delete the activity?</p>
-            <div class="row container-fluid">
-                <input type="submit" class="col-4 btn btn-primary" value="Confirm"/>
-                <div class="col-4"></div>
-                <input type="button" class="col-4 cancel btn btn-primary" value="Cancel"/>
-            </div>
-        </form>
-    </div>
-    <div class="delete-popup-background"></div>
 
     <div class="container">
         <div class="row">
@@ -52,9 +41,9 @@
                             <p>
                                 {% if user.is_authenticated and activity.owner.id == user.id %}
                                     <button class="btn btn-primary activity-edit"
-                                            onclick="openURL('{% url 'activity_edit' activity.id %}');">Edit
+                                            onclick="openURL('{% url 'activity_edit' activity_time.id %}');">Edit
                                     </button>
-                                    <button class="btn btn-primary activity-remove" data-id="{{ activity.id }}">
+                                    <button class="btn btn-primary activity-remove" data-id="{{ activity_time.id }}">
                                         Remove
                                     </button>
                                 {% endif %}
@@ -79,17 +68,53 @@
         });
 
         $(".activity-remove").click(function () {
-            var form = $("#activity-delete-form");
             var id = $(this).data("id");
             var url = "{% url "activity_delete" 0 %}".replace("0", id);
-            form.attr('action', url);
-            $(".delete-popup").addClass("visible")
-            $(".delete-popup-background").addClass("visible")
-        });
-
-        $(".delete-popup.centered .cancel").click(function () {
-            $(".delete-popup").removeClass("visible")
-            $(".delete-popup-background").removeClass("visible")
+            swal(
+                {
+                    title: "{% trans "Are you sure?" %}",
+                    text: "{% trans "You will delete this activity!" %}",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "{% trans "Yes, delete it!" %}",
+                    cancelButtonText: "{% trans "Cancel" %}",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function() {
+                    $.ajax({
+                        method: "POST",
+                        url: url,
+                        success: function (res) {
+                            if(res.has_permissions && res.is_deleted) {
+                                swal({
+                                    title: "Good Job!",
+                                    text: "{% trans "Now you are unsubscribed!" %}",
+                                    type: "success",
+                                }, function () {
+                                    location.reload();
+                                });
+                            }else if(!res.has_permissions){
+                                swal({
+                                    title: "Oops!",
+                                    text: "{% trans "It seems you dont have permission to delete this activity." %}",
+                                    type: "warning",
+                                });
+                            }
+                            else{
+                                swal({
+                                    title: "Oops!",
+                                    text: "{% trans "There was an error deleting your activity. Please try later." %}",
+                                    type: "warning",
+                                });
+                            }
+                        },
+                        error: function (xhr) {
+                            swal.close();
+                            alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                        }
+                    });
+                });
         });
 
         function openURL(url) {

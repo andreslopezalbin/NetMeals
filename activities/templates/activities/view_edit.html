@@ -25,18 +25,6 @@
         </div>
     {% endif %}
 
-    <div class="delete-popup centered">
-        <form id="activity-delete-form" action="" method="post">{% csrf_token %}
-            <p>Are you sure you want to delete the activity?</p>
-            <div class="row container-fluid">
-                <input type="submit" class="col-4 btn btn-primary" value="Confirm" />
-                <div class="col-4"></div>
-                <input type="button" class="col-4 cancel btn btn-primary" value="Cancel" />
-            </div>
-        </form>
-    </div>
-    <div class="delete-popup-background"></div>
-
 <div class="container">
 
     {% if is_edit %}
@@ -118,44 +106,93 @@
         window.open(url, "_self");
     });
 
-    $("#activity-unsubscribe").click(function(){
-        activityUnsubscribe("{% url "activity_unsubscribe" activity_id %}");
-    });
+    {% if not request.user|is_activity_owner:activity_id %}
 
-    paypalButton("#activity-subscribe", {{ activity.activity.price_per_person|unlocalize }}, "{{ activity.name }}", {{ activity_id }}, "activity", function(){
-        activitySubscribe("{% url "activity_subscribe" activity_id %}");
-    });
+        $("#activity-unsubscribe").click(function(){
+            activityUnsubscribe("{% url "activity_unsubscribe" activity_id %}");
+        });
 
-    function activitySubscribe(url){
-            $.ajax({
-            method: "POST",
-            url: url,
-            data : {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
-            success: function(res){
+        paypalButton("#activity-subscribe", {{ activity.activity.price_per_person|unlocalize }}, "{{ activity.name }}", {{ activity_id }}, "activity", function(){
+            activitySubscribe("{% url "activity_subscribe" activity_id %}");
+        });
+
+        function activitySubscribe(url){
+                $.ajax({
+                method: "POST",
+                url: url,
+                data : {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
+                success: function(res){
+                    swal(
+                        {
+                            title: "{% trans "Good job!" %}",
+                            text: "{% trans "Now you are subscribed!" %}",
+                            type:"success"
+                        }
+                        , function(){
+                        location.reload();
+                    });
+                },
+                error: function(xhr){
+                    swal.close();
+                    alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                }});
+            }
+
+            function activityUnsubscribe(url){
                 swal(
                     {
-                        title: "{% trans "Good job!" %}",
-                        text: "{% trans "Now you are subscribed!" %}",
-                        type:"success"
-                    }
-                    , function(){
-                    location.reload();
-                });
-            },
-            error: function(xhr){
-                alert("An error occured: " + xhr.status + " " + xhr.statusText);
-            }});
-        }
+                        title: "{% trans "Are you sure?" %}",
+                        text: "{% trans "You will unsubscribe this activity!" %}",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "{% trans "Yes, unsubscribe it!" %}",
+                        cancelButtonText: "{% trans "Cancel" %}",
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    }, function() {
+                        $.ajax({
+                            method: "POST",
+                            url: url,
+                            data: {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
+                            success: function (res) {
+                                if(res.is_refunded) {
+                                    swal({
+                                        title: "Good Job!",
+                                        text: "{% trans "Now you are unsubscribed!" %}",
+                                        type: "success",
+                                    }, function () {
+                                        location.reload();
+                                    });
+                                }else{
+                                    swal({
+                                        title: "Oops!",
+                                        text: "{% trans "There was an error executing your unsubscription request. Please try later." %}",
+                                        type: "warning",
+                                    });
+                                }
+                            },
+                            error: function (xhr) {
+                                swal.close();
+                                alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                            }
+                        });
+                    });
+            }
+        {% endif %}
+    {% endif %}
 
-        function activityUnsubscribe(url){
-            swal(
+    $(".activity-remove").click(function(){
+       var id = $(this).data("id");
+       var url = "{% url "activity_delete" 0 %}".replace("0", id);
+       swal(
                 {
                     title: "{% trans "Are you sure?" %}",
-                    text: "{% trans "You will unsubscribe this activity!" %}",
+                    text: "{% trans "You will delete this activity!" %}",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "{% trans "Yes, unsubscribe it!" %}",
+                    confirmButtonText: "{% trans "Yes, delete it!" %}",
                     cancelButtonText: "{% trans "Cancel" %}",
                     closeOnConfirm: false,
                     showLoaderOnConfirm: true
@@ -163,9 +200,8 @@
                     $.ajax({
                         method: "POST",
                         url: url,
-                        data: {"csrfmiddlewaretoken": getCookieValue("csrftoken"),},
                         success: function (res) {
-                            if(res.is_refunded) {
+                            if(res.has_permissions && res.is_deleted) {
                                 swal({
                                     title: "Good Job!",
                                     text: "{% trans "Now you are unsubscribed!" %}",
@@ -173,35 +209,27 @@
                                 }, function () {
                                     location.reload();
                                 });
-                            }else{
+                            }else if(!res.has_permissions){
                                 swal({
                                     title: "Oops!",
-                                    text: "{% trans "There was an error executing your unsubscription request. Please try later." %}",
+                                    text: "{% trans "It seems you dont have permission to delete this activity." %}",
+                                    type: "warning",
+                                });
+                            }
+                            else{
+                                swal({
+                                    title: "Oops!",
+                                    text: "{% trans "There was an error deleting your activity. Please try later." %}",
                                     type: "warning",
                                 });
                             }
                         },
                         error: function (xhr) {
+                            swal.close();
                             alert("An error occured: " + xhr.status + " " + xhr.statusText);
                         }
                     });
                 });
-        }
-
-    {% endif %}
-
-    $(".activity-remove").click(function(){
-       var form = $("#activity-delete-form");
-       var id = $(this).data("id");
-       var url = "{% url "activity_delete" 0 %}".replace("0", id);
-       form.attr('action', url);
-       $(".delete-popup").addClass("visible")
-       $(".delete-popup-background").addClass("visible")
-    });
-
-    $(".delete-popup.centered .cancel").click(function(){
-        $(".delete-popup").removeClass("visible")
-        $(".delete-popup-background").removeClass("visible")
     });
 
     $("#activity-form").submit(function( event ) {
@@ -343,6 +371,8 @@
         var isPeriodicallyInput = $("#id_is_periodically");
         isPeriodicallyInput.val(isSet);
     }
+
+    google.maps.event.addDomListener(window, "load", initActivityMap);
 </script>
 </div>
 {% endblock %}
