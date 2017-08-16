@@ -36,21 +36,12 @@
                     </h3>
 
                     <ul>
-                        <li>
-                            Plato
-                        </li>
-                        <li>
-                            Bebida
-                        </li>
-                        <li>
-                            ¿Incluye postre?
-                        </li>
+                        {{ dish.short_description }}
 
                     </ul>
                 </div>
                 <address>
-                    <strong>Twitter, Inc.</strong><br/> 795 Folsom Ave, Suite 600<br/> San Francisco, CA 94107<br/>
-                    <abbr title="Phone">P:</abbr> (123) 456-7890
+                    {{ dish.description }}
                 </address>
 
             </div>
@@ -69,8 +60,9 @@
                                         {% for assistant in  dish.assistants.all %}
                                             <li class="Booking-occupant">
                                                 <img alt="{{ assistant.username }}"
-                                                     src="{% static assistant.avatar %}"
-                                                     height="50px" width="50px" class="rounded-circle"/>
+                                                     src="{{ assistant.photo }}"
+                                                     height="50px" width="50px" class="rounded-circle"
+                                                     onerror="this.src='{% static 'images/profilePicture.jpg' %}'"/>
                                             </li>
                                         {% endfor %}
                                         {% for i in available_seats %}
@@ -122,8 +114,9 @@
                 <div class="row ">
                     <div class="Span col-xl-12 col-xs-9 Block">
                         <div>
-                            <img alt="{{ dish.owner.username }}" src="{% static dish.owner.avatar %}"
-                                 height="180px" width="180px" class="rounded-circle mx-auto d-block"/>
+                            <img alt="{{ dish.owner.username }}" src="{{ dish.owner.photo }}"
+                                 height="180px" width="180px" class="rounded-circle mx-auto d-block"
+                                 onerror="this.src='{% static 'images/profilePicture.jpg' %}'"/>
                         </div>
                         <h3 class="text-center">
                             {{ dish.owner.username }}
