@@ -57,7 +57,7 @@ class CreateActivityView(View):
             'form': form,
             'is_edit': is_edit,
             'is_new': is_new,
-            'activity_id': activity.id,
+            'activity_id': activity_time.id,
             'activity_photo': activity_photo
         }
         return render(request, 'activities/view_edit.html', context)
