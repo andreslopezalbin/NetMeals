@@ -2,9 +2,6 @@
 // feature. People can enter geographical searches. The search box will return a
 // pick list containing a mix of places and predicted search terms.
 
-$(document).ready(function() {
-    google.maps.event.addDomListener(window, "load", initGoogleMaps);
-});
 
 function initGoogleMaps() {
     initSearchBox();
