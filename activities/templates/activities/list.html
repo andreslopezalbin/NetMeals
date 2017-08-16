@@ -92,7 +92,11 @@
                                     text: "{% trans "Now you are unsubscribed!" %}",
                                     type: "success",
                                 }, function () {
-                                    location.reload();
+                                    if(res.redirect_url != null){
+                                        window.location.href = res.redirect_url;
+                                    }else {
+                                        location.reload();
+                                    }
                                 });
                             }else if(!res.has_permissions){
                                 swal({

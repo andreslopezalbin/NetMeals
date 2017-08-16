@@ -183,6 +183,7 @@
     {% endif %}
 
     $(".activity-remove").click(function(){
+       var form = $("#activity-delete-form");
        var id = $(this).data("id");
        var url = "{% url "activity_delete" 0 %}".replace("0", id);
        swal(
@@ -207,7 +208,11 @@
                                     text: "{% trans "Now you are unsubscribed!" %}",
                                     type: "success",
                                 }, function () {
-                                    location.reload();
+                                    if(res.redirect_url != null){
+                                        window.location.href = res.redirect_url;
+                                    }else {
+                                        location.reload();
+                                    }
                                 });
                             }else if(!res.has_permissions){
                                 swal({
@@ -371,8 +376,6 @@
         var isPeriodicallyInput = $("#id_is_periodically");
         isPeriodicallyInput.val(isSet);
     }
-
-    google.maps.event.addDomListener(window, "load", initActivityMap);
 </script>
 </div>
 {% endblock %}
