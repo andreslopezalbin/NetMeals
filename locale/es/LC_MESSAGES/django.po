@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-12 19:00+0200\n"
+"POT-Creation-Date: 2017-08-16 20:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,16 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\activities\forms\DishFeedbackForm.py:16
+#: .\activities\forms\ActivityFeedbackForm.py:13
+#: .\activities\forms\DishFeedbackForm.py:13
 #: .\core\templates\dashboard\dashboard.html:414
 msgid "Score"
 msgstr "Puntuación"
 
-#: .\activities\forms\DishFeedbackForm.py:17
+#: .\activities\forms\ActivityFeedbackForm.py:14
+#: .\activities\forms\DishFeedbackForm.py:14
 msgid "Comment"
 msgstr "Comentario"
 
-#: .\activities\forms\DishFeedbackForm.py:28
+#: .\activities\forms\ActivityFeedbackForm.py:25
+#: .\activities\forms\DishFeedbackForm.py:25
 msgid "Enter a comment with 140 or less characters"
 msgstr "Inserta un comentario con 140 caracteres como máximo"
 
@@ -76,19 +79,29 @@ msgstr "Vaya! Es demasiado barato!"
 msgid "You cant share a old dish, sorry"
 msgstr "No puedes compartir platos del pasado, lo siento :("
 
-#: .\activities\templates\activities\view_edit.html:135
-#: .\activities\templates\dish\details.html:212
-msgid "Good job!"
-msgstr "Buen trabajo!"
+#: .\activities\templates\activities\feedback.html:7
+#: .\activities\templates\activities\view_edit.html:76
+#: .\activities\templates\dish\details.html:95
+#: .\activities\templates\dish\feedback.html:7
+msgid "Create comment"
+msgstr "Crear Comentario"
 
-#: .\activities\templates\activities\view_edit.html:136
-#: .\activities\templates\dish\details.html:213
-msgid "Now you are subscribed!"
-msgstr "Ahora estás suscrito"
+#: .\activities\templates\activities\feedback.html:13
+#: .\activities\templates\dish\feedback.html:13
+#: .\users\templates\passwordreset\password_reset_confirm.html:29
+msgid "Save"
+msgstr "Guardar"
 
-#: .\activities\templates\activities\view_edit.html:151
-#: .\activities\templates\dish\details.html:187
-#: .\activities\templates\dish\details.html:228
+#: .\activities\templates\activities\list.html:29
+#: .\activities\templates\dish\list.html:26
+msgid "All Dishes near you"
+msgstr "Todos los platos cerca de tu zona"
+
+#: .\activities\templates\activities\list.html:139
+#: .\activities\templates\activities\view_edit.html:144
+#: .\activities\templates\activities\view_edit.html:191
+#: .\activities\templates\dish\details.html:190
+#: .\activities\templates\dish\details.html:232
 #: .\core\templates\dashboard\table.html:186
 #: .\core\templates\dashboard\table.html:233
 #: .\users\templates\profile\edit_about_me.html:121
@@ -97,19 +110,23 @@ msgstr "Ahora estás suscrito"
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
-#: .\activities\templates\activities\view_edit.html:152
-msgid "You will unsubscribe this activity!"
+#: .\activities\templates\activities\list.html:140
+#: .\activities\templates\activities\view_edit.html:192
+#, fuzzy
+#| msgid "You will unsubscribe this activity!"
+msgid "You will delete this activity!"
 msgstr "Te vas a desuscribir de la actividadd!"
 
-#: .\activities\templates\activities\view_edit.html:156
-#: .\activities\templates\dish\details.html:233
-#, fuzzy
-#| msgid "Yes, active it!"
-msgid "Yes, unsubscribe it!"
-msgstr "Si, activalo!"
+#: .\activities\templates\activities\list.html:144
+#: .\activities\templates\activities\view_edit.html:196
+#: .\activities\templates\dish\details.html:195
+msgid "Yes, delete it!"
+msgstr "Si, borrarlo!"
 
-#: .\activities\templates\activities\view_edit.html:157
-#: .\activities\templates\dish\details.html:193
+#: .\activities\templates\activities\list.html:145
+#: .\activities\templates\activities\view_edit.html:150
+#: .\activities\templates\activities\view_edit.html:197
+#: .\activities\templates\dish\details.html:196
 #: .\core\templates\dashboard\table.html:239
 #: .\users\templates\profile\edit_about_me.html:127
 #: .\users\templates\profile\edit_profile.html:95
@@ -117,54 +134,85 @@ msgstr "Si, activalo!"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: .\activities\templates\activities\view_edit.html:168
-#: .\activities\templates\dish\details.html:245
+#: .\activities\templates\activities\list.html:156
+#: .\activities\templates\activities\view_edit.html:162
+#: .\activities\templates\activities\view_edit.html:208
+#: .\activities\templates\dish\details.html:250
 msgid "Now you are unsubscribed!"
 msgstr "Has cancelado la inscripción!"
 
-#: .\activities\templates\activities\view_edit.html:176
-#: .\activities\templates\dish\details.html:253
+#: .\activities\templates\activities\list.html:168
+#: .\activities\templates\activities\view_edit.html:220
+msgid "It seems you dont have permission to delete this activity."
+msgstr "Parece que no tienes permito para borrar esta actividad"
+
+#: .\activities\templates\activities\list.html:175
+#: .\activities\templates\activities\view_edit.html:227
+msgid "There was an error deleting your activity. Please try later."
+msgstr ""
+"Ha habido un error cancelando la inscripción. Por favor prueba más tarde."
+
+#: .\activities\templates\activities\view_edit.html:127
+#: .\activities\templates\dish\details.html:215
+msgid "Good job!"
+msgstr "Buen trabajo!"
+
+#: .\activities\templates\activities\view_edit.html:128
+#: .\activities\templates\dish\details.html:216
+msgid "Now you are subscribed!"
+msgstr "Ahora estás suscrito"
+
+#: .\activities\templates\activities\view_edit.html:145
+msgid "You will unsubscribe this activity!"
+msgstr "Te vas a desuscribir de la actividadd!"
+
+#: .\activities\templates\activities\view_edit.html:149
+#: .\activities\templates\dish\details.html:237
+#, fuzzy
+#| msgid "Yes, active it!"
+msgid "Yes, unsubscribe it!"
+msgstr "Si, activalo!"
+
+#: .\activities\templates\activities\view_edit.html:170
+#: .\activities\templates\dish\details.html:258
 msgid ""
 "There was an error executing your unsubscription request. Please try later."
-msgstr "Ha habido un error cancelando la inscripción. Por favor prueba más tarde."
+msgstr ""
+"Ha habido un error cancelando la inscripción. Por favor prueba más tarde."
 
 #: .\activities\templates\dish\details.html:20
 msgid "Delete"
 msgstr "Eliminar"
 
-#: .\activities\templates\dish\details.html:21
+#: .\activities\templates\dish\details.html:22
 #: .\users\templates\profile\edit_about_me.html:65
 #: .\users\templates\profile\edit_profile.html:74
 msgid "Edit"
 msgstr "Editar"
 
-#: .\activities\templates\dish\details.html:171
+#: .\activities\templates\dish\details.html:174
 msgid "Well, this is embarrassing"
 msgstr "Bueno, esto es embarazoso"
 
-#: .\activities\templates\dish\details.html:171
+#: .\activities\templates\dish\details.html:174
 msgid "Something went wrong!"
 msgstr "Algo no ha salido como esperabamos"
 
-#: .\activities\templates\dish\details.html:173
+#: .\activities\templates\dish\details.html:176
 #, fuzzy
 #| msgid "Delete"
 msgid "Deleted!"
 msgstr "Eliminar"
 
-#: .\activities\templates\dish\details.html:173
+#: .\activities\templates\dish\details.html:176
 msgid "Your imaginary file has been deleted!"
 msgstr "Tu imagen ha sido eliminada!"
 
-#: .\activities\templates\dish\details.html:188
+#: .\activities\templates\dish\details.html:191
 msgid "This acction cant be undone"
 msgstr "Esta acción no se puede deshacer"
 
-#: .\activities\templates\dish\details.html:192
-msgid "Yes, delete it!"
-msgstr "Si, borrarlo!"
-
-#: .\activities\templates\dish\details.html:229
+#: .\activities\templates\dish\details.html:233
 msgid "You will unsubscribe this dish!"
 msgstr "Vas a cancelar la inscripción a este plato!"
 
@@ -181,21 +229,14 @@ msgstr "Nuevo Plato"
 msgid "Edit Dish"
 msgstr "Editar Plato"
 
-#: .\activities\templates\dish\feedback.html:7
-msgid "Create comment"
-msgstr "Crear Comentario"
-
-#: .\activities\templates\dish\feedback.html:13
-msgid "Save"
-msgstr "Guardar"
-
-#: .\activities\templates\dish\list.html:26
-msgid "All Dishes near you"
-msgstr "Todos los platos cerca de tu zona"
-
 #: .\activities\templates\dish\list.html:62
 msgid "Details"
 msgstr "Detalles"
+
+#: .\activities\templates\includes\activities_menu.html:15
+#: .\activities\templates\includes\dish_menu.html:13
+msgid "Schedule"
+msgstr "Calendario"
 
 #: .\activities\templates\includes\dish_menu.html:5
 msgid "Dishes"
@@ -209,9 +250,38 @@ msgstr "Todos los platos"
 msgid "My Dishes"
 msgstr "Mis platos"
 
-#: .\activities\templates\includes\dish_menu.html:13
-msgid "Schedule"
-msgstr "Calendario"
+#: .\core\templates\about_us\about _us.html:52
+#, fuzzy
+#| msgid "About"
+msgid "About us"
+msgstr "Sobre nosotros"
+
+#: .\core\templates\about_us\about _us.html:61
+msgid "¿Who are we?"
+msgstr "¿Quién somos?"
+
+#: .\core\templates\about_us\about _us.html:62
+msgid "FAQ"
+msgstr "Preguntas frecuentes"
+
+#: .\core\templates\about_us\about _us.html:63
+msgid "Cancellation policy"
+msgstr "Política de cancelación"
+
+#: .\core\templates\about_us\about _us.html:64
+msgid "Cookies policy"
+msgstr "Política de cookies"
+
+#: .\core\templates\about_us\about _us.html:94
+msgid ""
+"Al ser estudiantes, apasionados de los viajes y estamos locos por la comida "
+"hemos pensado en como podiamos unir viajes, con comida local y además hacer "
+"que esta sea barata, ¿crees que es una locura? "
+msgstr ""
+
+#: .\core\templates\about_us\about _us.html:95
+msgid "Así nace netmeals, "
+msgstr ""
 
 #: .\core\templates\dashboard\dashboard.html:406
 msgid "Ranking"
@@ -264,6 +334,7 @@ msgid "Management of users"
 msgstr "Gestión de usuarios"
 
 #: .\core\templates\dashboard\table.html:39 .\users\forms\ProfileForm.py:25
+#: .\users\templates\passwordreset\password_reset_form.html:13
 msgid "Email"
 msgstr "Correo"
 
@@ -321,24 +392,6 @@ msgstr "Si, activalo!"
 msgid "Now the user is active again"
 msgstr "El usuario vuelve a estar activo"
 
-#: .\core\templates\index.html:262
-#: .\core\templates\masterpage\masterpage.html:63
-msgid ""
-"This page uses own and third party cookies in order to improve the service. "
-"By continuing to browse the site you are agreeing to accept our use of "
-"cookie."
-msgstr "Esta página usa cookies propias y de terceros para un mejor servicio. Al continuar en esta página aceptas el uso de cookies"
-
-#: .\core\templates\index.html:263
-#: .\core\templates\masterpage\masterpage.html:64
-msgid "Accept"
-msgstr "Aceptar"
-
-#: .\core\templates\index.html:264
-#: .\core\templates\masterpage\masterpage.html:65
-msgid "More information"
-msgstr "Más Información"
-
 #: .\core\templates\masterpage\includes\menu.html:93
 msgid "About"
 msgstr "Sobre nosotros"
@@ -385,8 +438,8 @@ msgid "User"
 msgstr "Usuario"
 
 #: .\core\templates\masterpage\includes\menu.html:195
-#: .\core\templates\masterpage\includes\menu.html:210
-#: .\users\forms\GuestForms.py:12
+#: .\core\templates\masterpage\includes\menu.html:211
+#: .\users\forms\GuestForms.py:13
 msgid "Password"
 msgstr "Contraseña"
 
@@ -402,21 +455,39 @@ msgstr "¿No eres miembro aún?"
 msgid "Forgot"
 msgstr "Olvidó la "
 
-#: .\core\templates\masterpage\includes\menu.html:213
+#: .\core\templates\masterpage\includes\menu.html:214
 msgid "Close"
 msgstr "Cerrar"
 
-#: .\core\templates\masterpage\includes\menu.html:273
+#: .\core\templates\masterpage\includes\menu.html:278
 msgid "Use your current location?"
 msgstr "¿Usar tu localización actual?"
 
-#: .\core\templates\masterpage\includes\menu.html:274
+#: .\core\templates\masterpage\includes\menu.html:279
 msgid "We'll use your location to show you dishes and activities near to you!!"
-msgstr "Vamos a usar tu localización para mostrarte platos y actividades cercanos!!"
+msgstr ""
+"Vamos a usar tu localización para mostrarte platos y actividades cercanos!!"
 
-#: .\core\templates\masterpage\includes\menu.html:278
+#: .\core\templates\masterpage\includes\menu.html:283
 msgid "Yes"
 msgstr "Sí"
+
+#: .\core\templates\masterpage\masterpage.html:63
+msgid ""
+"This page uses own and third party cookies in order to improve the service. "
+"By continuing to browse the site you are agreeing to accept our use of "
+"cookie."
+msgstr ""
+"Esta página usa cookies propias y de terceros para un mejor servicio. Al "
+"continuar en esta página aceptas el uso de cookies"
+
+#: .\core\templates\masterpage\masterpage.html:64
+msgid "Accept"
+msgstr "Aceptar"
+
+#: .\core\templates\masterpage\masterpage.html:65
+msgid "More information"
+msgstr "Más Información"
 
 #: .\core\templates\ratings.html:22
 msgid "Top Chefs"
@@ -468,13 +539,17 @@ msgstr "Siguiente"
 msgid "Dishes near you"
 msgstr "Todos los platos cerca de tu zona"
 
-#: .\users\forms\GuestForms.py:10
+#: .\users\forms\GuestForms.py:11
 msgid "First name"
 msgstr "Nombre"
 
-#: .\users\forms\GuestForms.py:11
+#: .\users\forms\GuestForms.py:12
 msgid "Email address"
 msgstr "Dirección de correo"
+
+#: .\users\forms\GuestForms.py:51 .\users\forms\ProfileForm.py:44
+msgid "Email is already in use"
+msgstr "El email está ya en uso"
 
 #: .\users\forms\ProfileForm.py:15
 msgid "Must be in 999999999 format"
@@ -488,25 +563,77 @@ msgstr "Apellidos"
 msgid "Phone"
 msgstr "Teléfono"
 
-#: .\users\forms\ProfileForm.py:44
-msgid "Email is already in use"
-msgstr "El email está ya en uso"
+#: .\users\forms\ProfileForm.py:46
+#, fuzzy
+#| msgid "Something went wrong!"
+msgid "Something went wrong, please try later"
+msgstr "Algo no ha salido como esperabamos"
 
-#: .\users\forms\ProfileForm.py:56
+#: .\users\forms\ProfileForm.py:58
 msgid "Birthday"
 msgstr "Cumpleaños"
 
-#: .\users\forms\ProfileForm.py:59
+#: .\users\forms\ProfileForm.py:61
 msgid "Abstract"
 msgstr "Extracto"
 
-#: .\users\forms\ProfileForm.py:61
+#: .\users\forms\ProfileForm.py:63
 msgid "Speciality"
 msgstr "Especialidad"
 
-#: .\users\forms\ProfileForm.py:73
+#: .\users\forms\ProfileForm.py:75
 msgid "You must enter a valid date"
 msgstr "Debes introducir una fecha correcta"
+
+#: .\users\templates\passwordreset\password_reset_complete.html:4
+#, fuzzy
+#| msgid "Your imaginary file has been deleted!"
+msgid "Your password has been reset"
+msgstr "Tu imagen ha sido eliminada!"
+
+#: .\users\templates\passwordreset\password_reset_confirm.html:12
+#: .\users\templates\passwordreset\password_reset_confirm.html:18
+#, fuzzy
+#| msgid "Password"
+msgid "New password"
+msgstr "Contraseña"
+
+#: .\users\templates\passwordreset\password_reset_confirm.html:22
+#, fuzzy
+#| msgid "Password"
+msgid "Repeat password"
+msgstr "Contraseña"
+
+#: .\users\templates\passwordreset\password_reset_confirm.html:28
+#: .\users\templates\passwordreset\password_reset_form.html:18
+msgid "Back"
+msgstr "Atrás"
+
+#: .\users\templates\passwordreset\password_reset_confirm.html:36
+msgid "Invalid link. This link has already been used"
+msgstr "Link invalido. Este link ya ha sido usado"
+
+#: .\users\templates\passwordreset\password_reset_done.html:5
+msgid "We have sent you an email with a link to reset the password."
+msgstr "Te hemos enviado un correo con el link para reestablecer la contraseña"
+
+#: .\users\templates\passwordreset\password_reset_email.html:2
+msgid "You requested password reset."
+msgstr "Has solicitado restablecer contraseña."
+
+#: .\users\templates\passwordreset\password_reset_email.html:3
+msgid "Click on the following link to create your new password"
+msgstr "Pulsa el siguiente enlace para crear una nueva contraseña"
+
+#: .\users\templates\passwordreset\password_reset_form.html:7
+#, fuzzy
+#| msgid "Password"
+msgid "Forget password"
+msgstr "Contraseña"
+
+#: .\users\templates\passwordreset\password_reset_form.html:19
+msgid "Send"
+msgstr "Enviar"
 
 #: .\users\templates\profile\edit_about_me.html:43
 #: .\users\templates\profile\edit_profile.html:45
@@ -554,29 +681,21 @@ msgstr "Edad:"
 
 #: .\users\templates\profile\profile.html:102
 #: .\users\templates\profile\profile.html:139
+#: .\users\templates\profile\profile.html:178
+#: .\users\templates\profile\profile.html:216
 msgid "Rotate"
 msgstr "Girar"
 
 #: .\users\templates\profile\profile.html:123
+#: .\users\templates\profile\profile.html:200
 msgid "Assistants"
 msgstr "asistentes"
 
 #: .\users\templates\profile\profile.html:130
+#: .\users\templates\profile\profile.html:207
 msgid " Average score"
 msgstr "Puntuación media"
 
 #: .\users\templates\signup-host.html:55
 msgid "You are going "
 msgstr ""
-
-#~ msgid "date"
-#~ msgstr "Fecha"
-
-#~ msgid "hour"
-#~ msgstr "Hora"
-
-#~ msgid "Congratulations!!"
-#~ msgstr "Felicidades!!"
-
-#~ msgid " You have been successfully signed up!!"
-#~ msgstr "Te has registrado correctamente!!"

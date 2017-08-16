@@ -18,8 +18,9 @@
 
         .section1 {
             background: url(../../static/images/bg2.jpg) no-repeat;
-            min-height: 80%;
+            min-height: 110%;
             background-size: cover;
+            box-shadow: 0 0 3px 3px #555;
         }
 
         .section2 {
@@ -30,6 +31,7 @@
             background: url(../../static/images/fondo.jpg) no-repeat;
             min-height: 80%;
             background-size: cover;
+            box-shadow: 0 0 3px 3px #555;
         }
 
         .panel-pricing {
@@ -93,6 +95,31 @@
             border-color: #d6e9c6;
         }
 
+        #glovo, #netmealslogo {
+            padding-top: 10%;
+        }
+
+        #frase {
+            padding-top: 15%;
+        }
+
+        @media screen and (max-width: 480px) {
+            #glovo, #netmealslogo, #frase {
+                padding-top: 50% !important;
+            }
+            #frase {
+                padding-top: 60% !important;
+            }
+
+{#            .section1 {#}
+{#                background: url(../../static/images/bg2.jpg) no-repeat;#}
+{#                min-height: 110%;#}
+{#                background-size: cover;#}
+{#                box-shadow: 0 0 3px 3px #555;#}
+{#            }#}
+
+        }
+
     </style>
 
 
@@ -104,14 +131,15 @@
 
         </video>
         <div class="text-center">
-            <img class="col-lg-6 col-xs-4" style="padding-top: 100px;display: inline; box-shadow: none" alt="NetMeals"
+            <img id="netmealslogo" class="col-lg-6 col-xs-4" style="display: inline; box-shadow: none" alt="NetMeals"
                  src="{% static 'images/logo.png' %}"/>
         </div>
     </div>
 
     <div class="section1">
         <div class="text-center">
-            <img class="col-lg-6 col-xs-4" style=" padding-top: 15%; display: inline; box-shadow: none" alt="NetMeals"
+            <img id="frase" class="col-lg-6 col-xs-4" style=" display: inline; box-shadow: none"
+                 alt="NetMeals"
                  src="{% static 'images/frase.png' %}"/>
         </div>
     </div>
@@ -200,7 +228,8 @@
 
     <div class="section3">
         <div class="text-center">
-            <img class="col-lg-9 col-xs-4" style=" padding-top: 10%; display: inline; box-shadow: none" alt="NetMeals"
+            <img id="glovo" class="col-lg-9 col-xs-4" style=" padding-top: 10%; display: inline; box-shadow: none"
+                 alt="NetMeals"
                  src="{% static 'images/ñetras-glovo.png' %}"/>
         </div>
     </div>

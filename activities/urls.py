@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^activities/subscribed$', ListSubscribedActivitiesView.as_view(), name='my_subscriptions'),
     url(r'^activities/findall$', ListAllActivityView.as_view(), name='all_activities'),
     # url(r'^activities/(?P<userid>\d+)/list$', ListActivityView.as_view(), name='my_activities')
-    url(r'^activities/(?P<activity_id>\d+)/feedback', login_required(activity_feedback), name='activity_feedback'),
+    url(r'^activities/(?P<activity_id>\d+)/(?P<activitytime_id>\d+)/feedback', login_required(activity_feedback), name='activity_feedback'),
     url(r'^activities/schedule$', activity_schedule, name='activities_schedule'),
 
     # Dish --------------------------------------------------------------------------

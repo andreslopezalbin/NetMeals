@@ -139,7 +139,7 @@ class DishSubscriptionView(View):
     def post(self, request, dish_id):
         dish_service.subscribe(dish_id, request)
         dish = Dish.objects.get(id=dish_id)
-        mail_service.send_mail(request, dish)
+        # mail_service.send_mail(request, dish)
         result_url = "/"
         if (request.META.get('HTTP_REFERER') is not None):
             result_url = urlparse(request.META.get('HTTP_REFERER')).path

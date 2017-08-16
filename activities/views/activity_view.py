@@ -106,17 +106,18 @@ class ListAllActivityView(ListView):
         return ActivityTime.objects.filter(date__range=(today, week_forward))
 
 
-def activity_feedback(request, activity_id):
+# activity_id es realmente el id del activitytime
+def activity_feedback(request, activity_id, activitytime_id):
     activity = Activity.objects.get(id=activity_id)
     if request.method == "POST":
         form = ActivityFeedbackForm(request.POST)
         if form.is_valid():
             activityfeedback = form.save(commit=False)
-            activityfeedback.activity = activity
+            activityfeedback.activity_id = activity.id
             activityfeedback.commentator = request.user.guest
             activityfeedback.commented_id = activity.owner.id
             activityfeedback.save()
-            return redirect('activity_detail', activity_id=activity_id)
+            return redirect('activity_detail', activity_id=activitytime_id)
     else:
         form = ActivityFeedbackForm()
     return render(request, 'activities/feedback.html', {'form': form})

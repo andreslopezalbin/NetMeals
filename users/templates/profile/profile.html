@@ -77,11 +77,11 @@
                             <div class="card">
                                 <div class="front">
                                     <div class="cover">
-                                        <img src="{{ feedback.dishfeedback.dish.photo }}"/>
+                                        <img src="{{ feedback.dishfeedback.dish.photo }}" onerror="this.src='/media/dish/default_dish.jpg'"/>
                                     </div>
                                     <div class="user">
                                         <img class="img-circle" style="display: inline-block"
-                                             src="{{ feedback.commentator.photo }}"/>
+                                             src="{{ feedback.commentator.photo }}" onerror="this.src='/static/images/user1.ico'"/>
                                     </div>
                                     <div class="content">
                                         <div class="main">
@@ -157,7 +157,7 @@
                                     </div>
                                     <div class="user">
                                         <img class="img-circle" style="display: inline-block"
-                                             src="{{ feedback.commentator.photo }}"/>
+                                             src="{{ feedback.commentator.photo }}" onerror="this.src='/static/images/user1.ico'"/>
                                     </div>
                                     <div class="content">
                                         <div class="main">
