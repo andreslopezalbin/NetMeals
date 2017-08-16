@@ -118,7 +118,7 @@ def paypal_billing_agreement_execute(request):
             if (paypal_agreement_id is not None):
                 user_plan = User_Plan.objects.filter(user_id=current_user.id).first()
                 if (user_plan is not None):
-                    if (user_plan.is_active):
+                    if (user_plan.is_active and user_plan.paypal_agreement_id is not ''):
                         paypal_service.cancel_subscription(request.user)
 
                     user_plan.paypal_agreement_id = paypal_agreement_id
