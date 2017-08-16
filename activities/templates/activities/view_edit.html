@@ -376,6 +376,8 @@
         var isPeriodicallyInput = $("#id_is_periodically");
         isPeriodicallyInput.val(isSet);
     }
+
+    google.maps.event.addDomListener(window, "load", initActivityMap);
 </script>
 </div>
 {% endblock %}
