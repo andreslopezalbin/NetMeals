@@ -168,10 +168,8 @@ msgstr "Te vas a desuscribir de la actividadd!"
 
 #: .\activities\templates\activities\view_edit.html:149
 #: .\activities\templates\dish\details.html:230
-#, fuzzy
-#| msgid "Yes, active it!"
 msgid "Yes, unsubscribe it!"
-msgstr "Si, activalo!"
+msgstr "Si, desinscribir!"
 
 #: .\activities\templates\activities\view_edit.html:170
 #: .\activities\templates\dish\details.html:251
@@ -251,7 +249,7 @@ msgstr "Mis actividades"
 
 #: .\activities\templates\includes\activities_menu.html:14
 msgid "New activity"
-msgstr "Si, activalo!"
+msgstr "Nueva actividad"
 
 #: .\activities\templates\includes\activities_menu.html:15
 #: .\activities\templates\includes\dish_menu.html:13
