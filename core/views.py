@@ -11,11 +11,12 @@ from django.template import loader
 from paypalrestsdk import BillingAgreement
 
 from activities.models import DishFeedback
+from core.models import Feedback
 from core.services import incoming_payments_service
 from core.services import paypal_service
 from core.services import search_service
 from core.util.session_constants import SESSION_USER_ROLES, SESSION_USER_PLAN, SESSION_SIGNEDUP_SUCCESS
-from users.models import User_Plan, Guest,Chef, Monitor
+from users.models import User_Plan, Guest, Chef, Monitor
 from users.services import UserService
 from users.services.UserService import get_plan
 
@@ -151,8 +152,7 @@ def paypal_execute_payment(request):
 @staff_member_required
 def dashboard(request):
     # rankings = DishFeedback.objects.values('commented_id').annotate(avg=Avg('score')).order_by('-avg')
-    chef_ranking = Guest.objects.annotate(avg=Avg('dishfeedback_commented__score')).exclude(avg__isnull=True).values(
-        'chef', 'avg').order_by('-avg')
+    user_ranking = Feedback.objects.values('commented__username').annotate(avg=Avg('score')).order_by("-avg")
 
     users_register = (User.objects
                       .annotate(month=TruncMonth('date_joined'))  # Truncate to month and add to select list
@@ -170,7 +170,8 @@ def dashboard(request):
                'meses': meses,
                'users': users,
                'dashboard': True,
-               'chef_ranking': chef_ranking}
+               'user_ranking': user_ranking
+               }
     return render(request, 'dashboard/dashboard.html', context
                   )
 

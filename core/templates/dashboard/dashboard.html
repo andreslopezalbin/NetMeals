@@ -414,10 +414,10 @@
                                         <th>{% trans 'Score' %}</th>
                                         </thead>
                                         <tbody>
-                                        {% for chef in chef_ranking %}
+                                        {% for chef in user_ranking %}
                                             <tr>
                                                 <td>{{ forloop.counter }}</td>
-                                                <td>{{ chef.username }}</td>
+                                                <td>{{ chef.commented__username }}</td>
                                                 <td>{{ chef.avg }}</td>
 
                                             </tr>

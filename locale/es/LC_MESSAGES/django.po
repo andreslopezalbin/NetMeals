@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-16 20:21+0200\n"
+"POT-Creation-Date: 2017-08-21 21:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,7 +81,7 @@ msgstr "No puedes compartir platos del pasado, lo siento :("
 
 #: .\activities\templates\activities\feedback.html:7
 #: .\activities\templates\activities\view_edit.html:76
-#: .\activities\templates\dish\details.html:95
+#: .\activities\templates\dish\details.html:87
 #: .\activities\templates\dish\feedback.html:7
 msgid "Create comment"
 msgstr "Crear Comentario"
@@ -100,8 +100,8 @@ msgstr "Todos los platos cerca de tu zona"
 #: .\activities\templates\activities\list.html:139
 #: .\activities\templates\activities\view_edit.html:144
 #: .\activities\templates\activities\view_edit.html:191
-#: .\activities\templates\dish\details.html:190
-#: .\activities\templates\dish\details.html:232
+#: .\activities\templates\dish\details.html:183
+#: .\activities\templates\dish\details.html:225
 #: .\core\templates\dashboard\table.html:186
 #: .\core\templates\dashboard\table.html:233
 #: .\users\templates\profile\edit_about_me.html:121
@@ -119,14 +119,14 @@ msgstr "Te vas a desuscribir de la actividadd!"
 
 #: .\activities\templates\activities\list.html:144
 #: .\activities\templates\activities\view_edit.html:196
-#: .\activities\templates\dish\details.html:195
+#: .\activities\templates\dish\details.html:188
 msgid "Yes, delete it!"
 msgstr "Si, borrarlo!"
 
 #: .\activities\templates\activities\list.html:145
 #: .\activities\templates\activities\view_edit.html:150
 #: .\activities\templates\activities\view_edit.html:197
-#: .\activities\templates\dish\details.html:196
+#: .\activities\templates\dish\details.html:189
 #: .\core\templates\dashboard\table.html:239
 #: .\users\templates\profile\edit_about_me.html:127
 #: .\users\templates\profile\edit_profile.html:95
@@ -137,7 +137,7 @@ msgstr "Cancelar"
 #: .\activities\templates\activities\list.html:156
 #: .\activities\templates\activities\view_edit.html:162
 #: .\activities\templates\activities\view_edit.html:208
-#: .\activities\templates\dish\details.html:250
+#: .\activities\templates\dish\details.html:243
 msgid "Now you are unsubscribed!"
 msgstr "Has cancelado la inscripción!"
 
@@ -153,12 +153,12 @@ msgstr ""
 "Ha habido un error cancelando la inscripción. Por favor prueba más tarde."
 
 #: .\activities\templates\activities\view_edit.html:127
-#: .\activities\templates\dish\details.html:215
+#: .\activities\templates\dish\details.html:208
 msgid "Good job!"
 msgstr "Buen trabajo!"
 
 #: .\activities\templates\activities\view_edit.html:128
-#: .\activities\templates\dish\details.html:216
+#: .\activities\templates\dish\details.html:209
 msgid "Now you are subscribed!"
 msgstr "Ahora estás suscrito"
 
@@ -167,14 +167,14 @@ msgid "You will unsubscribe this activity!"
 msgstr "Te vas a desuscribir de la actividadd!"
 
 #: .\activities\templates\activities\view_edit.html:149
-#: .\activities\templates\dish\details.html:237
+#: .\activities\templates\dish\details.html:230
 #, fuzzy
 #| msgid "Yes, active it!"
 msgid "Yes, unsubscribe it!"
 msgstr "Si, activalo!"
 
 #: .\activities\templates\activities\view_edit.html:170
-#: .\activities\templates\dish\details.html:258
+#: .\activities\templates\dish\details.html:251
 msgid ""
 "There was an error executing your unsubscription request. Please try later."
 msgstr ""
@@ -190,29 +190,29 @@ msgstr "Eliminar"
 msgid "Edit"
 msgstr "Editar"
 
-#: .\activities\templates\dish\details.html:174
+#: .\activities\templates\dish\details.html:167
 msgid "Well, this is embarrassing"
 msgstr "Bueno, esto es embarazoso"
 
-#: .\activities\templates\dish\details.html:174
+#: .\activities\templates\dish\details.html:167
 msgid "Something went wrong!"
 msgstr "Algo no ha salido como esperabamos"
 
-#: .\activities\templates\dish\details.html:176
+#: .\activities\templates\dish\details.html:169
 #, fuzzy
 #| msgid "Delete"
 msgid "Deleted!"
 msgstr "Eliminar"
 
-#: .\activities\templates\dish\details.html:176
+#: .\activities\templates\dish\details.html:169
 msgid "Your imaginary file has been deleted!"
 msgstr "Tu imagen ha sido eliminada!"
 
-#: .\activities\templates\dish\details.html:191
+#: .\activities\templates\dish\details.html:184
 msgid "This acction cant be undone"
 msgstr "Esta acción no se puede deshacer"
 
-#: .\activities\templates\dish\details.html:233
+#: .\activities\templates\dish\details.html:226
 msgid "You will unsubscribe this dish!"
 msgstr "Vas a cancelar la inscripción a este plato!"
 
@@ -233,6 +233,26 @@ msgstr "Editar Plato"
 msgid "Details"
 msgstr "Detalles"
 
+#: .\activities\templates\includes\activities_menu.html:5
+msgid "Activities"
+msgstr "Actividades"
+
+#: .\activities\templates\includes\activities_menu.html:7
+msgid "Available activities"
+msgstr "Actividades disponibles"
+
+#: .\activities\templates\includes\activities_menu.html:9
+msgid "Subscribed activities"
+msgstr "Actividades suscritas"
+
+#: .\activities\templates\includes\activities_menu.html:11
+msgid "My activities"
+msgstr "Mis actividades"
+
+#: .\activities\templates\includes\activities_menu.html:14
+msgid "New activity"
+msgstr "Si, activalo!"
+
 #: .\activities\templates\includes\activities_menu.html:15
 #: .\activities\templates\includes\dish_menu.html:13
 msgid "Schedule"
@@ -251,8 +271,6 @@ msgid "My Dishes"
 msgstr "Mis platos"
 
 #: .\core\templates\about_us\about _us.html:52
-#, fuzzy
-#| msgid "About"
 msgid "About us"
 msgstr "Sobre nosotros"
 

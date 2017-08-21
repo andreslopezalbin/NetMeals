@@ -2,16 +2,16 @@
 {% load i18n %}
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" id="activities-dropdown" data-toggle="dropdown" aria-haspopup="true"
-       aria-expanded="false">Activities</a>
+       aria-expanded="false">{% trans 'Activities' %}</a>
     <div class="dropdown-menu activities-menu" aria-labelledby="activities-dropdown">
-        <a class="dropdown-item" href="{% url "all_activities" %}">Available activities</a>
+        <a class="dropdown-item" href="{% url "all_activities" %}">{% trans 'Available activities' %}</a>
         {% if request.user.is_authenticated %}
-            <a class="dropdown-item" href="{% url "my_subscriptions" %}">Subscribed activities</a>
+            <a class="dropdown-item" href="{% url "my_subscriptions" %}">{% trans 'Subscribed activities' %}</a>
             {% if request.user|has_group:"Monitor" %}
-                <a class="dropdown-item" href="{% url "my_activities" %}">My activities</a>
+                <a class="dropdown-item" href="{% url "my_activities" %}">{% trans 'My activities' %}</a>
                 {#            <a class="dropdown-item" href="{% url "my_activities" request.user.id  %}">My activities</a>#}
                 {% if request.user.is_active %}
-                    <a class="dropdown-item" href="{% url "new_activity" %}">New activity</a>
+                    <a class="dropdown-item" href="{% url "new_activity" %}">{% trans 'New activity' %}</a>
                     <a class="dropdown-item" href="{% url "activities_schedule" %}">{% trans 'Schedule' %}</a>
                 {% endif %}
             {% endif %}
