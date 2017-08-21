@@ -28,11 +28,11 @@ from users.models import Monitor
 
 @method_decorator(group_required('Monitor'), name='dispatch')
 class CreateActivityView(View):
-
     def get(self, request, activity_id=None):
         is_edit = False
         is_new = False
         title = "New Activity"
+        activity_time = None
         if request.session.get(SESSION_ACTIVITY_CREATED_SUCCEEDED):
             del request.session[SESSION_ACTIVITY_CREATED_SUCCEEDED]
         if activity_id:
@@ -43,7 +43,7 @@ class CreateActivityView(View):
             activity.start_hour = activity_time.start_hour
             activity.end_hour = activity_time.end_hour
 
-            if(activity.owner_id != request.user.id):
+            if (activity.owner_id != request.user.id):
                 return HttpResponseForbidden()
             is_edit = True
             title = "Edit an Activity"
@@ -57,9 +57,10 @@ class CreateActivityView(View):
             'form': form,
             'is_edit': is_edit,
             'is_new': is_new,
-            'activity_id': activity_time.id,
             'activity_photo': activity_photo
         }
+        if activity_time: context["activity_id"] = activity_time.id
+
         return render(request, 'activities/view_edit.html', context)
 
     def post(self, request, activity_id=None):
@@ -76,9 +77,9 @@ class CreateActivityView(View):
                 end_date = form.cleaned_data['end_date']
             start_date = form.cleaned_data['start_date']
 
-            if(activity.id is None or activity.id == ''):
+            if (activity.id is None or activity.id == ''):
                 is_periodically = form.cleaned_data['is_periodically']
-                if(is_periodically):
+                if (is_periodically):
                     context = {
                         'form': form
                     }
@@ -89,10 +90,10 @@ class CreateActivityView(View):
                     is_new = True
                     activity_service.save(activity)
                     activity_time = ActivityTime(
-                        date= start_date,
-                        start_hour = form.cleaned_data['start_hour'],
-                        end_hour = form.cleaned_data['end_hour'],
-                        activity_id = activity.id
+                        date=start_date,
+                        start_hour=form.cleaned_data['start_hour'],
+                        end_hour=form.cleaned_data['end_hour'],
+                        activity_id=activity.id
                     )
                     activity_time.save()
                     success_msg = 'Activity saved successfully'
@@ -114,7 +115,7 @@ class CreateActivityView(View):
         else:
             error_msg = 'There was an error validating form'
             activity = Activity()
-            if(activity_id):
+            if (activity_id):
                 is_edit = True
             else:
                 is_new = True
@@ -127,16 +128,16 @@ class CreateActivityView(View):
             'is_new': is_new,
             'activity_id': activity.id
         }
-        if(error_msg):
+        if (error_msg):
             return render(request, 'activities/view_edit.html', context)
         else:
             redirect_url = 'my_activities'
             reverse_url = reverse(redirect_url)
             return HttpResponseRedirect(reverse_url)
 
+
 @method_decorator(group_required('Monitor'), name='dispatch')
 class CreateActivityPeriodicallyView(View):
-
     def post(self, request, activity_id=None):
         success_msg = ''
         error_msg = ''
@@ -167,6 +168,7 @@ class CreateActivityPeriodicallyView(View):
         reverse_url = reverse(redirect_url)
         return HttpResponseRedirect(reverse_url)
 
+
 @method_decorator(group_required('Monitor'), name='dispatch')
 class ListActivityView(ListView):
     model = ActivityTime
@@ -184,9 +186,9 @@ class ListActivityView(ListView):
         self.owner = User.objects.get(id=self.request.user.id)
         return ActivityTime.objects.filter(activity__owner=self.owner)
 
+
 @method_decorator(group_required('Monitor'), name='dispatch')
 class DeleteActivityView(View):
-
     def post(self, request, pk):
         context = {}
         activity_time = get_object_or_404(ActivityTime, id=pk)
@@ -210,4 +212,3 @@ class DeleteActivityView(View):
             context["redirect_url"] = redirect_url
 
         return JsonResponse(context)
-
