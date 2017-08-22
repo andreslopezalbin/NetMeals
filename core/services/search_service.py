@@ -1,6 +1,6 @@
 from django.db import connection
 
-from activities.models import Activity, Dish
+from activities.models import Activity, Dish, ActivityTime
 
 
 def search_by_proximity_with_distance(latitude, longitude, miles_distance):
@@ -18,9 +18,9 @@ def search_by_proximity_with_distance(latitude, longitude, miles_distance):
             meters_str = format(meters, '.2f')
 
             if(row[0] == "activity"):
-                activity = Activity.objects.get(id=row[1])
-                if(activity is not None):
-                    tupla = (activity, meters_str,)
+                activity_time = ActivityTime.objects.get(id=row[1])
+                if(activity_time is not None):
+                    tupla = (activity_time, meters_str,)
                     activities.append(tupla)
             elif(row[0] == "dish"):
                 dish = Dish.objects.get(id=row[1])

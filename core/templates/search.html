@@ -26,33 +26,35 @@
 
             <!--First row-->
             <div class="row wow">
-                {% for activity, activity_distance in activities %}
-                    <div class="col-lg-4 search-event">
-                        <a href="{% url 'activity_detail' activity.id %}">
-                            <!--Card-->
-                            <div class="card">
-                                <!--Card image-->
-                                <div class="overlay hm-white-slight search-image">
-                                    <img src="{{ activity.photo }}" onerror="this.src='/static/images/activity-default.svg'"
-                                         class="img-fluid" alt="">
+                {% for activity_time, activity_distance in activities %}
+                    {% with activity_time.activity as activity %}
+                        <div class="col-lg-4 search-event">
+                            <a href="{% url 'activity_detail' activity_time.id %}">
+                                <!--Card-->
+                                <div class="card">
+                                    <!--Card image-->
+                                    <div class="overlay hm-white-slight search-image">
+                                        <img src="{{ activity.photo }}" onerror="this.src='/static/images/activity-default.svg'"
+                                             class="img-fluid" alt="">
+                                    </div>
+                                    <!--/.Card image-->
+
+                                    <!--Card content-->
+                                    <div class="card-block">
+                                        <!--Title-->
+                                        <h4 class="card-title search-name">{{ activity.name }}</h4>
+                                        <!--Text-->
+                                        <p class="card-text search-descripcion">{{ activity.short_description }}</p>
+
+                                        <p class="card-text">{{ activity_distance }} {% trans "meters aprox." %}</p>
+                                    </div>
+                                    <!--/.Card content-->
+
                                 </div>
-                                <!--/.Card image-->
-
-                                <!--Card content-->
-                                <div class="card-block">
-                                    <!--Title-->
-                                    <h4 class="card-title search-name">{{ activity.name }}</h4>
-                                    <!--Text-->
-                                    <p class="card-text search-descripcion">{{ activity.short_description }}</p>
-
-                                    <p class="card-text">{{ activity_distance }} {% trans "meters aprox." %}</p>
-                                </div>
-                                <!--/.Card content-->
-
-                            </div>
-                            <!--/.Card-->
-                        </a>
-                    </div>
+                                <!--/.Card-->
+                            </a>
+                        </div>
+                    {% endwith %}
                 {% empty %}
                     <div class="col-lg-4 search-event">
                         {% trans "There is no activities near you." %}
