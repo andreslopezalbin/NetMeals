@@ -5,8 +5,6 @@
 {% crispy form form.helper %}
 
 {% block title %}{% trans 'New Dish' %}{% endblock %}
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfD-gZKxc_qrC1clMF9U3OPfm5U3iUwE0&libraries=places&callback=initAutocomplete"
-        async defer></script>
 {% block content %}
     <div class="container">
         {% if create %}
@@ -17,6 +15,7 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
+            <div id="map"></div>
             <button type="submit" class="btn btn-primary activity-edit">Edit</button>
         </form>
 
@@ -32,6 +31,8 @@
             autoclose: true
 
         });
+
+        google.maps.event.addDomListener(window, "load", initMap);
     </script>
 
 {% endblock %}

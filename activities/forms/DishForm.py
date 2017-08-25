@@ -43,8 +43,8 @@ class DishForm(forms.ModelForm):
 
     class Meta:
         model = Dish
-        fields = ['name', 'description', 'photo', 'date', 'hour', 'max_assistants', 'place', 'longitude', 'latitude',
-                  'contribution']
+        fields = ['name', 'description', 'photo', 'date', 'hour', 'max_assistants', 'contribution', 'place', 'longitude', 'latitude',
+                  ]
 
     def clean(self):
         if self.cleaned_data['max_assistants'] <= 0:

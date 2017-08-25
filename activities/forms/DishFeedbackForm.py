@@ -23,3 +23,4 @@ class DishFeedbackForm(forms.ModelForm):
 
         if len(comment) > 140:
             self.add_error('comment', _('Enter a comment with 140 or less characters'))
+

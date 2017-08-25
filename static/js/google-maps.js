@@ -3,11 +3,6 @@
 // pick list containing a mix of places and predicted search terms.
 
 
-function initGoogleMaps() {
-    initSearchBox();
-    initActivityMap();
-}
-
 function initSearchBox() {
     var input = document.getElementById('menu-searcher');
     var menuSearchBox = new google.maps.places.SearchBox(input);
@@ -34,7 +29,7 @@ function initSearchBox() {
     });
 }
 
-function initActivityMap() {
+function initMap() {
   // if (navigator.geolocation) {
   //   navigator.geolocation.getCurrentPosition(function(position) {
   //     var pos = {
