@@ -15,7 +15,7 @@ class Feedback(models.Model):
     reported = models.BooleanField(default=False)
 
     def __str__(self):
-        return 'score: ' + str(self.score) + '; commented: ' + self.commented
+        return 'score: ' + str(self.score) + '; commented: ' + self.commented.__str__()
 
 
 class IncomingPayment(models.Model):

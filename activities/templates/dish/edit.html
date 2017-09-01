@@ -21,16 +21,18 @@
 
     </div>
     <script>
-        $('#id_date').datepicker({
+
+        $('.dateinput').datepicker({
             format: "dd/mm/yyyy",
             startView: 2,
+            clearBtn: true,
             autoclose: true
         });
 
-        $('#id_hour').clockpicker({
+        $('.timeinput').clockpicker({
             autoclose: true
-
         });
+
 
         google.maps.event.addDomListener(window, "load", initMap);
     </script>

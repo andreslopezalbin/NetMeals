@@ -92,4 +92,4 @@ class ActivityFeedback(core_models.Feedback):
     activity = models.ForeignKey(Activity)
 
     def __str__(self):
-        return self.comment + ':' + self.activity
+        return self.comment + ':' + self.activity.__str__()

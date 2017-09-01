@@ -112,18 +112,16 @@ def edit(request, dish_id):
         dish = Dish.objects.get(id=dish_id)
         if dish.date > date.today() and len(dish.assistants.all()) == 0:
             if request.method == "POST":
-                form = DishForm(data=request.POST, instance=dish, prefix='dish')
+                form = DishForm(data=request.POST, instance=dish)
                 if form.is_valid():
-                    dish = form.create(request)
                     dish.save()
-
                     return redirect("my_dishes")
                 else:
                     context = {
                         'form': form,
                     }
             else:
-                form = DishForm(instance=dish, prefix='dish')
+                form = DishForm(instance=dish)
                 context = {
                     'form': form,
                 }

@@ -11,8 +11,10 @@ from django.utils.translation import ugettext_lazy as _
 class DishForm(forms.ModelForm):
     name = forms.CharField(label=_('Name'))
     description = forms.CharField(widget=forms.Textarea, label=_('Description'))
+    short_description = forms.CharField(widget=forms.Textarea, max_length=140, label=_('Shot description'))
     photo = forms.CharField(required=False, label=_('Photo'))
-    date = forms.DateField(required=True)
+    date = forms.DateField(required=True, input_formats=['%d/%m/%Y'])
+    date.widget.format = '%d/%m/%Y'
     date.widget.attrs['readonly'] = True
     hour = forms.TimeField(required=True)
     hour.widget.attrs['readonly'] = True
@@ -27,9 +29,12 @@ class DishForm(forms.ModelForm):
         super(DishForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = _("Name")
         self.fields['description'].label = _("Description")
+        self.fields['short_description'].label = _("Short description")
         self.fields['photo'].label = _("Photo")
         self.fields['date'].label = _("Date")
+        self.fields['date'].widget.attrs['class'] = 'dateinput'
         self.fields['hour'].label = _("Hour")
+        self.fields['hour'].widget.attrs['class'] = 'timeinput'
         self.fields['max_assistants'].label = _("Max assistants")
         self.fields['contribution'].label = _('contribution')
         self.fields['place'].label = _('Place')
@@ -43,7 +48,8 @@ class DishForm(forms.ModelForm):
 
     class Meta:
         model = Dish
-        fields = ['name', 'description', 'photo', 'date', 'hour', 'max_assistants', 'contribution', 'place', 'longitude', 'latitude',
+        fields = ['name', 'description', 'short_description', 'photo', 'date', 'hour', 'max_assistants', 'contribution',
+                  'place', 'longitude', 'latitude',
                   ]
 
     def clean(self):
@@ -60,12 +66,16 @@ class DishForm(forms.ModelForm):
         owner = Chef.objects.get(guest_ptr_id=owner_id)
         result = Dish(name=self.cleaned_data['name'],
                       description=self.cleaned_data['description'],
+                      short_description=self.cleaned_data['short_description'],
                       photo=self.cleaned_data['photo'],
                       date=self.cleaned_data['date'],
                       hour=self.cleaned_data['hour'],
                       owner=owner,
                       max_assistants=self.cleaned_data['max_assistants'],
-                      contribution=self.cleaned_data['contribution']
+                      contribution=self.cleaned_data['contribution'],
+                      place=self.cleaned_data['place'],
+                      latitude=self.cleaned_data['latitude'],
+                      longitude=self.cleaned_data['longitude'],
                       )
 
         return result
