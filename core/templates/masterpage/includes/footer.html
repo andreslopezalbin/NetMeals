@@ -1,5 +1,7 @@
 {% load staticfiles %}
+{% load i18n %}
 {% block content %}
+
 
     <!--Footer-->
     <footer class="page-footer center-on-small-only">
@@ -10,8 +12,12 @@
 
                 <!--First column-->
                 <div class="col-md-4 ">
-                    <h5 class="title">Footer Content</h5>
-                    <p>Here you can use rows and columns here to organize your footer content.</p>
+                    <a class="navbar-brand" href="/">
+                        <img width="200px" alt="NetMeals"
+                             src="{% static 'images/logo_nav.png' %}">
+                    </a>
+                    {#                    <h5 class="title">NetMeals</h5>#}
+                    {#                    <p>{% trans 'Here you can see some usefull links.' %}</p>#}
                 </div>
                 <!--/.First column-->
 
@@ -21,8 +27,8 @@
                 <div class="col-md-4 ">
                     <h5 class="title">Links</h5>
                     <ul>
-                        <li><a href="#!">Link 1</a></li>
-                        <li><a href="#!">Link 2</a></li>
+                        <li><a href="{% url 'about_us' %}">{% trans 'About us' %}</a></li>
+                        <li><a href="{% url 'terms' %}">{% trans 'Terms and Conditions' %}</a></li>
 
                     </ul>
                 </div>
@@ -32,10 +38,10 @@
 
                 <!--Third column-->
                 <div class="col-md-4 ">
-                    <h5 class="title">Links</h5>
+                    <h5 class="title"><br></h5>
                     <ul>
-                        <li><a href="#!">Link 1</a></li>
-                        <li><a href="#!">Link 2</a></li>
+                        <li><a href="{% url 'cancellation' %}">{% trans 'Cancellation policy' %}</a></li>
+                        <li><a href="{% url 'cookies' %}">{% trans 'Cookies policy' %}</a></li>
 
                     </ul>
                 </div>
@@ -47,33 +53,17 @@
         </div>
         <!--/.Footer Links-->
 
-        <hr>
 
-        <!--Call to action-->
-        <div class="text-center">
+        {% if user.is_anonymous %}
+            <hr>
+            <!--Call to action-->
+            <div class="text-center">
+                <h5>{% trans 'Register for free' %}</h5> <a href="{% url 'signup' %}" class="btn btn-danger">Sign
+                up!</a>
 
-
-
-               <h5>Register for free</h5> <a href="" class="btn btn-danger">Sign up!</a>
-
-        </div>
-        <!--/.Call to action-->
-
-        <hr>
-
-        <!--Social buttons-->
-        <div class="social-section">
-            <ul>
-                <li><a class="btn-floating btn-small btn-fb"><i class="fa fa-facebook"> </i></a></li>
-                <li><a class="btn-floating btn-small btn-tw"><i class="fa fa-twitter"> </i></a></li>
-                <li><a class="btn-floating btn-small btn-gplus"><i class="fa fa-google-plus"> </i></a></li>
-                <li><a class="btn-floating btn-small btn-li"><i class="fa fa-linkedin"> </i></a></li>
-                <li><a class="btn-floating btn-small btn-git"><i class="fa fa-github"> </i></a></li>
-                <li><a class="btn-floating btn-small btn-pin"><i class="fa fa-pinterest"> </i></a></li>
-                <li><a class="btn-floating btn-small btn-ins"><i class="fa fa-instagram"> </i></a></li>
-            </ul>
-        </div>
-        <!--/.Social buttons-->
+            </div>
+            <!--/.Call to action-->
+        {% endif %}
 
         <!--Copyright-->
         <div class="footer-copyright">
@@ -83,7 +73,6 @@
             </div>
         </div>
         <!--/.Copyright-->
-
 
         <!--/.Footer-->
 

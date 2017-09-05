@@ -20,10 +20,9 @@ default_pic = 'http://i.huffpost.com/gen/1452575/images/o-BEAUTIFUL-FOOD-faceboo
 class Dish(models.Model):
     name = models.TextField(max_length=30)
     description = models.TextField(max_length=250)
-    short_description= models.TextField(max_length=140)
+    short_description = models.TextField(max_length=140)
     owner = models.ForeignKey(Chef)
     photo = models.ImageField(upload_to='/media/dish', null=True, blank=True)
-    ingredients = models.ManyToManyField(Ingredients)
     max_assistants = models.PositiveIntegerField(default=1)
     assistants = models.ManyToManyField(Guest, related_name='dish_assisted')
     contribution = models.DecimalField(default=1.0, max_digits=4, decimal_places=2)

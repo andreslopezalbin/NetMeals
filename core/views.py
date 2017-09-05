@@ -282,12 +282,16 @@ def about_us(request):
 
 
 def faq(request):
-    return render(request, 'about_us/about _us.html')
+    return render(request, 'about_us/FAQ.html')
 
 
 def cookies(request):
-    return render(request, 'about_us/about _us.html')
+    return render(request, 'about_us/cookies_policy.html')
 
 
 def cancellation(request):
-    return render(request, 'about_us/about _us.html')
+    return render(request, 'about_us/cancellation_policy.html')
+
+
+def terms(request):
+    return render(request, 'about_us/terms.html')

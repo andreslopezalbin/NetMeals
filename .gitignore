@@ -4,3 +4,4 @@ core/migrations
 activities/migrations
 users/migrations
 
+/locale/es/LC_MESSAGES/django.mo

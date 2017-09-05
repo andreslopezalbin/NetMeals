@@ -1,0 +1,111 @@
+{% extends 'masterpage/masterpage.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+{% load i18n %}
+
+{% block content %}
+    <head>
+        <title>Bootstrap Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+            body {
+                position: relative;
+            }
+
+            ul.nav-pills {
+                top: 20em;
+                position: fixed;
+            }
+
+            div.col-sm-9 div {
+                height: 250px;
+                font-size: 28px;
+            }
+
+            .abstract, .speciality {
+                border: none !important;
+                border-bottom: 1px solid #ccc !important;
+            }
+
+            .list-group-item.active {
+                background-color: #ff5c5c !important;
+                border-color: #ff5c5c !important;
+            }
+
+            a.list-group-item {
+                color: #ff5c5c;
+            }
+
+            a.list-group-item:focus, a.list-group-item:hover {
+                color: grey !important;
+            }
+
+        </style>
+    </head>
+
+
+    <div class="container">
+        <h1>{% trans 'About' %}</h1>
+        <hr>
+
+        <div class="row">
+            <!-- left column -->
+            <div class="col-lg-3">
+                <div class="widget-wrapper wow fadeIn" data-wow-delay="0.1s">
+                    <div class="list-group">
+                        <a href="{% url 'about_us' %}"
+                           class="list-group-item">{% trans '¿Who are we?' %}</a>
+                        <a href="{% url 'terms' %}" class="list-group-item ">{% trans 'Terms and Conditions' %}</a>
+                        <a href="{% url 'cancellation' %}"
+                           class="list-group-item active">{% trans "Cancellation policy" %}</a>
+                        <a href="{% url 'cookies' %}" class="list-group-item">{% trans "Cookies policy" %}</a>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- edit form column -->
+            <div class="col-lg-9 col-md-12 personal-info wow fadeIn" data-wow-delay="0.3s">
+
+                <div class="divider-new">
+                    <h2 class="h2-responsive wow fadeIn" data-wow-delay="0.2s">{% trans 'Cancellation policy' %}</h2>
+                </div>
+
+                <!--Section: About-->
+                <section id="about" class=" wow fadeIn" data-wow-delay="0.2s">
+
+                    <h5>En NetMeals pensamos que el compromiso con los monitores y chefs que dan vida
+                        a esta plataforma es lo más importante. Por eso tenemos una política de cancelaciones bastante
+                        restrictiva para que los chefs y monitores no se queden "colgados".</h5>
+                    </h5> <br>
+
+                    <h5>Es por esto por lo que para evitar que haya usuarios que reserven varios
+                        eventos a la vez y cancelen a última hora, dejando un hueco libre y por consiguiente
+                        una plaza donde el anfitrión pierde dinero, se cobrará el importe en el momento que se
+                        realiza una suscripción. </h5>
+                    </h5> <br>
+
+                    <h5>Sólo se permitirá la cancelación de inscripción a los platos y
+                        actividades hasta 24h antes del mismo y como máximo se hará una devolución del 80% de la
+                        reserva con un mínimo de 2€, es decir, si el evento cuesta 2€ o menos no se hace
+                        devolución. En el caso de que el importe supere los 2€, al total del evento se le restan
+                        dos euros y del restante se devuelve un 80%.</h5><br>
+
+                </section>
+                <br><br><br><br>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+    </script>
+
+
+{% endblock %}

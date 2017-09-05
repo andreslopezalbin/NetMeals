@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-21 21:23+0200\n"
+"POT-Creation-Date: 2017-09-05 13:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,48 +34,52 @@ msgstr "Comentario"
 msgid "Enter a comment with 140 or less characters"
 msgstr "Inserta un comentario con 140 caracteres como máximo"
 
-#: .\activities\forms\DishForm.py:12 .\activities\forms\DishForm.py:28
+#: .\activities\forms\DishForm.py:12 .\activities\forms\DishForm.py:30
 #: .\core\templates\dashboard\table.html:38 .\users\forms\ProfileForm.py:23
 msgid "Name"
 msgstr "Nombre"
 
-#: .\activities\forms\DishForm.py:13 .\activities\forms\DishForm.py:29
+#: .\activities\forms\DishForm.py:13 .\activities\forms\DishForm.py:31
 msgid "Description"
 msgstr "Descripción"
 
-#: .\activities\forms\DishForm.py:14 .\activities\forms\DishForm.py:30
+#: .\activities\forms\DishForm.py:14 .\activities\forms\DishForm.py:32
+msgid "Short description"
+msgstr "Descripción corta"
+
+#: .\activities\forms\DishForm.py:15 .\activities\forms\DishForm.py:33
 msgid "Photo"
 msgstr "Fotografía"
 
-#: .\activities\forms\DishForm.py:31
+#: .\activities\forms\DishForm.py:34
 msgid "Date"
 msgstr "Fecha"
 
-#: .\activities\forms\DishForm.py:32
+#: .\activities\forms\DishForm.py:36
 msgid "Hour"
 msgstr "Hora"
 
-#: .\activities\forms\DishForm.py:33
+#: .\activities\forms\DishForm.py:38
 msgid "Max assistants"
 msgstr "Asistentes"
 
-#: .\activities\forms\DishForm.py:34
+#: .\activities\forms\DishForm.py:39
 msgid "contribution"
 msgstr "Aporte"
 
-#: .\activities\forms\DishForm.py:35 .\users\forms\ProfileForm.py:27
+#: .\activities\forms\DishForm.py:40 .\users\forms\ProfileForm.py:27
 msgid "Place"
 msgstr "Lugar"
 
-#: .\activities\forms\DishForm.py:51
+#: .\activities\forms\DishForm.py:57
 msgid "You must add more assistants"
 msgstr "Debes añadir mas asistentes"
 
-#: .\activities\forms\DishForm.py:53
+#: .\activities\forms\DishForm.py:59
 msgid "WOW! Its so cheap!"
 msgstr "Vaya! Es demasiado barato!"
 
-#: .\activities\forms\DishForm.py:55
+#: .\activities\forms\DishForm.py:61
 msgid "You cant share a old dish, sorry"
 msgstr "No puedes compartir platos del pasado, lo siento :("
 
@@ -93,8 +97,7 @@ msgid "Save"
 msgstr "Guardar"
 
 #: .\activities\templates\activities\list.html:29
-#: .\activities\templates\dish\list.html:26
-msgid "All Dishes near you"
+msgid "All Activities near you"
 msgstr "Todos los platos cerca de tu zona"
 
 #: .\activities\templates\activities\list.html:139
@@ -112,8 +115,6 @@ msgstr "¿Estás seguro?"
 
 #: .\activities\templates\activities\list.html:140
 #: .\activities\templates\activities\view_edit.html:192
-#, fuzzy
-#| msgid "You will unsubscribe this activity!"
 msgid "You will delete this activity!"
 msgstr "Te vas a desuscribir de la actividadd!"
 
@@ -197,10 +198,8 @@ msgid "Something went wrong!"
 msgstr "Algo no ha salido como esperabamos"
 
 #: .\activities\templates\dish\details.html:169
-#, fuzzy
-#| msgid "Delete"
 msgid "Deleted!"
-msgstr "Eliminar"
+msgstr "Emilinado"
 
 #: .\activities\templates\dish\details.html:169
 msgid "Your imaginary file has been deleted!"
@@ -219,13 +218,17 @@ msgstr "Vas a cancelar la inscripción a este plato!"
 msgid "New Dish"
 msgstr "Nuevo plato"
 
-#: .\activities\templates\dish\edit.html:13
+#: .\activities\templates\dish\edit.html:11
 msgid "Create Dish"
 msgstr "Nuevo Plato"
 
-#: .\activities\templates\dish\edit.html:15
+#: .\activities\templates\dish\edit.html:13
 msgid "Edit Dish"
 msgstr "Editar Plato"
+
+#: .\activities\templates\dish\list.html:26
+msgid "All Dishes near you"
+msgstr "Todos los platos cerca de tu zona"
 
 #: .\activities\templates\dish\list.html:62
 msgid "Details"
@@ -268,36 +271,250 @@ msgstr "Todos los platos"
 msgid "My Dishes"
 msgstr "Mis platos"
 
-#: .\core\templates\about_us\about _us.html:52
-msgid "About us"
+#: .\core\templates\about_us\FAQ.html:52
+#: .\core\templates\about_us\cancellation_policy.html:52
+#: .\core\templates\about_us\cookies_policy.html:52
+#: .\core\templates\about_us\terms.html:52
+#: .\core\templates\masterpage\includes\menu.html:93
+msgid "About"
 msgstr "Sobre nosotros"
 
-#: .\core\templates\about_us\about _us.html:61
+#: .\core\templates\about_us\FAQ.html:61 .\core\templates\about_us\about
+#: _us.html:62 .\core\templates\about_us\cancellation_policy.html:61
+#: .\core\templates\about_us\cookies_policy.html:61
+#: .\core\templates\about_us\terms.html:61
 msgid "¿Who are we?"
 msgstr "¿Quién somos?"
 
-#: .\core\templates\about_us\about _us.html:62
+#: .\core\templates\about_us\FAQ.html:62
 msgid "FAQ"
 msgstr "Preguntas frecuentes"
 
-#: .\core\templates\about_us\about _us.html:63
+#: .\core\templates\about_us\FAQ.html:63 .\core\templates\about_us\about
+#: _us.html:64 .\core\templates\about_us\cancellation_policy.html:64
+#: .\core\templates\about_us\cancellation_policy.html:75
+#: .\core\templates\about_us\cookies_policy.html:63
+#: .\core\templates\about_us\terms.html:64
+#: .\core\templates\masterpage\includes\footer.html:43
 msgid "Cancellation policy"
 msgstr "Política de cancelación"
 
-#: .\core\templates\about_us\about _us.html:64
+#: .\core\templates\about_us\FAQ.html:64 .\core\templates\about_us\about
+#: _us.html:65 .\core\templates\about_us\cancellation_policy.html:65
+#: .\core\templates\about_us\cookies_policy.html:64
+#: .\core\templates\about_us\cookies_policy.html:74
+#: .\core\templates\about_us\terms.html:65
+#: .\core\templates\masterpage\includes\footer.html:44
 msgid "Cookies policy"
 msgstr "Política de cookies"
 
-#: .\core\templates\about_us\about _us.html:94
-msgid ""
-"Al ser estudiantes, apasionados de los viajes y estamos locos por la comida "
-"hemos pensado en como podiamos unir viajes, con comida local y además hacer "
-"que esta sea barata, ¿crees que es una locura? "
-msgstr ""
+#: .\core\templates\about_us\FAQ.html:75
+msgid "Frequently Asked Questions"
+msgstr "Precuntas Frecuentes"
 
-#: .\core\templates\about_us\about _us.html:95
-msgid "Así nace netmeals, "
+#: .\core\templates\about_us\about _us.html:53 _us.html:76
+#: .\core\templates\masterpage\includes\footer.html:30
+msgid "About us"
+msgstr "Sobre nosotros"
+
+#: .\core\templates\about_us\about _us.html:63
+#: .\core\templates\about_us\cancellation_policy.html:62
+#: .\core\templates\about_us\cookies_policy.html:62
+#: .\core\templates\about_us\terms.html:63
+#: .\core\templates\about_us\terms.html:75
+#: .\core\templates\masterpage\includes\footer.html:31
+msgid "Terms and Conditions"
+msgstr "Términos y Condiciones"
+
+#: .\core\templates\about_us\about _us.html:96
+msgid "Our services"
+msgstr "Nuestros servicios"
+
+#: .\core\templates\about_us\about _us.html:114
+msgid "Team"
+msgstr "Equipo"
+
+#: .\core\templates\about_us\cookies_policy.html:79
+msgid ""
+"A cookie is a little information sent by a website and stored in the user's "
+"browser, so that the website can check the previous activity of the same."
+msgstr "Una cookie es una pequeña información enviada por un sitio web y almacenada en el navegador del usuario, de manera que el sitio web puede consultar la actividad previa del mismo."
+
+#: .\core\templates\about_us\cookies_policy.html:84
+msgid ""
+"The User expressly accepts, for the use of this Site, the treatment of the "
+"information collected in the form and for the aforementioned purposes."
+msgstr "El Usuario acepta expresamente, por la utilización de este Site, el tratamiento de la información recabada en la forma y con los fines anteriormente mencionados."
+
+#: .\core\templates\about_us\cookies_policy.html:89
+msgid "What types of cookies does NetMeals use?"
+msgstr "¿Qué tipos de cookies utiliza NetMeals?"
+
+#: .\core\templates\about_us\cookies_policy.html:92
+msgid ""
+"<b>Technical Cookies:</b> These are the ones that allow the user to navigate "
+"through a web page, platform or application and the use of the different "
+"options or services that exist in it, such as controlling traffic and "
+"communication of data, identify the Session, access restricted access parts, "
+"make the application for registration or participation in an event, use "
+"security features during navigation."
+msgstr "<b>Cookies técnicas:</b> Son aquéllas que permiten al usuario la navegación a través de una página web, plataforma o aplicación y la utilización de las diferentes opciones o servicios que en ella existan como, por ejemplo, controlar el tráfico y la comunicación de datos, identificar la sesión, acceder a partes de acceso restringido, realizar la solicitud de inscripción o participación en un evento, utilizar elementos de seguridad durante la navegación."
+
+#: .\core\templates\about_us\cookies_policy.html:100
+msgid ""
+"<b>Personalization Cookies:</b> They are those that allow the user to access "
+"the service with some general characteristics predefined according to a "
+"series of criteria in the user's terminal such as the language, the type of "
+"browser through which accesses the service , The regional settings from "
+"where you access the service, etc."
+msgstr "<b>Cookies de personalización:</b> Son aquellas que permiten al usuario acceder al servicio con algunas características de carácter general predefinidas en función de una serie de criterios en el terminal del usuario, como por ejemplo sería el idioma, el tipo de navegador a través del cuál accede al servicio, la configuración regional desde donde accede al servicio, etc."
+
+#: .\core\templates\about_us\cookies_policy.html:106
+msgid ""
+"<b>Third Party Cookies:</b> The Web of www.netmeals.tk may use third party "
+"services that, on behalf of www.netmeals.tk, collect information for "
+"statistical purposes, use of the Site by the user and for the provision of "
+"other related services With the activity of the Website and other Internet "
+"services."
+msgstr "<b>Cookies de terceros:</b> La Web de www.netmeals.tk puede utilizar servicios de terceros que, en nombre de www.netmeals.tk, recopilen información para propósitos estadísticos, uso del Sitio por el usuario y para la provisión de otros servicios relacionados con La actividad del Sitio Web y otros servicios de Internet."
+
+#: .\core\templates\about_us\cookies_policy.html:112
+msgid "If you need more information, follow the following"
+msgstr "Si necesitas más informacion, sigue el siguiente"
+
+#: .\core\templates\about_us\cookies_policy.html:114
+msgid "link"
+msgstr "enlace"
+
+#: .\core\templates\about_us\terms.html:81
+msgid ""
+"The access and / or use of this portal attributes the condition of user, who "
+"accepts, from said access and / or use, the General Conditions of Use "
+"reflected here. The aforementioned Conditions will apply independently of "
+"the General Conditions of Contract that in their case are obligatory."
 msgstr ""
+"El acceso y/o uso de este portal atribuye la condición de usuario, que "
+"acepta, desde dicho acceso y/o uso, las Condiciones Generales de Uso aquí "
+"reflejadas. Las citadas Condiciones serán de aplicación independientemente "
+"de las Condiciones Generales de Contratación que en su caso resulten de "
+"obligado cumplimiento."
+
+#: .\core\templates\about_us\terms.html:83
+msgid ""
+"The company reserves the right to modify at any time the general conditions "
+"of use of the portal. In any case, it is recommended that you periodically "
+"consult these terms of use of the portal, as they can be modified."
+msgstr ""
+"La empresa se reserva la facultad de modificar en cualquier momento las "
+"condiciones generales de uso del portal.En todo caso, se recomienda que "
+"consulte periódicamente los presentes términos de uso del portal, ya que "
+"pueden ser modificados."
+
+#: .\core\templates\about_us\terms.html:86
+msgid ""
+"The user must at all times respect the terms and conditions established in "
+"these general conditions of use of the portal. The user expressly states "
+"that he will diligently use the portal and assume any responsibility that "
+"may arise from breach of the rules."
+msgstr ""
+"El usuario deberá respetar en todo momento los términos y condiciones "
+"establecidos en las presentes condiciones generales de uso del portal. De "
+"forma expresa el usuario manifiesta que utilizará el portal de forma "
+"diligente y asumiendo cualquier responsabilidad que pudiera derivarse del "
+"incumplimiento de las normas."
+
+#: .\core\templates\about_us\terms.html:89
+msgid ""
+" The Portal excludes any liability for damages that may be due to "
+"information and / or services provided or supplied by third parties other "
+"than the Company. All responsibility will be from the third party, either "
+"supplier or collaborator."
+msgstr ""
+"El Portal excluye cualquier responsabilidad por los daños y perjuicios que "
+"puedan deberse a la información y/o servicios prestados o suministrados por "
+"terceros diferentes de la Empresa. Toda responsabilidad será del tercero ya "
+"sea proveedor o colaborador."
+
+#: .\core\templates\about_us\terms.html:92
+msgid ""
+"All contents, trademarks, logos, drawings, documentation, computer programs "
+"or any other element susceptible of protection by the intellectual or "
+"industrial property laws, that are accessible in the portal correspond "
+"exclusively to the company or its legitimate owners and are expressly "
+"reserved all The rights over them."
+msgstr ""
+"Todos los contenidos, marcas, logos, dibujos, documentación, programas "
+"informáticos o cualquier otro elemento susceptible de protección por la "
+"legislación de propiedad intelectual o industrial, que sean accesibles en el "
+"portal corresponden exclusivamente a la empresa o a sus legítimos titulares "
+"y quedan expresamente reservados todos los derechos sobre los mismos."
+
+#: .\core\templates\about_us\terms.html:95
+msgid ""
+"NetMeals as the holder for all purposes of this website and responsible for "
+"all automated files derived therefrom ensures full and complete compliance "
+"with the obligations set forth by the Organic Law of Data Protection."
+msgstr ""
+"NetMeals como titular a todos los efectos de la presente página web y "
+"responsable de todos los ficheros automatizados derivados de la misma "
+"garantiza el integro y pleno cumplimiento de las obligaciones dispuestas por "
+"la Ley Orgánica de Protección de Datos."
+
+#: .\core\templates\about_us\terms.html:98
+msgid ""
+"NetMeals informs that the use of a form implies that the user expresses his "
+"consent for the data supplied to be incorporated into an automated file."
+msgstr ""
+"NetMeals informa que el hecho de utilizar algún formulario implica que el "
+"usuario expresa su consentimiento para que los datos suministrados queden "
+"incorporados a un fichero automatizado."
+
+#: .\core\templates\about_us\terms.html:101
+msgid ""
+" The users will respond, in any case, of the veracity of the provided data "
+"and are responsible for communicating to NetMeals any modification in the "
+"same, being NetMeals exempt of any type of responsibility in this respect."
+msgstr ""
+"Los usuarios responderán, en cualquier caso, de la veracidad de los datos "
+"facilitados y se hacen responsables de comunicar a NetMeals cualquier "
+"modificación en los mismos, quedando NetMeals exento de cualquier tipo de "
+"responsabilidad a este respecto."
+
+#: .\core\templates\about_us\terms.html:104
+msgid ""
+"The users have recognized and will be able to exercise the rights of access, "
+"rectification, cancellation and opposition, anticipated by the Law, "
+"directing an email to the Responsible of the File: NetMeals, indicating "
+"their name and surnames, and including as subject of the email \"ARCO Rights"
+"\" ."
+msgstr ""
+"Los usuarios tienen reconocidos y podrán ejercitar los derechos de acceso,"
+"rectificación, cancelación y oposición, previstos por la Ley, dirigiendo un "
+"correo electrónico al Responsable del Fichero: NetMeals, indicando su nombre "
+"y apellidos, e incluyendo como asunto del correo 'Derechos ARCO'."
+
+#: .\core\templates\about_us\terms.html:106
+msgid ""
+"NetMeals, Inc under the Information Society Services Law, in no case will "
+"send advertising and communications for sale or other commercial purposes to "
+"users without their prior request or consent. Neither will it send "
+"unsolicited messages or consents previously."
+msgstr ""
+"NetMeals,Inc en virtud de la Ley de Servicios de la Sociedad de la "
+"Información , en ningún caso remitirá publicidad y comunicaciones con fines "
+"de venta u otras de naturaleza comercial a los usuarios sin que medie su "
+"previa solicitud o consentimiento. Asimismo tampoco remitirá mensajes no "
+"solicitados ni consentidos previamenente."
+
+#: .\core\templates\about_us\terms.html:108
+msgid ""
+"In compliance with the Law on Services of the Information Society, the "
+"following data are reflected: the company that owns this website is NetMeals "
+"with CIF number: X-0000000, duly registered in the Mercantile Register."
+msgstr ""
+"En cumplimiento con la Ley de Servicios de la Sociedad de la Información, se "
+"reflejan los siguientes datos : la empresa titular de esta web es NetMeals "
+"con número CIF:X-0000000,debidamente inscrita en el Registro Mercantil."
 
 #: .\core\templates\dashboard\dashboard.html:406
 msgid "Ranking"
@@ -308,10 +525,8 @@ msgid "Table of Users rankings"
 msgstr "Tabla de ranking de usuarios"
 
 #: .\core\templates\dashboard\dashboard.html:412
-#, fuzzy
-#| msgid "Description"
 msgid "Position"
-msgstr "Descripción"
+msgstr "Posición"
 
 #: .\core\templates\dashboard\dashboard.html:413
 #: .\core\templates\dashboard\table.html:37 .\users\forms\ProfileForm.py:22
@@ -323,20 +538,24 @@ msgid "Users"
 msgstr "Usuarios"
 
 #: .\core\templates\dashboard\dashboard_master.html:77
+msgid "Advanced management"
+msgstr "Gestión avanzada"
+
+#: .\core\templates\dashboard\dashboard_master.html:84
 msgid "Settings"
 msgstr "Ajustes"
 
-#: .\core\templates\dashboard\dashboard_master.html:81
+#: .\core\templates\dashboard\dashboard_master.html:88
 #: .\core\templates\masterpage\includes\menu.html:144
 msgid "Spanish"
 msgstr "Español"
 
-#: .\core\templates\dashboard\dashboard_master.html:83
+#: .\core\templates\dashboard\dashboard_master.html:90
 #: .\core\templates\masterpage\includes\menu.html:145
 msgid "English"
 msgstr "Inglés"
 
-#: .\core\templates\dashboard\dashboard_master.html:84
+#: .\core\templates\dashboard\dashboard_master.html:91
 #: .\core\templates\masterpage\includes\menu.html:124
 msgid "Signout"
 msgstr "Cerrar sesión"
@@ -408,9 +627,42 @@ msgstr "Si, activalo!"
 msgid "Now the user is active again"
 msgstr "El usuario vuelve a estar activo"
 
-#: .\core\templates\masterpage\includes\menu.html:93
-msgid "About"
-msgstr "Sobre nosotros"
+#: .\core\templates\index.html:161
+msgid "Free"
+msgstr "Gratis"
+
+#: .\core\templates\index.html:165
+msgid "One dish or activity per month"
+msgstr "No hay ninguna actividad cerca tuya."
+
+#: .\core\templates\index.html:172 .\core\templates\index.html:201
+#: .\core\templates\index.html:230
+msgid "Suscribe now!"
+msgstr "Suscribete al plan"
+
+#: .\core\templates\index.html:187 .\core\templates\index.html:216
+msgid "Month"
+msgstr "Mes"
+
+#: .\core\templates\index.html:191
+msgid "Three dishes and activities"
+msgstr "No hay ninguna actividad cerca tuya."
+
+#: .\core\templates\index.html:193 .\core\templates\index.html:222
+msgid "Dashboard"
+msgstr ""
+
+#: .\core\templates\index.html:220
+msgid "Unlimited dishes and activities"
+msgstr "Playos y actividades ilimitados"
+
+#: .\core\templates\index.html:225
+msgid "Advertise your events"
+msgstr "Publicita tus eventso"
+
+#: .\core\templates\masterpage\includes\footer.html:61
+msgid "Register for free"
+msgstr "Regístrate gratis"
 
 #: .\core\templates\masterpage\includes\menu.html:98
 #: .\core\templates\ratings.html:16
@@ -514,44 +766,38 @@ msgid "Top Monitors"
 msgstr "Top Monitores"
 
 #: .\core\templates\search.html:6
-#, fuzzy
-#| msgid "Search CP"
 msgid "Search Result"
-msgstr "Buscar CP"
+msgstr "Buscar"
 
 #: .\core\templates\search.html:17
 msgid "Result"
 msgstr "Resultado"
 
 #: .\core\templates\search.html:24
-#, fuzzy
-#| msgid "All Dishes near you"
 msgid "Activities near you"
 msgstr "Todos los platos cerca de tu zona"
 
-#: .\core\templates\search.html:48 .\core\templates\search.html:120
+#: .\core\templates\search.html:49 .\core\templates\search.html:122
 msgid "meters aprox."
 msgstr "metros aprox."
 
-#: .\core\templates\search.html:58
+#: .\core\templates\search.html:60
 msgid "There is no activities near you."
 msgstr "No hay ninguna actividad cerca tuya."
 
-#: .\core\templates\search.html:70 .\core\templates\search.html:137
+#: .\core\templates\search.html:72 .\core\templates\search.html:139
 msgid "Previous"
 msgstr "Anterior"
 
-#: .\core\templates\search.html:77 .\core\templates\search.html:144
+#: .\core\templates\search.html:79 .\core\templates\search.html:146
 msgid "of"
 msgstr "de"
 
-#: .\core\templates\search.html:85 .\core\templates\search.html:152
+#: .\core\templates\search.html:87 .\core\templates\search.html:154
 msgid "Next"
 msgstr "Siguiente"
 
-#: .\core\templates\search.html:97
-#, fuzzy
-#| msgid "All Dishes near you"
+#: .\core\templates\search.html:99
 msgid "Dishes near you"
 msgstr "Todos los platos cerca de tu zona"
 
@@ -580,8 +826,6 @@ msgid "Phone"
 msgstr "Teléfono"
 
 #: .\users\forms\ProfileForm.py:46
-#, fuzzy
-#| msgid "Something went wrong!"
 msgid "Something went wrong, please try later"
 msgstr "Algo no ha salido como esperabamos"
 
@@ -602,21 +846,15 @@ msgid "You must enter a valid date"
 msgstr "Debes introducir una fecha correcta"
 
 #: .\users\templates\passwordreset\password_reset_complete.html:4
-#, fuzzy
-#| msgid "Your imaginary file has been deleted!"
 msgid "Your password has been reset"
 msgstr "Tu imagen ha sido eliminada!"
 
 #: .\users\templates\passwordreset\password_reset_confirm.html:12
 #: .\users\templates\passwordreset\password_reset_confirm.html:18
-#, fuzzy
-#| msgid "Password"
 msgid "New password"
 msgstr "Contraseña"
 
 #: .\users\templates\passwordreset\password_reset_confirm.html:22
-#, fuzzy
-#| msgid "Password"
 msgid "Repeat password"
 msgstr "Contraseña"
 
@@ -642,8 +880,6 @@ msgid "Click on the following link to create your new password"
 msgstr "Pulsa el siguiente enlace para crear una nueva contraseña"
 
 #: .\users\templates\passwordreset\password_reset_form.html:7
-#, fuzzy
-#| msgid "Password"
 msgid "Forget password"
 msgstr "Contraseña"
 

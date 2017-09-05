@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'about_us$', views.about_us, name='about_us'),
     url(r'faq$', views.faq, name='faq'),
     url(r'cookies$', views.cookies, name='cookies'),
-    url(r'cancellation$', views.cancellation, name='cancellation')
+    url(r'cancellation$', views.cancellation, name='cancellation'),
+    url(r'terms$', views.terms, name='terms')
 
 ]

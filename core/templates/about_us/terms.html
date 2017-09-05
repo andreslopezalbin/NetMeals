@@ -1,0 +1,124 @@
+{% extends 'masterpage/masterpage.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+{% load i18n %}
+
+{% block content %}
+    <head>
+        <title>Bootstrap Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+            body {
+                position: relative;
+            }
+
+            ul.nav-pills {
+                top: 20em;
+                position: fixed;
+            }
+
+            div.col-sm-9 div {
+                height: 250px;
+                font-size: 28px;
+            }
+
+            .abstract, .speciality {
+                border: none !important;
+                border-bottom: 1px solid #ccc !important;
+            }
+
+            .list-group-item.active {
+                background-color: #ff5c5c !important;
+                border-color: #ff5c5c !important;
+            }
+
+            a.list-group-item {
+                color: #ff5c5c;
+            }
+
+            a.list-group-item:focus, a.list-group-item:hover {
+                color: grey !important;
+            }
+
+        </style>
+    </head>
+
+
+    <div class="container">
+        <h1>{% trans 'About' %}</h1>
+        <hr>
+
+        <div class="row">
+            <!-- left column -->
+            <div class="col-lg-3">
+                <div class="widget-wrapper wow fadeIn" data-wow-delay="0.1s">
+                    <div class="list-group">
+                        <a href="{% url 'about_us' %}"
+                           class="list-group-item">{% trans '¿Who are we?' %}</a>
+                        <a href="{% url 'terms' %}"
+                           class="list-group-item active">{% trans 'Terms and Conditions' %}</a>
+                        <a href="{% url 'cancellation' %}" class="list-group-item">{% trans "Cancellation policy" %}</a>
+                        <a href="{% url 'cookies' %}" class="list-group-item ">{% trans "Cookies policy" %}</a>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- edit form column -->
+            <div class="col-lg-9 col-md-12 personal-info wow fadeIn" data-wow-delay="0.3s">
+
+                <div class="divider-new">
+                    <h2 class="h2-responsive wow fadeIn" data-wow-delay="0.2s">{% trans 'Terms and Conditions' %}</h2>
+                </div>
+
+                <!--Section: About-->
+                <section id="about" class=" wow fadeIn" data-wow-delay="0.2s">
+
+                    <h6> {% trans 'The access and / or use of this portal attributes the condition of user, who accepts, from said access and / or use, the General Conditions of Use reflected here. The aforementioned Conditions will apply independently of the General Conditions of Contract that in their case are obligatory.' %} </h6>
+
+                    <h6> {% trans 'The company reserves the right to modify at any time the general conditions of use of the portal. In any case, it is recommended that you periodically consult these terms of use of the portal, as they can be modified.' %} </h6>
+
+                    <br>
+                    <h6> {% trans 'The user must at all times respect the terms and conditions established in these general conditions of use of the portal. The user expressly states that he will diligently use the portal and assume any responsibility that may arise from breach of the rules.' %} </h6>
+                    <br>
+
+                    <h6> {% trans ' The Portal excludes any liability for damages that may be due to information and / or services provided or supplied by third parties other than the Company. All responsibility will be from the third party, either supplier or collaborator.' %} </h6>
+                    <br>
+
+                    <h6> {% trans 'All contents, trademarks, logos, drawings, documentation, computer programs or any other element susceptible of protection by the intellectual or industrial property laws, that are accessible in the portal correspond exclusively to the company or its legitimate owners and are expressly reserved all The rights over them.' %} </h6>
+                    <br>
+
+                    <h6> {% trans 'NetMeals as the holder for all purposes of this website and responsible for all automated files derived therefrom ensures full and complete compliance with the obligations set forth by the Organic Law of Data Protection.' %} </h6>
+                    <br>
+
+                    <h6> {% trans 'NetMeals informs that the use of a form implies that the user expresses his consent for the data supplied to be incorporated into an automated file.' %} </h6>
+
+                    <br>
+                    <h6> {% trans ' The users will respond, in any case, of the veracity of the provided data and are responsible for communicating to NetMeals any modification in the same, being NetMeals exempt of any type of responsibility in this respect.' %} </h6>
+                    <br>
+
+                    <h6> {% trans 'The users have recognized and will be able to exercise the rights of access, rectification, cancellation and opposition, anticipated by the Law, directing an email to the Responsible of the File: NetMeals, indicating their name and surnames, and including as subject of the email "ARCO Rights" .' %} </h6>
+                    <br>
+                    <h6> {% trans 'NetMeals, Inc under the Information Society Services Law, in no case will send advertising and communications for sale or other commercial purposes to users without their prior request or consent. Neither will it send unsolicited messages or consents previously.' %} </h6>
+                    <br>
+                    <h6> {% trans 'In compliance with the Law on Services of the Information Society, the following data are reflected: the company that owns this website is NetMeals with CIF number: X-0000000, duly registered in the Mercantile Register.' %} </h6>
+
+
+                </section>
+
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+    </script>
+
+
+{% endblock %}

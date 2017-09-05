@@ -11,6 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" media="screen" href="{% static "materialize/rotating-card.css" %}"/>
         <style>
             body {
                 position: relative;
@@ -59,9 +60,10 @@
                     <div class="list-group">
                         <a href="{% url 'about_us' %}"
                            class="list-group-item active">{% trans '¿Who are we?' %}</a>
-                        <a href="{% url 'faq' %}" class="list-group-item ">{% trans 'FAQ' %}</a>
-                        <a href="#" class="list-group-item">{% trans "Cancellation policy" %}</a>
-                        <a href="#" class="list-group-item">{% trans "Cookies policy" %}</a>
+                        <a href="{% url 'terms' %}" class="list-group-item ">{% trans 'Terms and Conditions' %}</a>
+                        <a href="{% url 'cancellation' %}" class="list-group-item">{% trans "Cancellation policy" %}</a>
+                        <a href="{% url 'cookies' %}" class="list-group-item ">{% trans "Cookies policy" %}</a>
+
 
                     </div>
                 </div>
@@ -71,80 +73,165 @@
             <div class="col-lg-9 col-md-12 personal-info wow fadeIn" data-wow-delay="0.3s">
 
                 <div class="divider-new">
-                    <h2 class="h2-responsive wow fadeIn" data-wow-delay="0.2s">About us</h2>
+                    <h2 class="h2-responsive wow fadeIn" data-wow-delay="0.2s">{% trans 'About us' %}</h2>
                 </div>
 
                 <!--Section: About-->
                 <section id="about" class="text-center wow fadeIn" data-wow-delay="0.2s">
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit explicabo assumenda eligendi ex
-                        exercitationem harum deleniti quaerat beatae ducimus dolor voluptates magnam, reiciendis
-                        pariatur culpa tempore quibusdam quidem, saepe eius.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit explicabo assumenda eligendi ex
-                        exercitationem harum deleniti quaerat beatae ducimus dolor voluptates magnam, reiciendis
-                        pariatur culpa tempore quibusdam quidem, saepe eius.</p>
+
+                    <p>La idea de Netmeals surgió en la mente de unas publicistas a partir de la necesidad de crear un
+                        nuevo tipo de experiencia dentro de las comidas diarias. Ofrecemos
+                        Somos dos estudiantes de Ingeniería de Software y hemos creado una plataforma cómoda y sencilla
+                        para que chefs y usuarios puedan ponerse en contacto y crear así una red social entorno a su
+                        mesa.
+
+                    </p>
+
 
                 </section>
                 <!--Section: About-->
 
                 <div class="divider-new">
-                    <h2 class="h2-responsive wow fadeIn">Best features</h2>
+                    <h2 class="h2-responsive wow fadeIn">{% trans 'Our services' %}</h2>
                 </div>
 
-                <h5> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit explicabo assumenda eligendi ex
-                    exercitationem harum deleniti quaerat beatae ducimus dolor voluptates magnam, reiciendis
-                    pariatur culpa tempore quibusdam quidem, saepe eius.</h5>
-                <br> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit explicabo assumenda eligendi ex
-                exercitationem harum deleniti quaerat beatae ducimus dolor voluptates magnam, reiciendis
-                pariatur culpa tempore quibusdam quidem, saepe eius.</h5>
-                <div class="team">
-                    <div class="row" style="text-align: center;">
-                        <div class="col-md-4 col-md-offset-5">
-                            <div class="card card-member">
-                                <div class="content">
-                                    <div class="avatar avatar-danger">
-                                        <img alt="..." class="img-circle" src="assets/img/faces/face_1.jpg"/>
+                <h5>NetMeals nace para ofrecer la mejor opción de alimentación y experiencias relacionadas con el
+                    mundo de la cocina. Queremos crear una red social alrededor de la mesa a la hora del almuerzo o
+                    de la cena, que podamos reducir el gasto mensual en comida de unos, mientras ofrecemos comida
+                    casera a un buen precio para otros.
+                    A través de nuestra aplicación los chefs podrán compartir sus creaciones y ofrecer platos a
+                    personas que no pueden estar en su casa a la hora de comer, ahorrando así tiempo y dinero para
+                    ambos.</h5> <br>
+
+                <h5> Pero no solo eso, NetMeals también ofrece experiencias culinarias únicas, como (insertar ejemplo
+                    de experiencia), donde podrás aprender las mejores recetas y mejorar tu nivel como chef.
+                    Tanto si buscas compartir gastos dentro de una economía colaborativa, como si lo que quieres es
+                    comer bien por un módico precio, o aprender una nueva receta, NetMeals es para ti.
+                </h5>
+
+                <div class="divider-new">
+                    <h2 class="h2-responsive wow fadeIn">{% trans 'Team' %}</h2>
+                </div>
+
+                <div class="row" style="text-align: center;">
+                    <div class="mx-auto col-md-4 col-sm-12">
+                        <div class="card-container manual-flip">
+                            <div class="card">
+                                <div class="front" style="max-height: 368px">
+                                    <div class="cover" style="height: 215px;">
+                                        <img src="{% static 'images/antonio.jpg' %}"/>
                                     </div>
-                                    <div class="description">
-                                        <h3 class="title">Tina</h3>
-                                        <p class="small-text">CEO / Co-Founder</p>
-                                        <p class="description">I miss the old Kanye I gotta say at that time I’d
-                                            like to meet Kanye And I promise the power is in the people and I
-                                            will use the power given by the people to bring everything I have
-                                            back to the people.</p>
+                                    <div class="content">
+                                        <div class="main">
+                                            <h3 class="title">Antonio Marcos Peña</h3>
+                                            <p class="small-text">CEO / Co-Founder</p>
+                                            <p class="text-center"></p>
+
+                                            <div class="row">
+                                                <div class="row mx-auto text-center">
+
+                                                    <a href="https://www.linkedin.com/in/antoniomark93/"><i
+                                                            class="fa fa-linkedin"> </i></a>
+                                                    <div style="margin:5px; border-left: 3px solid #EEEEEE"></div>
+                                                    <a href="https://github.com/antmarpen"><i class="fa fa-github"> </i></a>
+                                                    <br>
+
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-4 col-md-offset-5">
-                            <div class="card card-member">
-                                <div class="content">
-                                    <div class="avatar avatar-danger">
-                                        <img alt="..." class="img-circle" src="assets/img/faces/face_4.jpg"/>
-                                    </div>
-                                    <div class="description">
-                                        <h3 class="title">Andrew</h3>
-                                        <p class="small-text">Product Designer</p>
-                                        <p class="description">I miss the old Kanye I gotta say at that time I’d
-                                            like to meet Kanye And I promise the power is in the people and I
-                                            will use the power given by the people to bring everything I have
-                                            back to the people.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-
                         </div>
                     </div>
+                    <div class="mx-auto col-md-4 col-sm-12">
+                        <div class="card-container manual-flip">
+                            <div class="card">
+                                <div class="front" style="max-height: 368px">
+                                    <div class="cover" style="height: 215px;">
+                                        <img src="{% static 'images/andres.jpg' %}"/>
+                                    </div>
+                                    <div class="content">
+                                        <div class="main">
+                                            <h3 class="title">Andrés López Albín</h3>
+                                            <p class="small-text">CEO / Co-Founder</p>
+                                            <p class="text-center"></p>
+
+                                            <div class="row">
+                                                <div class="row mx-auto text-center">
+
+                                                    <a href="https://www.linkedin.com/in/andreslopezalbin/"><i
+                                                            class="fa fa-linkedin"> </i></a>
+                                                    <div style="margin:5px; border-left: 3px solid #EEEEEE"></div>
+                                                    <a href="https://github.com/andreslopezalbin"><i
+                                                            class="fa fa-github"> </i></a>
+                                                    <br>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <br>
+
+
+                    {#                <div class="team">#}
+                    {#                    <div class="row" style="text-align: center;">#}
+                    {#                        <div class="mx-auto col-md-4">#}
+                    {#                            <div class="card card-member">#}
+                    {#                                <div class="content">#}
+                    {#                                    <div class="avatar avatar-danger">#}
+                    {#                                        <img style="max-width:300px ; max-height:150px"#}
+                    {#                                             src="{% static 'images/antonio.jpg' %}"/>#}
+                    {#                                    </div>#}
+                    {#                                    <div class="description">#}
+                    {#                                        <h3 class="title">Antonio Marcos Peña</h3>#}
+                    {#                                        <p class="small-text">CEO / Co-Founder</p>#}
+                    {#                                        <p class="description">I miss the old Kanye I gotta say at that time I’d#}
+                    {#                                            like to meet Kanye And I promise the power is in the people and I#}
+                    {#                                            will use the power given by the people to bring everything I have#}
+                    {#                                            back to the people.</p>#}
+                    {#                                    </div>#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {##}
+                    {#                        <div class="mx-auto col-md-4">#}
+                    {#                            <div class="card card-member">#}
+                    {#                                <div class="content">#}
+                    {#                                    <div class="avatar avatar-danger">#}
+                    {#                                        <img style="max-width:300px ; max-height:150px"#}
+                    {#                                             src="{% static 'images/andres.jpg' %}"/>#}
+                    {#                                    </div>#}
+                    {#                                    <div class="description">#}
+                    {#                                        <h3 class="title">Andrés López Albín</h3>#}
+                    {#                                        <p class="small-text">CEO / Co-Founder</p>#}
+                    {#                                        <p class="description">I miss the old Kanye I gotta say at that time I’d#}
+                    {#                                            like to meet Kanye And I promise the power is in the people and I#}
+                    {#                                            will use the power given by the people to bring everything I have#}
+                    {#                                            back to the people.</p>#}
+                    {#                                    </div>#}
+                    {#                                </div>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {##}
+                    {##}
+                    {#                    </div>#}
+                    {#                </div>#}
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
+        <script>
 
 
-    </script>
+        </script>
 
 
 {% endblock %}

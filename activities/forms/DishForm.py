@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 class DishForm(forms.ModelForm):
     name = forms.CharField(label=_('Name'))
     description = forms.CharField(widget=forms.Textarea, label=_('Description'))
-    short_description = forms.CharField(widget=forms.Textarea, max_length=140, label=_('Shot description'))
+    short_description = forms.CharField(widget=forms.Textarea, max_length=140, label=_('Short description'))
     photo = forms.CharField(required=False, label=_('Photo'))
     date = forms.DateField(required=True, input_formats=['%d/%m/%Y'])
     date.widget.format = '%d/%m/%Y'

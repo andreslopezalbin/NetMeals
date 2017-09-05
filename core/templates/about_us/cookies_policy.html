@@ -1,0 +1,111 @@
+{% extends 'masterpage/masterpage.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+{% load i18n %}
+
+{% block content %}
+    <head>
+        <title>Bootstrap Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+            body {
+                position: relative;
+            }
+
+            ul.nav-pills {
+                top: 20em;
+                position: fixed;
+            }
+
+            div.col-sm-9 div {
+                height: 250px;
+                font-size: 28px;
+            }
+
+            .abstract, .speciality {
+                border: none !important;
+                border-bottom: 1px solid #ccc !important;
+            }
+
+            .list-group-item.active {
+                background-color: #ff5c5c !important;
+                border-color: #ff5c5c !important;
+            }
+
+            a.list-group-item {
+                color: #ff5c5c;
+            }
+
+            a.list-group-item:focus, a.list-group-item:hover {
+                color: grey !important;
+            }
+
+        </style>
+    </head>
+
+
+    <div class="container">
+        <h1>{% trans 'About' %}</h1>
+        <hr>
+
+        <div class="row">
+            <!-- left column -->
+            <div class="col-lg-3">
+                <div class="widget-wrapper wow fadeIn" data-wow-delay="0.1s">
+                    <div class="list-group">
+                        <a href="{% url 'about_us' %}"
+                           class="list-group-item">{% trans '¿Who are we?' %}</a>
+                        <a href="{% url 'terms' %}" class="list-group-item ">{% trans 'Terms and Conditions' %}</a>
+                        <a href="{% url 'cancellation' %}" class="list-group-item">{% trans "Cancellation policy" %}</a>
+                        <a href="{% url 'cookies' %}" class="list-group-item active">{% trans "Cookies policy" %}</a>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- edit form column -->
+            <div class="col-lg-9 col-md-12 personal-info wow fadeIn" data-wow-delay="0.3s">
+
+                <div class="divider-new">
+                    <h2 class="h2-responsive wow fadeIn" data-wow-delay="0.2s">{% trans 'Cookies policy' %}</h2>
+                </div>
+
+                <!--Section: About-->
+                <section id="about" class=" wow fadeIn" data-wow-delay="0.2s">
+                    <h5>{% trans "A cookie is a little information sent by a website and stored in the user's browser, so that the website can check the previous activity of the same." %}</h5>
+
+
+                    <h5>{% trans 'The User expressly accepts, for the use of this Site, the treatment of the information collected in the form and for the aforementioned purposes.' %}</h5>
+
+                    <br>
+
+                    <h4>{% trans 'What types of cookies does NetMeals use?' %}</h4>
+
+                    <h6>{% trans '<b>Technical Cookies:</b> These are the ones that allow the user to navigate through a web page, platform or application and the use of the different options or services that exist in it, such as controlling traffic and communication of data, identify the Session, access restricted access parts, make the application for registration or participation in an event, use security features during navigation.' %}</h6>
+
+
+                    <h6>{% trans "<b>Personalization Cookies:</b> They are those that allow the user to access the service with some general characteristics predefined according to a series of criteria in the user's terminal such as the language, the type of browser through which accesses the service , The regional settings from where you access the service, etc." %}</h6>
+
+                    <h6>{% trans '<b>Third Party Cookies:</b> The Web of www.netmeals.tk may use third party services that, on behalf of www.netmeals.tk, collect information for statistical purposes, use of the Site by the user and for the provision of other related services With the activity of the Website and other Internet services.' %}</h6>
+                    <h6>{% trans 'If you need more information, follow the following' %}<a
+                            href="http://politicadecookies.com/"> {% trans "link" %} </a></h6>
+                    <br><br>
+
+                </section>
+
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+    </script>
+
+
+{% endblock %}
