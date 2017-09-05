@@ -32,6 +32,7 @@ class ActivityDetailView(View):
 
         form.setFieldsDisabledProperty(True)
         activity_photo = activity_time.activity.photo
+        del form.fields['place']
         context = {
             'title': "Detail of an Activity",
             'form': form,
