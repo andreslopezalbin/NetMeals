@@ -111,10 +111,10 @@ class ActivityForm(forms.ModelForm):
 
         return self
 
-    def create(self, request):
+    def create(self, request, activity_time_id):
         owner_id = request.user.id
         owner = Monitor.objects.get(guest_ptr_id=owner_id)
-        id = self.cleaned_data['id']
+        id = activity_time_id
         uploaded_photo_url = ''
         if request.FILES:
             photo = request.FILES['photo']

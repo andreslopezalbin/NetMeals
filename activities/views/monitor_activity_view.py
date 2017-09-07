@@ -70,7 +70,7 @@ class CreateActivityView(View):
         is_edit = False
         is_new = False
         if form.is_valid():
-            activity_time, activity = form.create(request)
+            activity_time, activity = form.create(request, activity_id)
             # Set end date to the current start date in case its not a periodically activity
             end_date = form.cleaned_data['start_date']
             if 'end_date' in form.cleaned_data:
