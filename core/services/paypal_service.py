@@ -1,15 +1,21 @@
 import datetime
+import random
+import string
 
 import paypalrestsdk
+from django.contrib.auth.models import User
 from paypalrestsdk import BillingAgreement
 from paypalrestsdk import BillingPlan
 from paypalrestsdk import Payment
+from paypalrestsdk import Payout
 from paypalrestsdk import ResourceNotFound
 from paypalrestsdk import Sale
 
 from core.models import IncomingPayment
+from core.services import payments_service
 from netmeals.settings import HOST
 from users.models import User_Plan
+from django.utils.translation import ugettext_lazy as _
 
 
 # netmeals
@@ -301,5 +307,50 @@ def cancel_subscription(user):
 
     except ResourceNotFound as error:
         response["subscription_error"] = "Billing Agreement Not Found"
+
+    return response
+
+def send_payouts_to_users(users_payments, incoming_payments_not_paid):
+    response = False
+
+    sender_batch_id = ''.join(
+        random.choice(string.ascii_uppercase) for i in range(12))
+
+    payouts_list = []
+    i = 0
+    note = "Thank you for be an active part of NetMeals."
+    for user_id in users_payments:
+        user = User.objects.get(id=user_id)
+        outcoming_payment = users_payments[user_id]
+        user_payout = {
+                "recipient_type": "EMAIL",
+                "amount": {
+                    "value": outcoming_payment.amount,
+                    "currency": "EUR"
+                },
+                "receiver": user.email,
+                "note": note,
+                "sender_item_id": str(i)
+            }
+        i += 1
+        payouts_list.append(user_payout)
+
+    payout = Payout({
+        "sender_batch_header": {
+            "sender_batch_id": sender_batch_id,
+            "email_subject": "You have a payment"
+        },
+        "items": payouts_list
+    })
+
+    if payout.create():
+        batch_id = payout.batch_header.payout_batch_id
+        payout = Payout.find(batch_id)
+        for outcoming_payment in users_payments.values():
+            outcoming_payment.save()
+            payments_service.update_incoming_payments(incoming_payments_not_paid)
+
+
+
 
     return response

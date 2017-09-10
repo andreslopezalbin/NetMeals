@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'dashboard$', views.dashboard, name='dashboard'),
     url(r'dashboard/users$', views.dashboard_users, name='users_dashboard'),
     url(r'deactivate/user/(?P<user_id>\d+)$', views.deactivate_user, name='users_deactivate'),
+    url(r'dashboard/payments$', views.payments_dashboard, name='payments_dashboard'),
     url(r'activate/user/(?P<user_id>\d+)$', views.activate_user, name='users_activate'),
     url(r'rankings$', views.rankings, name='rankings'),
     url(r'search$', views.search, name='search'),

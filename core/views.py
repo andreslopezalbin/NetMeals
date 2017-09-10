@@ -10,9 +10,11 @@ from django.template import RequestContext
 from django.template import loader
 from paypalrestsdk import BillingAgreement
 
+import users
 from activities.models import DishFeedback
 from core.models import Feedback
 from core.services import incoming_payments_service
+from core.services import payments_service
 from core.services import paypal_service
 from core.services import search_service
 from core.util.session_constants import SESSION_USER_ROLES, SESSION_USER_PLAN, SESSION_SIGNEDUP_SUCCESS
@@ -174,6 +176,19 @@ def dashboard(request):
                }
     return render(request, 'dashboard/dashboard.html', context
                   )
+
+@staff_member_required
+def payments_dashboard(request):
+
+    users_payments, incoming_payments_not_paid = payments_service.generate_pending_payments()
+
+    if users_payments:
+        paypal_service.send_payouts_to_users(users_payments, incoming_payments_not_paid)
+
+    context = {
+               }
+
+    return render(request, 'dashboard/dashboard.html', context)
 
 
 @staff_member_required
