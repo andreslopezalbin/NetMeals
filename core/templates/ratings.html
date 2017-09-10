@@ -47,7 +47,7 @@
 
                                 {% endif %}
 
-                                <p>texto ajsbahisbahibsah</p>
+                                <p>{{ chef.speciality }}</p>
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                 <!--First review-->
                 {% for monitor in monitor_ranking %}
 
-                    <div class="col-md-12"  onclick="window.location='{% url 'profile' monitor.username %}';">
+                    <div class="col-md-12" onclick="window.location='{% url 'profile' monitor.username %}';">
                         <div class="media mb-1 wow fadeIn" data-wow-delay="0.{{ forloop.counter }}s">
                             <a href="{% url 'profile' monitor.username %}" class="media-left waves-light">
                                 <img height="120px" width="120px" class="rounded-circle"
@@ -83,11 +83,12 @@
 
                                 {% endif %}
 
-                                <p>texto ajsbahisbahibsah</p>
+                                <p>{{ monitor.speciality }}</p>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
         </div>
+    </div>
 {% endblock %}
