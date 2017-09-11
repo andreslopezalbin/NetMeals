@@ -185,10 +185,7 @@ def payments_dashboard(request):
     if users_payments:
         paypal_service.send_payouts_to_users(users_payments, incoming_payments_not_paid)
 
-    context = {
-               }
-
-    return render(request, 'dashboard/dashboard.html', context)
+    return HttpResponseRedirect('dashboard')
 
 
 @staff_member_required
